@@ -1,6 +1,6 @@
 use master
-if exists (select * from sysdatabases where name='QLBookStore')
-	drop database QLBookStore
+go
+drop database if exists QLBookStore
 go
 create database QLBookStore
 go
@@ -81,7 +81,7 @@ Create table HOADONMUAHANG (
 	TinhTrangThanhToan nVarchar(10) NULL,
 	ThoiGianMua date,
 	TenTaiKhoan Varchar(50) NOT NULL foreign key references TAIKHOAN,
-) 
+)
 go
 Create table CTHOADONMUAHANG (
 	MaSach Char(10) NOT NULL foreign key references SACH,
@@ -89,7 +89,7 @@ Create table CTHOADONMUAHANG (
 	SoLuongMua Smallint NULL,
 	GiaHienHanh Integer NULL,
 	primary key (MaSach, MaHDMua)
-) 
+)
 go
 Create table CTXEMSACH (
 	MaSach Char(10) NOT NULL foreign key references SACH,
@@ -125,7 +125,7 @@ Create table CTHOADONGIAOHANGNHAP (
 	MaHDNhap Char(10) foreign key references HOADONNHAPHANG,
 	SoLuongGiao Smallint NULL,
 	primary key (MaSach, MaHDGiaoNhap, MaHDNhap)
-) 
+)
 go
 Create table QUANGCAO (
 	MaQuangCao Char(10) NOT NULL primary key,
