@@ -1,4 +1,4 @@
-# DoAn1_2019
+# DoAn1_2019: Book Store Website 
 
 Using Visual Studio
 Model: MVC
