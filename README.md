@@ -5,8 +5,7 @@ Model: MVC
 Framework: Enitity Framework
 DB: SQL server
 
-------------------------------------
-Install:
-1. clone project
-2. run sql sciprt
-3. change connection string
+# Install:
+1. Clone project
+2. Run sql sciprt
+3. Change connection string
