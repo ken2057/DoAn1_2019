@@ -502,7 +502,6 @@ C:\Users\ken\Desktop\DA\2-5\DA\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.
 C:\Users\ken\Desktop\DA\2-5\DA\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.csproj.CopyComplete
 C:\Users\ken\Desktop\DA\2-5\DA\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.dll
 C:\Users\ken\Desktop\DA\2-5\DA\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.pdb
-C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.csprojAssemblyReference.cache
 C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.csproj.CoreCompileInputs.cache
 C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.dll
 C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.pdb
@@ -586,3 +585,10 @@ C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Di
 C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.csproj.CopyComplete
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Net.Http.Formatting.dll
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Web.Http.dll
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Web.Http.WebHost.dll
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Net.Http.Formatting.xml
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Web.Http.xml
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Web.Http.WebHost.xml
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.csprojAssemblyReference.cache
