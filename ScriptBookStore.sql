@@ -30,7 +30,7 @@ Create table NHAXUATBAN (
 )
 go
 Create table THELOAI (
-	MaTheLoai Char(10) NOT NULL primary key,
+	MaTheLoai varchar(30) NOT NULL primary key,
 	TenTheLoai nVarchar(30) NULL,
 	HienThiTL Bit default 1,
 )
@@ -44,36 +44,24 @@ Create table KHUYENMAI (
 	HienThiKM Bit default 1,
 )
 go
-Create table NHACUNGCAP (
-	MaNhaCungCap Char(10) NOT NULL primary key,
-	DiaChiNCC nVarchar(100) NULL,
-	SoDienThoaiNCC Char(10) NULL,
-	EmailNCC Varchar(30),
-	HienThiNCC Bit default 1,
-)
-go
 Create table SACH (
 	MaSach Char(10) NOT NULL primary key,
 	TenSach nVarchar(100) not null,
 	SKU varchar(20) null,
-	MaNhaCungCap Char(10) NULL foreign key references NHACUNGCAP,
 	MaKhuyenMai Char(10) null foreign key references KHUYENMAI,
 	MaNhaXuatBan Char(10) NULL foreign key references NHAXUATBAN,
 	GiaBan Integer NULL,
 	SoLanTruyCap Integer default 0,
 	HinhSach Varchar(100) NULL,
-	SoLuongTon Smallint NULL,
+	SoLuongTon int NULL,
 	TenTacGia nVarchar(50) NULL,
 	GioiThieuSach nVarchar(max) NULL,
 	NgayXuatBan date NULL,
 	HienThiS Bit default 1,
-)
-go
-Create table CTTHELOAI (
-	MaTheLoai Char(10) NOT NULL foreign key references THELOAI,
-	MaSach Char(10) NOT NULL foreign key references SACH,
-	HienThiCTTL bit default 1,
-	primary key (MaTheLoai, MaSach)
+
+	MaTL1 varchar(30) null foreign key references THELOAI,
+	MaTL2 varchar(30) null foreign key references THELOAI,
+	MaTL3 varchar(30) null foreign key references THELOAI,
 )
 go
 Create table HOADONMUAHANG (
@@ -98,35 +86,6 @@ Create table CTXEMSACH (
 	primary key (MaSach, TenTaiKhoan, NgayXemSach)
 )
 go
-Create table HOADONNHAPHANG (
-	MaHDNhap Char(10) NOT NULL primary key,
-	MaNhaCungCap Char(10) NOT NULL foreign key references NHACUNGCAP,
-	TenTaiKhoanNV Varchar(50) NOT NULL foreign key references NHANVIEN,
-	NgayLapHDNhap date NULL,
-)
-go
-Create table CTHDNHAPHANG (
-	MaSach Char(10) foreign key references SACH,
-	MaHDNhap Char(10) foreign key references HOADONNHAPHANG,
-	SoLuongNhap Smallint NULL,
-	primary key (MaSach, MaHDNhap)
-)
-go
-Create table HOADONGIAOHANGNHAP (
-	MaHDNhap Char(10) primary key foreign key references HOADONNHAPHANG,
-	MaHDGiaoNhap Char(10) not null,
-	NgayGiao date(10) NULL,
-	TenTaiKhoanNV Varchar(50) foreign key references NHANVIEN,
-)
-go
-Create table CTHOADONGIAOHANGNHAP (
-	MaSach Char(10) foreign key references SACH,
-	MaHDGiaoNhap Char(10) foreign key references HOADONGIAOHANGNHAP,
-	MaHDNhap Char(10) foreign key references HOADONNHAPHANG,
-	SoLuongGiao Smallint NULL,
-	primary key (MaSach, MaHDGiaoNhap, MaHDNhap)
-)
-go
 Create table QUANGCAO (
 	MaQuangCao Char(10) NOT NULL primary key,
 	TenQC nVarchar(50) NULL,
@@ -137,6 +96,7 @@ Create table QUANGCAO (
 	ChuSoHuuQC nVarchar(50) NULL,
 	SdtChuQC Char(10) NULL,
 	EmailChuQC Varchar(30) NULL,
+	LoaiQC varchar(20),
 	HienThiQC Bit default 1,
 )
 go

@@ -13,10 +13,7 @@ namespace DA_BookStore.Models
         public SACH()
         {
             CTGIOHANGs = new HashSet<CTGIOHANG>();
-            CTHDNHAPHANGs = new HashSet<CTHDNHAPHANG>();
-            CTHOADONGIAOHANGNHAPs = new HashSet<CTHOADONGIAOHANGNHAP>();
             CTHOADONMUAHANGs = new HashSet<CTHOADONMUAHANG>();
-            CTTHELOAIs = new HashSet<CTTHELOAI>();
             CTXEMSACHes = new HashSet<CTXEMSACH>();
         }
 
@@ -32,9 +29,6 @@ namespace DA_BookStore.Models
         public string SKU { get; set; }
 
         [StringLength(10)]
-        public string MaNhaCungCap { get; set; }
-
-        [StringLength(10)]
         public string MaKhuyenMai { get; set; }
 
         [StringLength(10)]
@@ -47,7 +41,7 @@ namespace DA_BookStore.Models
         [StringLength(100)]
         public string HinhSach { get; set; }
 
-        public short? SoLuongTon { get; set; }
+        public int? SoLuongTon { get; set; }
 
         [StringLength(50)]
         public string TenTacGia { get; set; }
@@ -59,28 +53,32 @@ namespace DA_BookStore.Models
 
         public bool? HienThiS { get; set; }
 
+        [StringLength(30)]
+        public string MaTL1 { get; set; }
+
+        [StringLength(30)]
+        public string MaTL2 { get; set; }
+
+        [StringLength(30)]
+        public string MaTL3 { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTGIOHANG> CTGIOHANGs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTHDNHAPHANG> CTHDNHAPHANGs { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTHOADONGIAOHANGNHAP> CTHOADONGIAOHANGNHAPs { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTHOADONMUAHANG> CTHOADONMUAHANGs { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTTHELOAI> CTTHELOAIs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTXEMSACH> CTXEMSACHes { get; set; }
 
         public virtual KHUYENMAI KHUYENMAI { get; set; }
 
-        public virtual NHACUNGCAP NHACUNGCAP { get; set; }
-
         public virtual NHAXUATBAN NHAXUATBAN { get; set; }
+
+        public virtual THELOAI THELOAI { get; set; }
+
+        public virtual THELOAI THELOAI1 { get; set; }
+
+        public virtual THELOAI THELOAI2 { get; set; }
     }
 }

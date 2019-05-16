@@ -216,3 +216,16 @@ figure:hover + span {
     color: rgb(5, 5, 5);
     font-size: 16px;
 }
+
+
+
+.the-loai * {
+    display: inline-block;
+}
+
+.the-loai select {
+    width: 200px;
+    height: 30px;
+    color: #33ca93;
+    margin-left: 1rem;
+}

@@ -13,16 +13,10 @@ namespace DA_BookStore.Models
         }
 
         public virtual DbSet<CTGIOHANG> CTGIOHANGs { get; set; }
-        public virtual DbSet<CTHDNHAPHANG> CTHDNHAPHANGs { get; set; }
-        public virtual DbSet<CTHOADONGIAOHANGNHAP> CTHOADONGIAOHANGNHAPs { get; set; }
         public virtual DbSet<CTHOADONMUAHANG> CTHOADONMUAHANGs { get; set; }
-        public virtual DbSet<CTTHELOAI> CTTHELOAIs { get; set; }
         public virtual DbSet<CTXEMSACH> CTXEMSACHes { get; set; }
-        public virtual DbSet<HOADONGIAOHANGNHAP> HOADONGIAOHANGNHAPs { get; set; }
         public virtual DbSet<HOADONMUAHANG> HOADONMUAHANGs { get; set; }
-        public virtual DbSet<HOADONNHAPHANG> HOADONNHAPHANGs { get; set; }
         public virtual DbSet<KHUYENMAI> KHUYENMAIs { get; set; }
-        public virtual DbSet<NHACUNGCAP> NHACUNGCAPs { get; set; }
         public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
         public virtual DbSet<NHAXUATBAN> NHAXUATBANs { get; set; }
         public virtual DbSet<QUANGCAO> QUANGCAOs { get; set; }
@@ -41,31 +35,6 @@ namespace DA_BookStore.Models
                 .Property(e => e.TenTaiKhoan)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<CTHDNHAPHANG>()
-                .Property(e => e.MaSach)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTHDNHAPHANG>()
-                .Property(e => e.MaHDNhap)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTHOADONGIAOHANGNHAP>()
-                .Property(e => e.MaSach)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTHOADONGIAOHANGNHAP>()
-                .Property(e => e.MaHDGiaoNhap)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTHOADONGIAOHANGNHAP>()
-                .Property(e => e.MaHDNhap)
-                .IsFixedLength()
-                .IsUnicode(false);
-
             modelBuilder.Entity<CTHOADONMUAHANG>()
                 .Property(e => e.MaSach)
                 .IsFixedLength()
@@ -73,16 +42,6 @@ namespace DA_BookStore.Models
 
             modelBuilder.Entity<CTHOADONMUAHANG>()
                 .Property(e => e.MaHDMua)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTTHELOAI>()
-                .Property(e => e.MaTheLoai)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTTHELOAI>()
-                .Property(e => e.MaSach)
                 .IsFixedLength()
                 .IsUnicode(false);
 
@@ -94,31 +53,6 @@ namespace DA_BookStore.Models
             modelBuilder.Entity<CTXEMSACH>()
                 .Property(e => e.TenTaiKhoan)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<HOADONGIAOHANGNHAP>()
-                .Property(e => e.MaHDNhap)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<HOADONGIAOHANGNHAP>()
-                .Property(e => e.MaHDGiaoNhap)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<HOADONGIAOHANGNHAP>()
-                .Property(e => e.NgayGiao)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<HOADONGIAOHANGNHAP>()
-                .Property(e => e.TenTaiKhoanNV)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<HOADONGIAOHANGNHAP>()
-                .HasMany(e => e.CTHOADONGIAOHANGNHAPs)
-                .WithRequired(e => e.HOADONGIAOHANGNHAP)
-                .HasForeignKey(e => e.MaHDGiaoNhap)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<HOADONMUAHANG>()
                 .Property(e => e.MaHDMua)
@@ -134,66 +68,14 @@ namespace DA_BookStore.Models
                 .WithRequired(e => e.HOADONMUAHANG)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<HOADONNHAPHANG>()
-                .Property(e => e.MaHDNhap)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<HOADONNHAPHANG>()
-                .Property(e => e.MaNhaCungCap)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<HOADONNHAPHANG>()
-                .Property(e => e.TenTaiKhoanNV)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<HOADONNHAPHANG>()
-                .HasMany(e => e.CTHDNHAPHANGs)
-                .WithRequired(e => e.HOADONNHAPHANG)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<HOADONNHAPHANG>()
-                .HasMany(e => e.CTHOADONGIAOHANGNHAPs)
-                .WithRequired(e => e.HOADONNHAPHANG)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<HOADONNHAPHANG>()
-                .HasOptional(e => e.HOADONGIAOHANGNHAP)
-                .WithRequired(e => e.HOADONNHAPHANG);
-
             modelBuilder.Entity<KHUYENMAI>()
                 .Property(e => e.MaKhuyenMai)
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<NHACUNGCAP>()
-                .Property(e => e.MaNhaCungCap)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<NHACUNGCAP>()
-                .Property(e => e.SoDienThoaiNCC)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<NHACUNGCAP>()
-                .Property(e => e.EmailNCC)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<NHACUNGCAP>()
-                .HasMany(e => e.HOADONNHAPHANGs)
-                .WithRequired(e => e.NHACUNGCAP)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<NHANVIEN>()
                 .Property(e => e.TenTaiKhoanNV)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<NHANVIEN>()
-                .HasMany(e => e.HOADONNHAPHANGs)
-                .WithRequired(e => e.NHANVIEN)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<NHAXUATBAN>()
                 .Property(e => e.MaNhaXuatBan)
@@ -222,6 +104,10 @@ namespace DA_BookStore.Models
                 .Property(e => e.EmailChuQC)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<QUANGCAO>()
+                .Property(e => e.LoaiQC)
+                .IsUnicode(false);
+
             modelBuilder.Entity<SACH>()
                 .Property(e => e.MaSach)
                 .IsFixedLength()
@@ -229,11 +115,6 @@ namespace DA_BookStore.Models
 
             modelBuilder.Entity<SACH>()
                 .Property(e => e.SKU)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SACH>()
-                .Property(e => e.MaNhaCungCap)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<SACH>()
@@ -251,27 +132,24 @@ namespace DA_BookStore.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<SACH>()
+                .Property(e => e.MaTL1)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SACH>()
+                .Property(e => e.MaTL2)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SACH>()
+                .Property(e => e.MaTL3)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SACH>()
                 .HasMany(e => e.CTGIOHANGs)
                 .WithRequired(e => e.SACH)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SACH>()
-                .HasMany(e => e.CTHDNHAPHANGs)
-                .WithRequired(e => e.SACH)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SACH>()
-                .HasMany(e => e.CTHOADONGIAOHANGNHAPs)
-                .WithRequired(e => e.SACH)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SACH>()
                 .HasMany(e => e.CTHOADONMUAHANGs)
-                .WithRequired(e => e.SACH)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SACH>()
-                .HasMany(e => e.CTTHELOAIs)
                 .WithRequired(e => e.SACH)
                 .WillCascadeOnDelete(false);
 
@@ -317,13 +195,22 @@ namespace DA_BookStore.Models
 
             modelBuilder.Entity<THELOAI>()
                 .Property(e => e.MaTheLoai)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<THELOAI>()
-                .HasMany(e => e.CTTHELOAIs)
-                .WithRequired(e => e.THELOAI)
-                .WillCascadeOnDelete(false);
+                .HasMany(e => e.SACHes)
+                .WithOptional(e => e.THELOAI)
+                .HasForeignKey(e => e.MaTL1);
+
+            modelBuilder.Entity<THELOAI>()
+                .HasMany(e => e.SACHes1)
+                .WithOptional(e => e.THELOAI1)
+                .HasForeignKey(e => e.MaTL2);
+
+            modelBuilder.Entity<THELOAI>()
+                .HasMany(e => e.SACHes2)
+                .WithOptional(e => e.THELOAI2)
+                .HasForeignKey(e => e.MaTL3);
         }
     }
 }

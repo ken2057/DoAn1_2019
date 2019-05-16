@@ -31,12 +31,8 @@ namespace DA_BookStore.Controllers
                 }
                 else
                 {
-                    List<Models.CTTHELOAI> ltsTL = db.CTTHELOAIs.Where(t => t.MaTheLoai == search).ToList();
-                    foreach (var item in ltsTL)
-                    {
-                        lst.Add(db.SACHes.Where(t => t.MaSach == item.MaSach && t.HienThiS == true).FirstOrDefault());
-                    }
-                    ViewBag.TenTL = ltsTL[0].THELOAI.TenTheLoai;
+                    lst = db.SACHes.Where(t => t.MaTL1 == search || t.MaTL2 == search || t.MaTL3 == search).ToList();
+                    ViewBag.TenTL = db.THELOAIs.Find(search).TenTheLoai;
                 }
 
                 ViewBag.SoLuong = lst.Count;

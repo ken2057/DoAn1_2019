@@ -115,7 +115,10 @@
                             <div class="dropdown-content" style="margin-left: 0;">
                                 @foreach (var tl in ViewBag.DsTL)
                                 {
-                                    <a href="~/Home/Search?search=@tl.MaTheLoai&index=0&tl=true">@tl.TenTheLoai</a>
+                                    if (tl.HienThiTL)
+                                    {
+                                        <a href="~/Home/Search?search=@tl.MaTheLoai&index=0&tl=true">@tl.TenTheLoai</a>
+                                    }
                                 }
                             </div>
                         </div>
