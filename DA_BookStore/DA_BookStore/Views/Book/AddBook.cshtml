@@ -29,7 +29,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 left-box" style="padding-left:30px;padding-right:30px;">
                     <div class="book-title">
                         <h3>Tên sách</h3>
-                        <input id="tenSach" name="tenSach" type="text" style="width:100%;" />
+                        <input id="tenSach" name="tenSach" type="text" style="width:100%;" required/>
                         <h3>Tác giả</h3>
                         <input id="tacGia" name="tacGia" type="text" style="width:100%;" />
                         <h3>SKU</h3>
@@ -40,19 +40,62 @@
                         <h3>Giá bán</h3>
                         <input id="giaBan" name="giaBan" type="number" min="1000" style="width:100%;" />
                     </div>
+                    <div class="book-count">
+                        <h3>Số lượng</h3>
+                        <input id="soLuong" name="soLuong" type="number" min="1" style="width:100%;" />
+                    </div>
+                    <div class="the-loai">
+                        <h3>Thể loại 1</h3>
+                        <select id="tl1" name="tl1">
+                            <option value="null" selected></option>
+                            @foreach (var tl in ViewBag.DsTL)
+                            {
+                                if (tl.HienThiTL)
+                                {
+                                    <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="the-loai">
+                        <h3>Thể loại 2</h3>
+                        <select id="tl2" name="tl2">
+                            <option value="null" selected></option>
+                            @foreach (var tl in ViewBag.DsTL)
+                            {
+                                if (tl.HienThiTL)
+                                {
+                                    <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="the-loai">
+                        <h3>Thể loại 3</h3>
+                        <select id="tl3" name="tl3">
+                            <option value="null" selected></option>
+                            @foreach (var tl in ViewBag.DsTL)
+                            {
+                                if (tl.HienThiTL)
+                                {
+                                    <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                                }
+                            }
+                        </select>
+                    </div>
 
                     <hr>
                     <div class="book-introduce">
                         <h3>Giới thiệu sách</h3>
                         <textarea id="gioiThieuSach" name="gioiThieuSach" style="width:100%; min-height:170px !important;"></textarea>
                     </div>
-                        <div class="row" style="margin:10px;">
-                            <div class="col-md-6">
-                                <input type="file" name="hinh" id="hinh" />
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-danger" style="margin-left: 10px; width:70px;">Thêm</button>
-                            </div>
+                    <div class="row" style="margin:10px;">
+                        <div class="col-md-6">
+                            <input type="file" name="hinh" id="hinh" />
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-danger" style="margin-left: 10px; width:70px;">Thêm</button>
+                        </div>
                     </div>
                 </div>
             </form>

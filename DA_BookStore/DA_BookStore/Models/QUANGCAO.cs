@@ -37,6 +37,9 @@ namespace DA_BookStore.Models
         [StringLength(30)]
         public string EmailChuQC { get; set; }
 
+        [StringLength(20)]
+        public string LoaiQC { get; set; }
+
         public bool? HienThiQC { get; set; }
     }
 }

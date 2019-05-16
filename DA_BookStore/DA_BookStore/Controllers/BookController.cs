@@ -51,7 +51,7 @@ namespace DA_BookStore.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult UpdateBookDetail(string tenSach, string tacGia, string sku, string giaBan, string gioiThieuSach, HttpPostedFileBase hinh)
+        public ActionResult UpdateBookDetail(string tenSach, string tacGia, string sku, string giaBan, string gioiThieuSach, HttpPostedFileBase hinh, string tl1, string tl2, string tl3, string soLuong)
         {
         	if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
@@ -63,7 +63,16 @@ namespace DA_BookStore.Controllers
 	                s.SKU = sku;
 	                s.GiaBan = int.Parse(giaBan);
 	                s.GioiThieuSach = gioiThieuSach;
-	                if (hinh != null)
+
+                    s.SoLuongTon = int.Parse(soLuong);
+
+                    s.MaTL1 = tl1;
+                    if (tl2 != tl1 && tl2 != "null")
+                        s.MaTL2 = tl2;
+                    if (tl3 != tl1 && tl3 != tl2 && tl3 != "null")
+                        s.MaTL3 = tl3;
+
+                    if (hinh != null)
 	                {
 	                    try
 	                    {
@@ -168,7 +177,7 @@ namespace DA_BookStore.Controllers
             return RedirectToAction("Home","Home");
         }
         [HttpPost]
-        public ActionResult AddBook(string tenSach, string tacGia, string sku, string giaBan, string gioiThieuSach, HttpPostedFileBase hinh)
+        public ActionResult AddBook(string tenSach, string tacGia, string sku, string giaBan, string gioiThieuSach, HttpPostedFileBase hinh, string tl1, string tl2, string tl3, string soLuong)
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
@@ -185,11 +194,16 @@ namespace DA_BookStore.Controllers
                     s.SKU = sku;
                     s.GiaBan = int.Parse(giaBan);
                     s.GioiThieuSach = gioiThieuSach;
-                    s.MaNhaCungCap = "NCC0000001";
                     s.MaNhaXuatBan = "NXB0000001";
                     s.SoLanTruyCap = 0;
-                    s.SoLuongTon = 100;
+                    s.SoLuongTon = int.Parse(soLuong);
                     s.NgayXuatBan = DateTime.Today;
+
+                    s.MaTL1 = tl1;
+                    if (tl2 != tl1 && tl2 != "null")
+                        s.MaTL2 = tl2;
+                    if (tl3 != tl1 && tl3 != tl2 && tl3 != "null")
+                        s.MaTL3 = tl3;
 
                     s.HienThiS = true;
                     if (hinh != null)
@@ -208,6 +222,7 @@ namespace DA_BookStore.Controllers
                         catch{}
                     }
 
+                   
                     db.SACHes.Add(s);
                     db.SaveChanges();
 

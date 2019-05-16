@@ -148,16 +148,10 @@
     </Compile>
     <Compile Include="Models\BookStore.cs" />
     <Compile Include="Models\CTGIOHANG.cs" />
-    <Compile Include="Models\CTHDNHAPHANG.cs" />
-    <Compile Include="Models\CTHOADONGIAOHANGNHAP.cs" />
     <Compile Include="Models\CTHOADONMUAHANG.cs" />
-    <Compile Include="Models\CTTHELOAI.cs" />
     <Compile Include="Models\CTXEMSACH.cs" />
-    <Compile Include="Models\HOADONGIAOHANGNHAP.cs" />
     <Compile Include="Models\HOADONMUAHANG.cs" />
-    <Compile Include="Models\HOADONNHAPHANG.cs" />
     <Compile Include="Models\KHUYENMAI.cs" />
-    <Compile Include="Models\NHACUNGCAP.cs" />
     <Compile Include="Models\NHANVIEN.cs" />
     <Compile Include="Models\NHAXUATBAN.cs" />
     <Compile Include="Models\QUANGCAO.cs" />

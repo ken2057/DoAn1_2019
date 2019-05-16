@@ -12,11 +12,13 @@ namespace DA_BookStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public THELOAI()
         {
-            CTTHELOAIs = new HashSet<CTTHELOAI>();
+            SACHes = new HashSet<SACH>();
+            SACHes1 = new HashSet<SACH>();
+            SACHes2 = new HashSet<SACH>();
         }
 
         [Key]
-        [StringLength(10)]
+        [StringLength(30)]
         public string MaTheLoai { get; set; }
 
         [StringLength(30)]
@@ -25,6 +27,12 @@ namespace DA_BookStore.Models
         public bool? HienThiTL { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTTHELOAI> CTTHELOAIs { get; set; }
+        public virtual ICollection<SACH> SACHes { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SACH> SACHes1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SACH> SACHes2 { get; set; }
     }
 }
