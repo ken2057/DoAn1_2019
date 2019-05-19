@@ -47,7 +47,7 @@ namespace DA_BookStore.Controllers
 
                 db.KHUYENMAIs.ToList()
                         .ForEach(t => listPromo
-                                        .Add( new Models.Temp.PromoView(t.TenKhuyenMai, t.NgayBatDau, t.NgayKetThuc) ));
+                                        .Add( new Models.Temp.PromoView(t.TenKhuyenMai, t.NgayBatDau, t.NgayKetThuc,  t.PhanTramKhuyenMai ?? 0) ));
 
                 JsonSerializerSettings microsoftDateFormatSettings = new JsonSerializerSettings
                 {
@@ -59,7 +59,6 @@ namespace DA_BookStore.Controllers
                 //var json = JsonConvert.SerializeObject(listGrp, microsoftDateFormatSettings);
                 var json = JsonConvert.SerializeObject(listGrp);
                 return json;
-                return json.Replace("\"\\/Date(", "Date(").Replace(")\\/\"", ")");
             }
         }
     }

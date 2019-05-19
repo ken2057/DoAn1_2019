@@ -15,20 +15,23 @@ namespace DA_BookStore.Models.Temp
         private class tempPromo
         {
             public List<DateTime> timeRange;
-            public string var = "1";
+            public string val ;
 
-            public tempPromo(DateTime? bd, DateTime? kt)
+            public tempPromo(DateTime? bd, DateTime? kt, int pos)
             {
                 timeRange = new List<DateTime>();
                 timeRange.Add(bd ?? DateTime.Now);
                 timeRange.Add(kt ?? DateTime.Now);
+
+                Random rnd = new Random();
+                val = pos.ToString()+"%";
             }
         }
 
-        public PromoView(string lb, DateTime? bd, DateTime? kt)
+        public PromoView(string lb, DateTime? bd, DateTime? kt, int pos)
         {
             label = lb;
-            data = new List<object>() { new tempPromo(bd,kt) };
+            data = new List<object>() { new tempPromo(bd, kt, pos) };
         }
     }
 
