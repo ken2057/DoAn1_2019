@@ -149,6 +149,7 @@
     <Content Include="Content\menu.css" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API\Test3Controller.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Models\SACH.cs" />
     <Compile Include="Models\TAIKHOAN.cs" />
     <Compile Include="Models\Temp\CTGioHangViewModel.cs" />
+    <Compile Include="Models\Temp\PromotionView.cs" />
     <Compile Include="Models\THELOAI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -203,10 +205,15 @@
     <Content Include="Image\thumb.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\dist\timelines-chart.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\d3.js" />
     <Content Include="Scripts\d3.min.js" />
     <Content Include="Scripts\DetailScript.js" />
+    <Content Include="Scripts\dist\timelines-chart.common.js" />
+    <Content Include="Scripts\dist\timelines-chart.js" />
+    <Content Include="Scripts\dist\timelines-chart.min.js" />
+    <Content Include="Scripts\dist\timelines-chart.module.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
