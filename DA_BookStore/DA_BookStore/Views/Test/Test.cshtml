@@ -8,13 +8,13 @@
     <script src="~/Scripts/d3.min.js"></script>
 
     <script src="~/Scripts/dist/timelines-chart.js"></script>
+    <script src="~/Scripts/d3.layout.could.js"></script>
 </head>
 <body>
     <script>
-
         var data;
         $.ajax({
-            url: "/api/test2",
+            url: "/api/graphPromo",
             type: "get",
             dataTyp: "string",
             async: false,
@@ -22,13 +22,69 @@
                 data = JSON.parse(result);
             }
         });
-
-        
-
         TimelinesChart()(document.body)
             .zScaleLabel('My Scale Units')
             .zQualitative(true)
             .data(data);
     </script>
-</body>
+    <hr />
+    <div id="my_dataviz"></div>
+    <script>
+        var data;
+        $.ajax({
+            url: "/api/graphHistory",
+            type: "get",
+            dataTyp: "string",
+            async: false,
+            success: function (result) {
+                data = JSON.parse(result);
+            }
+        });
+        var words = [['out', 1.0],
+        ['just', 0.848167539267],
+        ['your', 0.82722513089],
+        ['not', 0.759162303665],
+        ['have', 0.685863874346],
+        ['today', 0.638743455497],
+        ['hai', 0.623036649215],
+        ['eventbrite', 0.591623]
+        ];
 
+        var r = 960,
+            format = d3.format(",d"),
+            fill = d3.scaleOrdinal(d3.schemeDark2);
+
+        d3.layout.cloud()
+            .size([1000, 500])
+            .words(data
+                .map(function (d) {
+                    return { text: d[0], size: d[1] * 100 };
+                }))
+            .padding(5)
+            .rotate(function () { return ~~(Math.random() * 0) * 90; })
+            .font("Impact")
+            .fontSize(function (d) { return d.size; })
+            .on("end", draw)
+            .start();
+
+        function draw(words) {
+            d3.select("body").append("svg")
+                .attr("width", 1000)
+                .attr("height", 500)
+                .append("g")
+                .attr("transform", "translate(300,300)")
+                .selectAll("text")
+                .data(words)
+                .enter().append("text")
+                .style("font-size", function (d) { return d.size + "px"; })
+                .style("font-family", "Impact")
+                .style("fill", function (d, i) { return fill(i); })
+                .attr("text-anchor", "middle")
+                .attr("transform", function (d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text(function (d) { return d.text; });
+        }
+    </script>
+</body>
+</html>
