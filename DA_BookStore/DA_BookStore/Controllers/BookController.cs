@@ -51,7 +51,7 @@ namespace DA_BookStore.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult UpdateBookDetail(string tenSach, string tacGia, string sku, string giaBan, string gioiThieuSach, HttpPostedFileBase hinh, string tl1, string tl2, string tl3, string soLuong)
+        public ActionResult UpdateBookDetail(string tenSach, string tacGia, string sku, string giaBan, string gioiThieuSach, string tl1, string tl2, string tl3, string soLuong, HttpPostedFileBase hinh )
         {
         	if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
@@ -66,17 +66,17 @@ namespace DA_BookStore.Controllers
 
                     s.SoLuongTon = int.Parse(soLuong);
 
-                    s.MaTL1 = tl1;
-                    if (tl2 != tl1 && tl2 != "null")
-                        s.MaTL2 = tl2;
-                    if (tl3 != tl1 && tl3 != tl2 && tl3 != "null")
-                        s.MaTL3 = tl3;
+                    s.MaTL1 = (tl1 == "null") ? null : tl1;
+                    if (tl2 != tl1 || tl2 == null)
+                        s.MaTL2 = (tl2 == "null")? null : tl2;
+                    if ((tl3 != tl2 && tl3 != tl1) || tl3 == null)
+                        s.MaTL3 = (tl3 == "null") ? null : tl3;
 
                     if (hinh != null)
 	                {
-	                    try
-	                    {
-	                        string _path = "";
+                        try
+                        {
+                            string _path = "";
 	                        if (hinh.ContentLength > 0)
 	                        {
 	                            string _fileName = System.IO.Path.GetFileName(hinh.FileName);
@@ -85,12 +85,12 @@ namespace DA_BookStore.Controllers
 	                        }
 
 	                        s.HinhSach = "Image/Book/" + hinh.FileName;
-	                    }
-	                    catch
-	                    {
+                        }
+                        catch
+                        {
 
-	                    }
-	                }
+                        }
+                    }
 
 	                db.Entry(s).State = System.Data.Entity.EntityState.Modified;
 	                db.SaveChanges();

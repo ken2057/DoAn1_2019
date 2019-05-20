@@ -110,38 +110,54 @@
                     </figure>
                     <br />
                 </div>
-                @*<form action="~/Book/Detail" method="post" enctype="multipart/form-data">*@
-                    @using (Html.BeginForm("UpdateBookDetail", "Book", FormMethod.Post))
-                    {
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left-box">
-                    <div class="book-title">
-                        <h3>Tên sách</h3>
-                        <input id="tenSach" name="tenSach" type="text" value="@ViewBag.Sach.TenSach" style="width:100%;" />
-                        <h3>Tác giả</h3>
-                        <input id="tacGia" name="tacGia" type="text" value="@ViewBag.Sach.TenTacGia" style="width:100%;" />
-                        <h3>SKU</h3>
-                        <input id="sku" name="sku" type="text" value="@ViewBag.Sach.SKU" style="width:100%;" />
-                    </div>
-                    <hr>
-                    <div class="book-price">
-                        <h3>Giá bán</h3>
-                        <input id="giaBan" name="giaBan" type="number" value="@ViewBag.Sach.GiaBan" min="1000" style="width:100%;" />
-                    </div>
+                <form action="~/Book/UpdateBookDetail" method="post" enctype="multipart/form-data">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left-box">
+                        <div class="book-title">
+                            <h3>Tên sách</h3>
+                            <input id="tenSach" name="tenSach" type="text" value="@ViewBag.Sach.TenSach" style="width:100%;" />
+                            <h3>Tác giả</h3>
+                            <input id="tacGia" name="tacGia" type="text" value="@ViewBag.Sach.TenTacGia" style="width:100%;" />
+                            <h3>SKU</h3>
+                            <input id="sku" name="sku" type="text" value="@ViewBag.Sach.SKU" style="width:100%;" />
+                        </div>
+                        <hr>
+                        <div class="book-price">
+                            <h3>Giá bán</h3>
+                            <input id="giaBan" name="giaBan" type="number" value="@ViewBag.Sach.GiaBan" min="1000" style="width:100%;" />
+                        </div>
 
-                    <hr>
-                    <div class="book-count">
-                        <h3>Số lượng</h3>
-                        <input id="soLuong" name="soLuong" type="number" min="1" style="width:100%;" value="@ViewBag.Sach.SoLuongTon"/>
-                    </div>
-                    <div class="the-loai">
-                        <h3>Thể loại 1</h3>
-                        <select id="tl1" name="tl1">
-                            <option value="null"></option>
-                            @foreach (var tl in ViewBag.DsTL)
-                            {
-                                if (tl.HienThiTL)
+                        <hr>
+                        <div class="book-count">
+                            <h3>Số lượng</h3>
+                            <input id="soLuong" name="soLuong" type="number" min="1" style="width:100%;" value="@ViewBag.Sach.SoLuongTon" />
+                        </div>
+                        <div class="the-loai">
+                            <h3>Thể loại 1</h3>
+                            <select id="tl1" name="tl1">
+                                <option value="null"></option>
+                                @foreach (var tl in ViewBag.DsTL)
                                 {
-                                    if (ViewBag.Sach.MaTL1 != null && ViewBag.Sach.MaTL1.ToString() == tl.MaTheLoai)
+                                    if (tl.HienThiTL)
+                                    {
+                                        if (ViewBag.Sach.MaTL1 != null && ViewBag.Sach.MaTL1.ToString() == tl.MaTheLoai)
+                                        {
+                                            <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="the-loai">
+                            <h3>Thể loại 2</h3>
+                            <select id="tl2" name="tl2">
+                                <option value="null"></option>
+                                @foreach (var tl in ViewBag.DsTL)
+                                {
+                                    if (ViewBag.Sach.MaTL2 != null && ViewBag.Sach.MaTL2.ToString() == tl.MaTheLoai)
                                     {
                                         <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
                                     }
@@ -150,61 +166,42 @@
                                         <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
                                     }
                                 }
-                            }
-                        </select>
-                    </div>
-                    <div class="the-loai">
-                        <h3>Thể loại 2</h3>
-                        <select id="tl2" name="tl2">
-                            <option value="null"></option>
-                            @foreach (var tl in ViewBag.DsTL)
-                            {
-                                if (ViewBag.Sach.MaTL2 != null && ViewBag.Sach.MaTL2.ToString() == tl.MaTheLoai)
+                            </select>
+                        </div>
+                        <div class="the-loai">
+                            <h3>Thể loại 3</h3>
+                            <select id="tl3" name="tl3">
+                                <option value="null"></option>
+                                @foreach (var tl in ViewBag.DsTL)
                                 {
-                                    <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
+                                    if (ViewBag.Sach.MaTL3 != null && ViewBag.Sach.MaTL3.ToString() == tl.MaTheLoai)
+                                    {
+                                        <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                                    }
                                 }
-                                else
-                                {
-                                    <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="the-loai">
-                        <h3>Thể loại 3</h3>
-                        <select id="tl3" name="tl3">
-                            <option value="null"></option>
-                            @foreach (var tl in ViewBag.DsTL)
-                            {
-                                if (ViewBag.Sach.MaTL3 != null && ViewBag.Sach.MaTL3.ToString() == tl.MaTheLoai)
-                                {
-                                    <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
-                                }
-                                else
-                                {
-                                    <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="book-introduce">
-                        <h3>Giới thiệu sách</h3>
-                        <textarea id="gioiThieuSach" name="gioiThieuSach" style="width:100%; min-height:170px !important;">@ViewBag.Sach.GioiThieuSach</textarea>
-                    </div>
-                    <div class="btn">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="file" name="hinh" id="hinh" />
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-danger" style="margin-left: 10px; width:70px;">Lưu</button>
+                            </select>
+                        </div>
+                        <div class="book-introduce">
+                            <h3>Giới thiệu sách</h3>
+                            <textarea id="gioiThieuSach" name="gioiThieuSach" style="width:100%; min-height:170px !important;">@ViewBag.Sach.GioiThieuSach</textarea>
+                        </div>
+                        <div class="btn">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" name="hinh" id="hinh" />
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-danger" style="margin-left: 10px; width:70px;">Lưu</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                    }
-                    @*</form>*@
-            </div>
+                    </form>
+</div>
         </div>
         }
     }
