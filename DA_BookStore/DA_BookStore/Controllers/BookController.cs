@@ -74,9 +74,9 @@ namespace DA_BookStore.Controllers
 
                     if (hinh != null)
 	                {
-	                    //try
-	                    //{
-	                        string _path = "";
+                        try
+                        {
+                            string _path = "";
 	                        if (hinh.ContentLength > 0)
 	                        {
 	                            string _fileName = System.IO.Path.GetFileName(hinh.FileName);
@@ -85,12 +85,12 @@ namespace DA_BookStore.Controllers
 	                        }
 
 	                        s.HinhSach = "Image/Book/" + hinh.FileName;
-	                    //}
-	                    //catch
-	                    //{
+                        }
+                        catch
+                        {
 
-	                    //}
-	                }
+                        }
+                    }
 
 	                db.Entry(s).State = System.Data.Entity.EntityState.Modified;
 	                db.SaveChanges();
