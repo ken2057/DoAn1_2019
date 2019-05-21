@@ -9,82 +9,150 @@
 
     <script src="~/Scripts/dist/timelines-chart.js"></script>
     <script src="~/Scripts/d3.layout.could.js"></script>
+    <script src="~/Scripts/d3plus.js"></script>
+
+    <style>
+        .circle {
+            background-color: blue;
+            height: 100%;
+            border-radius: 100%;
+            text-align: center;
+            line-height: 200px;
+            font-size: 30px;
+        }
+
+            .circle span {
+                line-height: normal;
+                display: inline-block;
+                vertical-align: middle;
+                color: white;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            }
+    </style>
 </head>
 <body>
-    <script>
-        var data;
-        $.ajax({
-            url: "/api/graphPromo",
-            type: "get",
-            dataTyp: "string",
-            async: false,
-            success: function (result) {
-                data = JSON.parse(result);
-            }
-        });
-        TimelinesChart()(document.body)
-            .zScaleLabel('My Scale Units')
-            .zQualitative(true)
-            .data(data);
-    </script>
+    <div>
+        <svg id="promotion" style="width:100%"></svg>
+        <script>
+            var data;
+            $.ajax({
+                url: "/api/graphPromo",
+                type: "get",
+                dataTyp: "string",
+                async: false,
+                success: function (result) {
+                    data = JSON.parse(result);
+                }
+            });
+            TimelinesChart()('#promotion')
+                .zScaleLabel('My Scale Units')
+                .zQualitative(true)
+                .data(data);
+        </script>
+    </div>
     <hr />
-    <div id="my_dataviz"></div>
-    <script>
-        var data;
-        $.ajax({
-            url: "/api/graphHistory",
-            type: "get",
-            dataTyp: "string",
-            async: false,
-            success: function (result) {
-                data = JSON.parse(result);
-            }
-        });
-        var words = [['out', 1.0],
-        ['just', 0.848167539267],
-        ['your', 0.82722513089],
-        ['not', 0.759162303665],
-        ['have', 0.685863874346],
-        ['today', 0.638743455497],
-        ['hai', 0.623036649215],
-        ['eventbrite', 0.591623]
-        ];
+    <div>
+        <svg id="bubble" style="width: 100%"></svg>
+        <script>
+            var data;
+            $.ajax({
+                url: "/api/graphHistory",
+                type: "get",
+                dataTyp: "string",
+                async: false,
+                success: function (result) {
+                    data = JSON.parse(result);
+                }
+            });
 
-        var r = 960,
-            format = d3.format(",d"),
-            fill = d3.scaleOrdinal(d3.schemeDark2);
+            var diameter = 600;
+            var color = d3.scaleOrdinal(d3.schemeDark2);
 
-        d3.layout.cloud()
-            .size([1000, 500])
-            .words(data
-                .map(function (d) {
-                    return { text: d[0], size: d[1] * 100 };
-                }))
-            .padding(5)
-            .rotate(function () { return ~~(Math.random() * 0) * 90; })
-            .font("Impact")
-            .fontSize(function (d) { return d.size; })
-            .on("end", draw)
-            .start();
+            var element = document.getElementById('bubble');
+            var positionInfo = element.getBoundingClientRect();
+            var width = positionInfo.width;
 
-        function draw(words) {
-            d3.select("body").append("svg")
-                .attr("width", 1000)
-                .attr("height", 500)
-                .append("g")
-                .attr("transform", "translate(300,300)")
-                .selectAll("text")
-                .data(words)
-                .enter().append("text")
-                .style("font-size", function (d) { return d.size + "px"; })
-                .style("font-family", "Impact")
-                .style("fill", function (d, i) { return fill(i); })
-                .attr("text-anchor", "middle")
-                .attr("transform", function (d) {
-                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            var bubble = d3.pack(data)
+                .size([width, diameter])
+                .padding(1.5);
+            console.log(bubble);
+            var svg = d3.select("#bubble")
+                .attr("height", diameter)
+                .attr("class", "bubble");
+
+            var nodes = d3.hierarchy(data)
+                .sum(function (d) { return d.Count; });
+            
+            var node = svg.selectAll(".node")
+                .data(bubble(nodes).descendants())
+                .enter()
+                .filter(function (d) {
+                    return !d.children
                 })
-                .text(function (d) { return d.text; });
-        }
-    </script>
+                .append("g")
+                .attr("class", "node")
+                .attr("transform", function (d) {
+                    return "translate(" + d.x+ "," + d.y + ")";
+                });
+
+            node.append("title")
+                .text(function (d) {
+                    return "Tên sách: " + d.data.Name;
+                });
+
+            node.append("circle")
+                .attr("r", function (d) {
+                    return d.r;
+                })
+                .style("fill", function (d, i) {
+                    return color(i);
+                });
+            //name book
+            node.append("text")
+                .attr("dy", ".2em")
+                .style("text-anchor", "middle")
+                .text(function (d) {
+                    console.log(d);
+                    return d.data.id.substring(0, d.r / 3);
+                })
+                
+                .attr("font-family", "Roboto")
+                .attr("font-size", function (d) {
+                    return d.r / 5;
+                })
+                .attr("fill", "white");
+            //sl
+            node.append("text")
+                .attr("dy", "1.3em")
+                .style("text-anchor", "middle")
+                .text(function (d) {
+                    return 'Sl: '+d.data.SoLuong;
+                })
+                .attr("font-family", "Roboto")
+                .attr("font-size", function (d) {
+                    return d.r / 5;
+                })
+                .attr("fill", "white");
+            //number 
+            node.append("text")
+                .attr("dy", "2.3em")
+                .style("text-anchor", "middle")
+                .text(function (d) {
+                    return 'View: '+d.data.Count;
+                })
+                .attr("font-family", "Roboto")
+                .attr("font-size", function (d) {
+                    return d.r / 5;
+                })
+                .attr("fill", "white");
+
+            d3.select(self.frameElement)
+                .style("height", diameter + "px");
+
+ 
+            
+        </script>
+    </div>
 </body>
+
 </html>
