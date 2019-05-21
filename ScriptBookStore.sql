@@ -69,6 +69,7 @@ Create table HOADONMUAHANG (
 	TinhTrangThanhToan nVarchar(10) NULL,
 	ThoiGianMua date,
 	TenTaiKhoan Varchar(50) NOT NULL foreign key references TAIKHOAN,
+	TongTien int,
 )
 go
 Create table CTHOADONMUAHANG (
