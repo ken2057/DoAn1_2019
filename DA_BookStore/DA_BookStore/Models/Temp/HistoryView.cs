@@ -7,19 +7,25 @@ namespace DA_BookStore.Models.Temp
 {
     public class HistoryView
     {
-        public List<object> data;
+        public List<temp> children { get; set; }
 
-        public HistoryView(string word, double count)
+        public HistoryView() { children = new List<temp>(); }
+
+        public class temp : IComparable<temp>
         {
-            data = new List<object>() { word, count };
-        }
+            public string Name { get; set; }
+            public double Count { get; set; }
+            public double SoLuong { get; set; }
+            public string id { get; set; }
 
-        public void fixCount(double num)
-        {
-            data[1] = (object)((double)data[1]/num);
-            if ((double)data[1] < 0.01)
-                data[1] = 0.01;
-
+            public temp(string name, double counts, int sl, string id)
+            {
+                Name = name; Count = counts; SoLuong = sl; this.id = id;
+            }
+            public int CompareTo(temp other)
+            {
+                return other.Count.CompareTo(Count);
+            }
         }
     }
 }

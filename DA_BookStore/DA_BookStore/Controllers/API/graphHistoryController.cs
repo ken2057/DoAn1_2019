@@ -24,7 +24,6 @@ namespace DA_BookStore.Controllers.API
         {
             using (var db = new Models.BookStore())
             {
-                List<object> grp = new List<object>();
                 Dictionary<string, double> dctCT = new Dictionary<string, double>();
                 var minDay = DateTime.Now.AddDays(-day);
 
@@ -41,7 +40,7 @@ namespace DA_BookStore.Controllers.API
                         dctCT[item.MaSach + " " + item.TenSach + " (" + item.SoLuongTon + ")"] += 1;
                 }
 
-                var test = new classTemp();
+                var test = new Models.Temp.HistoryView();
 
                 foreach (var item in dctCT)
                 {
@@ -51,33 +50,12 @@ namespace DA_BookStore.Controllers.API
                     var name = item.Key.Replace(" " + sl, "")
                                         .Replace(id + " ", " ");
                     sl = sl.Replace("(", "").Replace(")", "");
-                    test.children.Add(new classTemp.temp(name, item.Value, int.Parse(sl), id));
+                    test.children.Add(new Models.Temp.HistoryView.temp(name, item.Value, int.Parse(sl), id));
                 }
+                test.children.Sort();
 
                 return JsonConvert.SerializeObject(test);
             }
         }
-
-        private class classTemp
-        {
-            public List<temp> children { get; set; }
-
-            public classTemp() { children = new List<temp>(); }
-
-            public class temp
-            {
-                public string Name { get; set; }
-                public double Count { get; set; }
-                public double SoLuong { get; set; }
-                public string id { get; set; }
-
-                public temp(string name, double counts, int sl, string id)
-                {
-                    Name = name; Count = counts; SoLuong = sl;this.id = id;
-                }
-            }
-        }
-
-        
     }
 }

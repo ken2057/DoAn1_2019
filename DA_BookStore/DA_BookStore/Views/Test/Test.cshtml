@@ -51,6 +51,7 @@
         </script>
     </div>
     <hr />
+
     <div>
         <svg id="bubble" style="width: 100%"></svg>
         <script>
@@ -94,12 +95,12 @@
                 .attr("transform", function (d) {
                     return "translate(" + d.x+ "," + d.y + ")";
                 });
-
+            //title
             node.append("title")
                 .text(function (d) {
-                    return "Tên sách: " + d.data.Name;
+                    return "Tên sách: " + d.data.Name + "\nMã sách: " + d.data.id;
                 });
-
+            //circle
             node.append("circle")
                 .attr("r", function (d) {
                     return d.r;
@@ -111,9 +112,8 @@
             node.append("text")
                 .attr("dy", ".2em")
                 .style("text-anchor", "middle")
-                .text(function (d) {
-                    console.log(d);
-                    return d.data.id.substring(0, d.r / 3);
+                .text(function (d) { 
+                    return d.data.Name.substring(0, d.r / 3.5);
                 })
                 
                 .attr("font-family", "Roboto")
