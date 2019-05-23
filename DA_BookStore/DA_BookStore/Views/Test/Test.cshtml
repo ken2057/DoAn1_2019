@@ -36,9 +36,8 @@
         <script>
             var data;
             $.ajax({
-                url: "/api/graphPromo",
+                url: "/test/graphPromo",
                 type: "get",
-                dataTyp: "string",
                 async: false,
                 success: function (result) {
                     data = JSON.parse(result);
@@ -57,9 +56,9 @@
         <script>
             var data;
             $.ajax({
-                url: "/api/graphHistory",
+                url: "/test/graphHistory",
                 type: "get",
-                dataTyp: "string",
+                
                 async: false,
                 success: function (result) {
                     data = JSON.parse(result);
