@@ -23,9 +23,12 @@ namespace DA_BookStore.Models
         public virtual DbSet<SACH> SACHes { get; set; }
         public virtual DbSet<TAIKHOAN> TAIKHOANs { get; set; }
         public virtual DbSet<THELOAI> THELOAIs { get; set; }
+        public virtual DbSet<PROMOCODE> PROMOCODEs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+          
+
             modelBuilder.Entity<CTGIOHANG>()
                 .Property(e => e.MaSach)
                 .IsFixedLength()
@@ -211,6 +214,11 @@ namespace DA_BookStore.Models
                 .HasMany(e => e.SACHes2)
                 .WithOptional(e => e.THELOAI2)
                 .HasForeignKey(e => e.MaTL3);
+
+            modelBuilder.Entity<PROMOCODE>()
+              .Property(e => e.CODE)
+              .IsFixedLength()
+              .IsUnicode(false);
         }
     }
 }

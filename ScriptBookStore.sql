@@ -6,6 +6,13 @@ create database QLBookStore
 go
 use QLBookStore
 go
+create table PROMOCODE(
+	CODE char(10) primary key,
+	NgayThem date,
+	NgayHetHan date,
+	SoTienGiam int
+)
+go
 Create table TAIKHOAN (
 	TenTaiKhoan Varchar(50) primary key,
 	MauKhau Varchar(200) NOT NULL,
