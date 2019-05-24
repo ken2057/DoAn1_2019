@@ -23,6 +23,7 @@
     
 </head>
 <body>
+    
     <div class="container-fluid main-screen">
         <!-- introduce -->
         <div class="row">
@@ -32,7 +33,6 @@
                 {
                     <a href="muc1.html" target="_blank">Mục @i</a>
                 }
-
             </div>
             <!-- big item show : best seller-->
             <a href="~/Book/Detail?id=S000000004">
@@ -43,20 +43,18 @@
             <!-- small-item-show: new arrived -->
             <a href="~/Book/Detail?id=S000000004">
                 <div id="small-item-show" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    
+
                     <img src="~/Image/Sale/km1.png" style="width: 100%; height: 100%" />
                 </div>
             </a>
             <!-- 2 smaller itemshow-->
             <div id="smaller-item-show" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-
                 <!-- first itemshow -->
                 <div class="row">
                     <div class="first-item-show">
                         <img src="~/Image/Content/content1.png" style="width: 100%; height: 100%" />
                     </div>
                 </div>
-
                 <!-- second itemshow -->
                 <div class="row">
                     <div class="second-item-show">
@@ -66,33 +64,11 @@
             </div>
         </div>
     </div>
-
     <div class="container-fluid category">
         <div id="deal-book" class="row">
-
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <h3 style="text-align: center; padding-top: 45%;">Sách giảm giá:</h3>
             </div>
-
-            @foreach (var item in ViewBag.DsSachDeal)
-            {
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <a href="~/Book/Detail?id=@item.MaSach">
-                        <div class="book-box">
-                            <img src="~/@item.HinhSach" style="height: 100%; width: 100%"/>
-                        </div>
-                    </a>
-                </div>
-            }
-        </div>
-
-        <!-- Sách của tháng	-->
-
-        <div id="month-book" class="row">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <h3 style="text-align: center; padding-top: 45%;">Sách của tháng:</h3>
-            </div>
-
             @foreach (var item in ViewBag.DsSachDeal)
             {
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -104,8 +80,22 @@
                 </div>
             }
         </div>
-
+        <!-- Sách của tháng	-->
+        <div id="month-book" class="row">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <h3 style="text-align: center; padding-top: 45%;">Sách của tháng:</h3>
+            </div>
+            @foreach (var item in ViewBag.DsSachDeal)
+            {
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <a href="~/Book/Detail?id=@item.MaSach">
+                        <div class="book-box">
+                            <img src="~/@item.HinhSach" style="height: 100%; width: 100%" />
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
     </div>
-
 </body>
 </html>
