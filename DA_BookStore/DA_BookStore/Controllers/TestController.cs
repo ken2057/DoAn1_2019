@@ -192,12 +192,20 @@ namespace DA_BookStore.Controllers
 
                 List<Dictionary<string, int>> grpListTheLoaiXem = new List<Dictionary<string, int>>() { lst1, lst2, lst3 };
                 List<Models.Temp.GroupCusView> test2 = new List<Models.Temp.GroupCusView>();
-
+                List<Models.THELOAI> dsTL = db.THELOAIs.ToList();
                 foreach (var item in grpListTheLoaiXem)
                 {
                     foreach (var t in item)
                     {
-                        test2.Add(new Models.Temp.GroupCusView("Group "+(grpListTheLoaiXem.IndexOf(item)+1), t.Key, t.Value));
+                        foreach (var tl in dsTL)
+                        {
+                            if (tl.MaTheLoai == t.Key)
+                            {
+                                test2.Add(new Models.Temp.GroupCusView("Group " + (grpListTheLoaiXem.IndexOf(item) + 1), tl.TenTheLoai, t.Value));
+                                break;
+                            }
+                        }
+                        
                     }
                 }
 

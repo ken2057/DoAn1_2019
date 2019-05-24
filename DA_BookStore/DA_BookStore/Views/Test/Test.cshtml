@@ -245,12 +245,14 @@
             outerLabels.append("text")
                 .attr("class", "outer-label")
                 .attr("dy", ".35em")
+                .attr("font-family", "Roboto")
                 .text(function (d, i) { return d.outername; });
                     
                 //The value below it
             outerLabels.append("text")
                 .attr("class", "outer-label-value")
                 .attr("dy", "1.5em")
+                .attr("font-family", "Roboto")
                 .text(function (d, i) { return numFormat(d.value) + " time"; });
 
             //////////////////// Draw inner strings ////////////////////    
@@ -271,6 +273,7 @@
                 .data(function (s) { return s.innergroups; })
                 .enter().append("text")
                 .attr("class", "inner-label")
+                .attr("font-family", "Roboto")
                 .attr("x", function (d, i) { return d.x - 25; })
                 .attr("y", function (d, i) { return d.y; })
                 .attr("dy", ".35em")
