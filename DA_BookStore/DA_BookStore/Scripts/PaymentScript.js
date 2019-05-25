@@ -9,13 +9,14 @@
             type: 'GET',
             success: function (data) {
                 $('#discountdiv').show();
+                $('#codePromote').val(data.CODE);
                 $('#discountvalue').html(data.SoTienGiam.toLocaleString(undefined, { minimumFractionDigits: 0 }) + ' ₫');
                 temp = $('#boxThanhTien').html().replace(/[^0-9]/gi, '');
                 $('#boxThanhTien').html((temp - data.SoTienGiam).toLocaleString(undefined, { minimumFractionDigits: 0 }) + ' ₫');
-                
                 $("#check-giftcode").hide();
             },
             error: function () {
+                $("#giftcode").prop('disabled', false);
                 $("#giftcode").css('background-color', "#fff7b2");
                 alert("Mã không tồn tại!");
             }

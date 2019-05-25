@@ -71,6 +71,11 @@ namespace DA_BookStore.Models
                 .WithRequired(e => e.HOADONMUAHANG)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<HOADONMUAHANG>()
+                .Property(e => e.CODE)
+                .IsFixedLength()
+                .IsUnicode(false);
+
             modelBuilder.Entity<KHUYENMAI>()
                 .Property(e => e.MaKhuyenMai)
                 .IsFixedLength()

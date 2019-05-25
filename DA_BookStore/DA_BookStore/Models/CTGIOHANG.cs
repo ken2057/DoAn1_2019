@@ -24,6 +24,5 @@ namespace DA_BookStore.Models
         public virtual SACH SACH { get; set; }
 
         public virtual TAIKHOAN TAIKHOAN { get; set; }
-        //CAI DANH SACH COdE M CO LUU TRONG DB, ý là ?ang test ?ã, nó hi?n ra danh sách chi ti?t gi? hàng, còn list code ch?a làm, gi? nó hi?n ra cti? hàng coi nh? listcode à v h ch? cho nó hi?n ct gi? hàng thôi pk, ? , n?u ???c qua cái API này 
     }
 }

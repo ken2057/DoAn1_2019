@@ -9,6 +9,12 @@ namespace DA_BookStore.Models
     [Table("PROMOCODE")]
     public partial class PROMOCODE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PROMOCODE()
+        {
+            HOADONMUAHANGs = new HashSet<HOADONMUAHANG>();
+        }
+
         [Key]
         [StringLength(10)]
         public string CODE { get; set; }
@@ -20,5 +26,8 @@ namespace DA_BookStore.Models
         public DateTime? NgayHetHan { get; set; }
 
         public int? SoTienGiam { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HOADONMUAHANG> HOADONMUAHANGs { get; set; }
     }
 }

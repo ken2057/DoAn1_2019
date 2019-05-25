@@ -77,6 +77,7 @@ Create table HOADONMUAHANG (
 	ThoiGianMua date,
 	TenTaiKhoan Varchar(50) NOT NULL foreign key references TAIKHOAN,
 	TongTien int,
+	CODE Char(10) foreign key references PROMOCODE
 )
 go
 Create table CTHOADONMUAHANG (
