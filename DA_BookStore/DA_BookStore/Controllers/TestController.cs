@@ -205,14 +205,86 @@ namespace DA_BookStore.Controllers
                                 break;
                             }
                         }
-                        
+
                     }
                 }
 
                 return JsonConvert.SerializeObject(test2);
             }
         }
+        [HttpGet]
+        public string GraphGroupDateBook()
+        {
+            using (var db = new Models.BookStore())
+            {
+                var listSach = db.SACHes.Select(t => new { t.SoLanTruyCap, t.SoLuongTon,
+                                                           TL = new List<string> { t.MaTL1, t.MaTL2, t.MaTL3 } })
+                                        .OrderByDescending(t => t.SoLanTruyCap)
+                                        .ToList();
+                float mean = listSach.Sum(t => t.SoLanTruyCap ?? 0) / listSach.Count;
+
+                Dictionary<string, tl> dictTL1 = new Dictionary<string, tl>();
+                Dictionary<string, tl> dictTL2 = new Dictionary<string, tl>();
+
+                foreach (var item in listSach)
+                {
+                    if (item.SoLanTruyCap >= mean)
+                    {
+                        foreach (var tl in item.TL)
+                        {
+                            if (tl != null)
+                                if (!dictTL1.Keys.Contains(tl))
+                                    dictTL1.Add(tl, new tl(tl, item.SoLanTruyCap ?? 0, item.SoLuongTon ?? 0));
+                                else
+                                {
+                                    dictTL1[tl].slTruyCap += item.SoLanTruyCap ?? 0;
+                                    dictTL1[tl].addTon(item.SoLuongTon ?? 0);
+                                }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var tl in item.TL)
+                        {
+                            if (tl != null)
+                                if (!dictTL2.Keys.Contains(tl))
+                                    dictTL2.Add(tl, new tl(tl, item.SoLanTruyCap ?? 0, item.SoLuongTon ?? 0));
+                                else
+                                {
+                                    dictTL2[tl].slTruyCap += item.SoLanTruyCap ?? 0;
+                                    dictTL2[tl].addTon(item.SoLuongTon ?? 0);
+                                }
+                        }
+                    }
+                }
+
+                List<tl> z = new List<tl>();
+
+                foreach (var item in dictTL1)
+                    z.Add(item.Value);
+                foreach(var item in dictTL2)
+                    z.Add(item.Value);
 
 
+                return JsonConvert.SerializeObject(z);
+            }
+
+        }
+        private class tl
+        {
+            public string TenTL { get; set; }
+            public int slTruyCap { get; set; }
+            public int slTon { get; set; }
+
+            public tl(string ten, int sltc, int slton)
+            {
+                TenTL = ten; slTruyCap = sltc; slTon = slton;
+            }
+            public void addTon(int sl)
+            {
+                slTon = (sl + slTon) / 2;
+            }
+
+        }
     }
 }

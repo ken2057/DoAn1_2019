@@ -45,6 +45,8 @@ namespace DA_BookStore.Controllers
                         db.CTXEMSACHes.Add(new Models.CTXEMSACH() { MaSach = id, TenTaiKhoan = Session["userID"].ToString(), NgayXemSach = DateTime.Now });
                         db.SaveChanges();
                     }
+                    s.SoLanTruyCap += 1;
+                    db.SaveChanges();
                 }
             }
             catch {}
