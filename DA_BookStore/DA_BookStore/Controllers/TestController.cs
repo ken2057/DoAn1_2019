@@ -217,74 +217,42 @@ namespace DA_BookStore.Controllers
         {
             using (var db = new Models.BookStore())
             {
-                var listSach = db.SACHes.Select(t => new { t.SoLanTruyCap, t.SoLuongTon,
-                                                           TL = new List<string> { t.MaTL1, t.MaTL2, t.MaTL3 } })
-                                        .OrderByDescending(t => t.SoLanTruyCap)
-                                        .ToList();
-                float mean = listSach.Sum(t => t.SoLanTruyCap ?? 0) / listSach.Count;
+                DateTime dateStart = (DateTime.Now.Month == 1) ?
+                    new DateTime(DateTime.Now.Year - 1, 12, 1) :
+                    new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, 1);
 
-                Dictionary<string, tl> dictTL1 = new Dictionary<string, tl>();
-                Dictionary<string, tl> dictTL2 = new Dictionary<string, tl>();
+                var lstHD = db.HOADONMUAHANGs
+                    .Select(t => new
+                    {
+                        TinhTrang = t.TinhTrangThanhToan,
+                        Ngay = t.ThoiGianMua
+                    })
+                    .Where(t => t.Ngay >= dateStart).ToList();
 
-                foreach (var item in listSach)
+                var listMonth = new List<int>();
+                foreach (var item in lstHD)
                 {
-                    if (item.SoLanTruyCap >= mean)
-                    {
-                        foreach (var tl in item.TL)
-                        {
-                            if (tl != null)
-                                if (!dictTL1.Keys.Contains(tl))
-                                    dictTL1.Add(tl, new tl(tl, item.SoLanTruyCap ?? 0, item.SoLuongTon ?? 0));
-                                else
-                                {
-                                    dictTL1[tl].slTruyCap += item.SoLanTruyCap ?? 0;
-                                    dictTL1[tl].addTon(item.SoLuongTon ?? 0);
-                                }
-                        }
-                    }
-                    else
-                    {
-                        foreach (var tl in item.TL)
-                        {
-                            if (tl != null)
-                                if (!dictTL2.Keys.Contains(tl))
-                                    dictTL2.Add(tl, new tl(tl, item.SoLanTruyCap ?? 0, item.SoLuongTon ?? 0));
-                                else
-                                {
-                                    dictTL2[tl].slTruyCap += item.SoLanTruyCap ?? 0;
-                                    dictTL2[tl].addTon(item.SoLuongTon ?? 0);
-                                }
-                        }
-                    }
-                }
+                    var m = new DateTime(long.Parse(item.Ngay.ToString())).Month;
+                    if (listMonth.Contains(m))
+                    { }
+                };
 
-                List<tl> z = new List<tl>();
-
-                foreach (var item in dictTL1)
-                    z.Add(item.Value);
-                foreach(var item in dictTL2)
-                    z.Add(item.Value);
-
-
-                return JsonConvert.SerializeObject(z);
+                return JsonConvert.SerializeObject(lstHD);
             }
-
         }
-        private class tl
-        {
-            public string TenTL { get; set; }
-            public int slTruyCap { get; set; }
-            public int slTon { get; set; }
+        private class temp
+        { 
+            public int Month { get; set; }
+            public Dictionary<string, int> dctCount { get; set; }
 
-            public tl(string ten, int sltc, int slton)
+            public temp(int m) { Month = m; }
+            public void addDct(string tinhTrang)
             {
-                TenTL = ten; slTruyCap = sltc; slTon = slton;
+                if (!dctCount.Keys.Contains(tinhTrang))
+                    dctCount.Add(tinhTrang, 1);
+                else
+                    dctCount[tinhTrang] += 1;
             }
-            public void addTon(int sl)
-            {
-                slTon = (sl + slTon) / 2;
-            }
-
         }
     }
 }

@@ -64,8 +64,8 @@ insert into HOADONMUAHANG values
 ('HD00000002','Xong','2019-1-7','phatnghi', 250000, null),
 ('HD00000003','Chua','2019-1-8','thanhhieu', 70000, null),
 ('HD00000004','Xong','2019-1-10','congquang', 50000, null),
-('HD00000005','Xong','2019-2-1','duyhau', 2500000, null),
-('HD00000006','Xong','2019-3-4','duyhau', 1000000, null)
+('HD00000005','Chua',GETDATE(),'duyhau', 2500000, null),
+('HD00000006','Xong',GETDATE(),'duyhau', 1000000, null)
 
 insert into CTHOADONMUAHANG values
 ('S000000001','HD00000001', 1, 50000),
