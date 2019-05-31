@@ -147,6 +147,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="Content\bookManage.css" />
     <Content Include="Content\cart.css" />
+    <Content Include="Content\detailQC.css" />
     <Content Include="Content\menu.css" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\QuangCaoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Global.asax.cs">
@@ -186,10 +188,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\payment.css" />
+    <Content Include="Content\quangcao.css" />
     <Content Include="Content\search.css" />
     <Content Include="Content\signup.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\account.css" />
+    <Content Include="Content\themQc.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -264,6 +268,9 @@
     <Content Include="Views\Test\Test.cshtml" />
     <Content Include="Scripts\loom\d3-loom.js.map" />
     <Content Include="Views\Payment\Payment.cshtml" />
+    <Content Include="Views\QuangCao\QuangCaoManage.cshtml" />
+    <Content Include="Views\QuangCao\QCDetail.cshtml" />
+    <Content Include="Views\QuangCao\AddQuangCao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
