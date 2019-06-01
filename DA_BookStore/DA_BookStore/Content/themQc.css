@@ -154,11 +154,18 @@ body * {
         
         
     }
-#LoaiQC{
+#LoaiQC {
     margin-bottom: 20px;
     margin-top: 10px;
     height: 30px;
-    color: #33ca93;  
+    color: #33ca93;
+}
+
+#ViTriQuangCao {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    height: 30px;
+    color: #33ca93;
 }
 .row input[type="submit"] {
     border: none;

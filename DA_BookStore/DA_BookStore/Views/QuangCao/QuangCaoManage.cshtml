@@ -42,6 +42,7 @@
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
                             <th>Loại quảng cáo</th>
+                            <th>Vị trí</th>
                             <th>Thao tác</th>
                         </tr>
 
@@ -49,19 +50,20 @@
 
                         @foreach (var item in ViewBag.DsQC)
                         {
-                            <tr>
+                        <tr>
 
-                                <td>@item.TenQC</td>
-                                <td><a href="~/@item.HinhQC" style="display:block; text-decoration:none;">@item.HinhQC</a></td>
-                                <td>@item.NgayBatDauQC</td>
-                                <td>@item.NgayHetQC</td>
-                                <td>@item.LoaiQC</td>
-                                <td>
-                                    <a href="~/QuangCao/QCDetail?id=@item.MaQuangCao">Sửa  </a>
-                                    <a href="~/QuangCao/QCDelete/@item.MaQuangCao">Xóa</a>
-                                </td>
+                            <td>@item.TenQC</td>
+                            <td><a href="~/@item.HinhQC" style="display:block; text-decoration:none;">@item.HinhQC</a></td>
+                            <td>@item.NgayBatDauQC</td>
+                            <td>@item.NgayHetQC</td>
+                            <td>@item.LoaiQC</td>
+                            <td>@item.ViTriQuangCao</td>
+                            <td>
+                                <a href="~/QuangCao/QCDetail?id=@item.MaQuangCao">Sửa</a>
+                                <a href="~/QuangCao/QCDelete/@item.MaQuangCao">Xóa</a>
+                            </td>
 
-                            </tr>
+                        </tr>
                         }
 
                     </tbody>

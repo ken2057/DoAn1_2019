@@ -62,7 +62,7 @@ namespace DA_BookStore.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult QCUpdate(string tenQuangCao, HttpPostedFileBase hinhQuangCao, DateTime ngayBatDau, DateTime ngayHet, string chuSoHuuQuangCao, string sdtChuQuangCao, string emailChuQuangCao, string loaiQuangCao)
+        public ActionResult QCUpdate(string tenQuangCao, HttpPostedFileBase hinhQuangCao, DateTime ngayBatDau, DateTime ngayHet, string chuSoHuuQuangCao, string sdtChuQuangCao, string emailChuQuangCao, string loaiQuangCao,string vitriQC)
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
@@ -88,6 +88,12 @@ namespace DA_BookStore.Controllers
                     qc.EmailChuQC = emailChuQuangCao;
                     qc.LoaiQC = loaiQuangCao;
                     qc.SdtChuQC = sdtChuQuangCao;
+                    if (vitriQC == "null")
+                    {
+                        qc.ViTriQuangCao = null;
+                    }
+                    else
+                        qc.ViTriQuangCao = vitriQC;
                     if (hinhQuangCao != null)
                     {
                         try
@@ -124,6 +130,7 @@ namespace DA_BookStore.Controllers
                 {
                     Models.QUANGCAO qc = db.QUANGCAOs.Find(id);
                     qc.HienThiQC = false;
+                    qc.ViTriQuangCao = null;
                     db.Entry(qc).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }
@@ -148,17 +155,13 @@ namespace DA_BookStore.Controllers
             return RedirectToAction("Home", "Home");
         }
         [HttpPost]
-        public ActionResult AddQuangCao(string tenQC, HttpPostedFileBase hinhQC, DateTime ngayBatDauQC, DateTime ngayHetQC, string chuSoHuuQC, string sdtChuQC, string emailChuQC, string loaiQC)
+        public ActionResult AddQuangCao(string tenQC, HttpPostedFileBase hinhQC, DateTime ngayBatDauQC, DateTime ngayHetQC, string chuSoHuuQC, string sdtChuQC, string emailChuQC, string loaiQC, string vitriQuangCao)
         {
 
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                if (tenQC == string.Empty || ngayBatDauQC == null || ngayHetQC == null)
-                {
-                    return RedirectToAction("AddQuangCao");
-                }
-                else
-                {
+               
+                
                     using (var db = new Models.BookStore())
                     {
                         Models.QUANGCAO qc = new Models.QUANGCAO();
@@ -173,7 +176,15 @@ namespace DA_BookStore.Controllers
                         qc.SdtChuQC = sdtChuQC;
                         qc.EmailChuQC = emailChuQC;
                         qc.LoaiQC = loaiQC;
-                        qc.HienThiQC = true;
+
+                        if (vitriQuangCao == "null")
+                        {
+                            qc.ViTriQuangCao = null;
+                        }
+                        else
+                            qc.ViTriQuangCao = vitriQuangCao;
+
+                         qc.HienThiQC = true;
                         //kiem tra ngay bat dau va ngay ket thuc 
                         int sosanhdate = DateTime.Compare(ngayBatDauQC, ngayHetQC);
                         if (sosanhdate == 0 || sosanhdate > 0)
@@ -205,13 +216,19 @@ namespace DA_BookStore.Controllers
 
                         return RedirectToAction("QuangCaoManage");
                     }
-                }
+                
             }
             return RedirectToAction("Home");
         }
+
+        //GET BANNER
+        public string getBanner()
+        {
+            using (var db = new Models.BookStore())
+            {
+                Models.QUANGCAO banner = db.QUANGCAOs.Where(i => i.ViTriQuangCao == "vitri0").First();
+                return banner.HinhQC.ToString();
+            }
+        }
     }
-
-
-
-
 }

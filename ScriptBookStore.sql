@@ -115,3 +115,5 @@ Create table CTGIOHANG (
 	SoLuongGioHang Smallint NULL,
 	primary key (MaSach, TenTaiKhoan)
 )
+
+alter table QUANGCAO add ViTriQuangCao varchar(100) null

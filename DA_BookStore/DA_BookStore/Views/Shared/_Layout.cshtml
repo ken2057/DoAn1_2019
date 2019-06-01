@@ -15,13 +15,29 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
     <link rel="shortcut icon" href="~/Image/thumb.ico" />
 </head>
 <body>
     <div class="banner">
         <a href="http://huflit.edu.vn/">
-            <img src="~/Image/banner.png" style="width: 100%; height: 100%" />
+            <img id="banner" src="~/Image/banner.png" + link style="width: 100%; height: 100%" />
         </a>
+        <script>
+            var linkImg;
+            $.ajax({
+                url: "/QuangCao/getBanner",
+                type: "get",
+                async: false,
+                success: function (result) {
+                    linkImg = result;
+                }
+            });
+            banner = document.getElementById('banner')
+            banner.src = '/' + linkImg;
+        </script>
     </div>
 
     <div class="container-fluid big-menu">
@@ -61,7 +77,7 @@
 
                     <!-- Giỏ hàng -->
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                        
+
                         <a href="~/Cart/Cart" class="navbar-brand">
                             <div style="float: left;"><i class="fas fa-cart-plus"></i></div>
                             <div style="float:right; font-size: 1.3rem; margin: 0px 0px 0px 10px;">Giỏ hàng</div>
@@ -106,9 +122,9 @@
                 <div class="row">
 
                     <!-- Sản phẩm -->
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" >
-                        
-                        <div class="dropdown navbar-brand" style="margin-left: 0 !important;" >
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+
+                        <div class="dropdown navbar-brand" style="margin-left: 0 !important;">
                             <div class="dropbtn">
                                 <div style="float: left;"><i class="fas fa-bars"></i></div>
                                 <div style="float: right; margin: 0px 0px 0px 5px;">Danh mục sản phẩm</div>
@@ -154,7 +170,7 @@
     </div>
 
 
-@RenderBody()
+    @RenderBody()
 
     <!-- Footer -->
     <div class="container-fluid footer">

@@ -46,7 +46,7 @@ insert into TAIKHOAN values
 
 insert into nhanvien values('nguyenduy','Admin', 1);
 
-insert into QUANGCAO values('QC00000001','Google','iamngh.wordpress.com','hinh','1/1/2019','2/1/2019','a','a','a', 'banner',1);
+insert into QUANGCAO values ('QC00000001','quang cao a',null,'Image/QuangCao/66934858_p0.jpg','2019/06/01','2019-06-02','a','0123456789','a@gmail.com','A',0,'vitri0');
 
 insert into CTGIOHANG values
 ('S000000001','phatnghi',1),

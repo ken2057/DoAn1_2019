@@ -167,6 +167,13 @@ body {
     color: #33ca93;
 }
 
+#ViTriQC {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    height: 30px;
+    color: #33ca93;
+}
+
 .row input[type="submit"] {
     border: none;
     outline: none;
