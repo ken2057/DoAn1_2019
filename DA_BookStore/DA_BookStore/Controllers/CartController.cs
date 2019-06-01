@@ -43,7 +43,7 @@ namespace DA_BookStore.Controllers
             return RedirectToAction("Home", "Home");
         }
         [HttpGet]
-        public ActionResult Cart()
+        public ActionResult Index()
         {
             if (Session["userID"] == null)
                 return RedirectToAction("Login", "Login");

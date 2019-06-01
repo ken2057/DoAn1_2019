@@ -9,7 +9,7 @@ namespace DA_BookStore.Controllers
     public class AccountController : Controller
     {
         [HttpGet]
-        public ActionResult Account(string id = "", bool edit = false)
+        public ActionResult Index(string id = "", bool edit = false)
         {
             using (var db = new Models.BookStore())
             {
