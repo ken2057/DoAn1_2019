@@ -43,7 +43,13 @@ namespace DA_BookStore.Controllers
                         Session["userName"] = tk.HoTen.ToString();
                         Models.NHANVIEN nv = db.NHANVIENs.Find(tk.TenTaiKhoan.ToString());
                         if (nv != null && nv.HienThiNV == true)
+                        {
                             Session["userPrio"] = nv.ChucVuNV;
+                            if(nv.ChucVuNV == "Admin")
+                            {
+                                return RedirectToAction("Index", "Graph");
+                            }
+                        }
                     }
                 }
             }

@@ -398,7 +398,7 @@
         var element = document.getElementById('bubble');
         var positionInfo = element.getBoundingClientRect();
         var w = positionInfo.width;
-        w = (w > 500) ? 500 : w / 3;
+        w = (w > 500) ? 500 : 350;
         var width = w - margin.left - margin.right;
         var height = 500 - margin.top - margin.bottom;
 
@@ -410,10 +410,6 @@
 
         var y = d3.scaleLinear()
             .range([height, 0]);
-
-        var xAxis = d3.axisBottom(x0).tickSize(0);
-
-        var yAxis = d3.axisLeft(y);
         
         var svg = d3.select('#bar').append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -421,77 +417,37 @@
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        data = [
-            {
-                "categorie": "Student",
-                "values": [
-                    { "value": 0, "rate": "Not at all" },
-                    { "value": 4, "rate": "Not very much" },
-                    { "value": 12, "rate": "Medium" },
-                    { "value": 6, "rate": "Very much" },
-                    { "value": 0, "rate": "Tremendously" }
-                ]
-            },
-            {
-                "categorie": "Liberal Profession",
-                "values": [
-                    { "value": 1, "rate": "Not at all" },
-                    { "value": 21, "rate": "Not very much" },
-                    { "value": 13, "rate": "Medium" },
-                    { "value": 18, "rate": "Very much" },
-                    { "value": 6, "rate": "Tremendously" }
-                ]
-            },
-            {
-                "categorie": "Salaried Staff",
-                "values": [
-                    { "value": 3, "rate": "Not at all" },
-                    { "value": 22, "rate": "Not very much" },
-                    { "value": 6, "rate": "Medium" },
-                    { "value": 15, "rate": "Very much" },
-                    { "value": 3, "rate": "Tremendously" }
-                ]
-            },
-            {
-                "categorie": "Employee",
-                "values": [
-                    { "value": 12, "rate": "Not at all" },
-                    { "value": 7, "rate": "Not very much" },
-                    { "value": 18, "rate": "Medium" },
-                    { "value": 13, "rate": "Very much" },
-                    { "value": 6, "rate": "Tremendously" }
-                ]
-            },
-            {
-                "categorie": "Craftsman",
-                "values": [
-                    { "value": 6, "rate": "Not at all" },
-                    { "value": 15, "rate": "Not very much" },
-                    { "value": 9, "rate": "Medium" },
-                    { "value": 12, "rate": "Very much" },
-                    { "value": 3, "rate": "Tremendously" }
-                ]
-            },
-            {
-                "categorie": "Inactive",
-                "values": [
-                    { "value": 6, "rate": "Not at all" },
-                    { "value": 6, "rate": "Not very much" },
-                    { "value": 6, "rate": "Medium" },
-                    { "value": 2,"rate": "Very much" },
-                    { "value": 3, "rate": "Tremendously" }
-                ]
+        var data;
+        $.ajax({
+            url: "/test/GraphGroupBill",
+            type: "get",
+            async: false,
+            success: function (result) {
+                data = JSON.parse(result);
             }
-        ]
+        });
+        //get max value
+        maxValue = 1;
+        data.forEach(t => t.values.forEach(v => maxValue = v.value > maxValue ? v.value : maxValue))
 
-        var categoriesNames = data.map(function (d) { return d.categorie; });
-        var rateNames = data[0].values.map(function (d) { return d.rate; });
+        var categoriesNames = data.map(function (d) { return d.month; });
+        var rateNames = [];
+        for (i = 0; i < data.length; i++) {
+            for (j = 0; j < data[i].values.length; j++) {
+                if (!rateNames.includes(data[i].values[j].rate))
+                    rateNames.push(data[i].values[j].rate)
+            }
+        }
+
         c = d3.schemeSet1;
 
         x0.domain(categoriesNames);
         x1.domain(rateNames).range([0, x0.bandwidth()]);
         y.domain([0, d3.max(data, function (categorie) { return d3.max(categorie.values, function (d) { return d.value; }); })]);
-        
+
+        var xAxis = d3.axisBottom(x0).tickSize(0);
+        var yAxis = d3.axisLeft(y).tickFormat(d3.format("d")).ticks(maxValue);
+
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
@@ -515,8 +471,9 @@
             .data(data)
             .enter().append("g")
             .attr("class", "g")
-            .attr('id', (d) => d.categorie)
-            .attr("transform", function (d) { return "translate(" + x0(d.categorie) + ",0)"; });
+            .attr('id', (d) => d.month)
+            .attr('height', height)
+            .attr("transform", function (d) { return "translate(" + x0(d.month) + ", 0)"; });
         ////////
         var tooltipBar = d3.select("#bar")
             .append("div")
@@ -532,7 +489,7 @@
             tooltipBar.transition()
                 .duration(200)
             tooltipBar.style("opacity", 1)
-                .html(d3.select(this.parentNode).attr('id')+' - '+d.rate + ': ' + d.value)
+                .html('Tháng '+d3.select(this.parentNode).attr('id')+' - '+d.rate + ': ' + d.value)
                 .style("left", 0 + "px")
                 .style("top", 0 + "px")
             d3.select(this).style("fill", '#89f4e6');
@@ -570,7 +527,7 @@
 
             //ten
         var legend = svg.selectAll(".legend")
-            .data(data[0].values.map(function (d) { return d.rate; }).reverse())
+            .data(rateNames)
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; })
@@ -595,7 +552,7 @@
             tooltipBar.transition()
                 .duration(200)
             tooltipBar.style("opacity", 1)
-                .html(d + ': ' + data[data.map((e) => e.categorie).indexOf(d)].values.map((e) => e.value).reduce((sum, a) => sum + a, 0))
+                .html('Tháng ' +d + ': ' + data[data.map((e) => e.month).indexOf(d)].values.map((e) => e.value).reduce((sum, a) => sum + a, 0) +' đơn')
                 .style("left", 0 + "px")
                 .style("top", 0 + "px")
             d3.select(this).style("fill", '#89f4e6');

@@ -88,10 +88,11 @@
                                     <a href="~/Account/Account?id=@Session["userID"]">Xem thông tin cá nhân</a>
                                     @if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
                                     {
+                                        <a href="~/Graph">Graph</a>
                                         <a href="~/Account/AccountManage">Quản lý thành viên</a>
                                         <a href="~/Book/BookManage">Quản lý sách</a>
                                     }
-                                    @Html.ActionLink("Đăng xuất", "Logout","Home")
+                                    @Html.ActionLink("Đăng xuất", "Logout", "Home")
                                 </div>
                             </div>
                         }
