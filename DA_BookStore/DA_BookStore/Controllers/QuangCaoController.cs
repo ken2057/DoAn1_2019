@@ -25,7 +25,7 @@ namespace DA_BookStore.Controllers
 
                 return View();
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public ActionResult QuangCaoManage(string maQC, int index)
@@ -41,7 +41,7 @@ namespace DA_BookStore.Controllers
 
                 return View();
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
 
@@ -117,7 +117,7 @@ namespace DA_BookStore.Controllers
                 return RedirectToAction("QuangCaoManage");
             }
 
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
 
@@ -136,7 +136,7 @@ namespace DA_BookStore.Controllers
                 }
                 return RedirectToAction("QuangCaoManage");
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         //THEM QUANG CAO
@@ -152,7 +152,7 @@ namespace DA_BookStore.Controllers
 
                 return View();
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public ActionResult AddQuangCao(string tenQC, HttpPostedFileBase hinhQC, DateTime ngayBatDauQC, DateTime ngayHetQC, string chuSoHuuQC, string sdtChuQC, string emailChuQC, string loaiQC, string vitriQuangCao)
@@ -218,7 +218,7 @@ namespace DA_BookStore.Controllers
                     }
                 
             }
-            return RedirectToAction("Home");
+            return RedirectToAction("Index","Home");
         }
 
         //GET BANNER
