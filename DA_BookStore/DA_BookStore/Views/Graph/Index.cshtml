@@ -328,7 +328,7 @@
         });
 
         var diameter = 500;
-        var color = d3.scaleOrdinal(d3.schemeDark2);
+        var colorCircle = d3.scaleOrdinal(d3.schemeDark2);
 
         var element = document.getElementById('bubble');
         var positionInfo = element.getBoundingClientRect();
@@ -362,6 +362,7 @@
                 .html(d.data.id + " - " + d.data.Name + " - View: " + d.data.SoLuong)
                 .style("left", 0 + "px")
                 .style("top", 0 + "px")
+            d3.select(this).select('circle').style("fill", '#89f4e6');
         }
         var moveTooltip = function (d) {
             tooltip
@@ -372,6 +373,7 @@
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0)
+            d3.select(this).select('circle').style("fill", colorCircle(d3.select(this).attr('id')*1));
         }
 
         var node = svg.selectAll(".node")
@@ -382,6 +384,7 @@
             })
             .append("g")
             .attr("class", "node")
+            .attr("id", (d, i) => i)
             .attr("transform", function (d) {
                 return "translate(" + d.x + "," + d.y + ")";
             })
@@ -404,7 +407,7 @@
                 return d.r;
             })
             .style("fill", function (d, i) {
-                return color(i);
+                return colorCircle(i);
             });
         //name book
         node.append("text")
