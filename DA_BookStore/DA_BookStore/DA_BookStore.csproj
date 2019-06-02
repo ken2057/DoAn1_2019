@@ -152,6 +152,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\CTGIOHANGsController.cs" />
+    <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\API\PROMOCODEsController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Controllers\QuangCaoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -175,6 +177,7 @@
     <Compile Include="Models\QUANGCAO.cs" />
     <Compile Include="Models\SACH.cs" />
     <Compile Include="Models\TAIKHOAN.cs" />
+    <Compile Include="Models\Temp\BillView.cs" />
     <Compile Include="Models\Temp\CTGioHangViewModel.cs" />
     <Compile Include="Models\Temp\GroupCusView.cs" />
     <Compile Include="Models\Temp\HistoryView.cs" />
@@ -255,22 +258,22 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Book\Detail.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\SignUp.cshtml" />
-    <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Account\Account.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\AccountManage.cshtml" />
     <Content Include="Views\Book\BookManage.cshtml" />
     <Content Include="Views\Book\AddBook.cshtml" />
-    <Content Include="Views\Cart\Cart.cshtml" />
-    <Content Include="Views\Test\Test.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Scripts\loom\d3-loom.js.map" />
     <Content Include="Views\Payment\Payment.cshtml" />
     <Content Include="Views\QuangCao\QuangCaoManage.cshtml" />
     <Content Include="Views\QuangCao\QCDetail.cshtml" />
     <Content Include="Views\QuangCao\AddQuangCao.cshtml" />
+    <Content Include="Views\Graph\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

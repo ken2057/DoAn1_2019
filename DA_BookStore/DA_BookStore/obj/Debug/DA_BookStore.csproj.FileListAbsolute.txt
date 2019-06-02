@@ -939,3 +939,10 @@ C:\Users\NGUYENTHANHHIEU\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\o
 C:\Users\NGUYENTHANHHIEU\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.csproj.CopyComplete
 C:\Users\NGUYENTHANHHIEU\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.dll
 C:\Users\NGUYENTHANHHIEU\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.pdb
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Net.Http.Formatting.dll
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Web.Http.dll
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Web.Http.WebHost.dll
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Net.Http.Formatting.xml
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Web.Http.xml
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\bin\System.Web.Http.WebHost.xml
+C:\Users\ken\Documents\GitHub\DoAn1_2019\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.csprojAssemblyReference.cache

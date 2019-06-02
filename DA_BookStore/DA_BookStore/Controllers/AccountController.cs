@@ -9,7 +9,7 @@ namespace DA_BookStore.Controllers
     public class AccountController : Controller
     {
         [HttpGet]
-        public ActionResult Account(string id = "", bool edit = false)
+        public ActionResult Index(string id = "", bool edit = false)
         {
             using (var db = new Models.BookStore())
             {
@@ -33,7 +33,7 @@ namespace DA_BookStore.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Home", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 ViewBag.DsTL = db.THELOAIs.ToList();
             }
@@ -45,10 +45,10 @@ namespace DA_BookStore.Controllers
         {
             using (var db = new Models.BookStore())
             {
-                if (rePass != pass && rePass != "")
+                if (rePass != pass && pass != "")
                 {
                     ViewBag.error = "Mật khẩu nhập không trùng khớp";
-                    return RedirectToAction("Account", "Account");
+                    return RedirectToAction("Index", "Account");
                 }
 
                 Models.TAIKHOAN tk = db.TAIKHOANs.Find(id);
@@ -86,7 +86,7 @@ namespace DA_BookStore.Controllers
                 else
                 {
                     if (id != Session["userID"].ToString())
-                        return RedirectToAction("Home", "Home");
+                        return RedirectToAction("Home", "Index");
                 }
 
                 if (pass != "")
@@ -102,7 +102,7 @@ namespace DA_BookStore.Controllers
                 ViewBag.TK = tk;
             }
 
-            return RedirectToAction("Account");
+            return RedirectToAction("Index", "Account");
         }
 
         public ActionResult DeleteAccount(string id)
@@ -123,7 +123,7 @@ namespace DA_BookStore.Controllers
                 }
                 return RedirectToAction("AccountManage", "Account");
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -144,7 +144,7 @@ namespace DA_BookStore.Controllers
 
                 return View();
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public ActionResult AccountManage(string id, int index = 0)
@@ -166,7 +166,7 @@ namespace DA_BookStore.Controllers
 
                 return View();
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

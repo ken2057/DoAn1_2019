@@ -1,8 +1,10 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Graph Example</title>
+    <title>Graph</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -27,6 +29,7 @@
     <script src="~/Scripts/dist/timelines-chart.js"></script>
     <script src="~/Scripts/loom/d3-loom.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/sankey.js"></script>
+    <link href="@Url.Content("~/Content/home.css")" rel="stylesheet" type="text/css" />
     <style>
         .circle {
             background-color: blue;
@@ -44,10 +47,6 @@
                 color: white;
                 text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
             }
-
-        body {
-            background-color: gray;
-        }
 
         .bubbles {
             stroke-width: 2px;
@@ -75,9 +74,35 @@
             margin: 0;
             padding: 0;
         }
-        .col-md-4{
-            margin:0;
-            padding:0;
+
+        .col-md-4 {
+            margin: 0;
+            padding: 0;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: lightgrey;
+            shape-rendering: crispEdges;
+        }
+
+        .bar, .total_bar {
+            shape-rendering: crispEdges;
+        }
+
+            .bar:hover {
+                opacity: 0.7;
+            }
+
+        .x.axis path {
+            display: none;
+        }
+
+
+        .total_bar {
+            fill: #DDD;
+            fill-opacity: 0.6;
         }
     </style>
 </head>
@@ -87,7 +112,7 @@
         <script>
             var data;
             $.ajax({
-                url: "/test/graphPromo",
+                url: "/graph/graphPromo",
                 type: "get",
                 async: false,
                 success: function (result) {
@@ -101,23 +126,23 @@
         </script>
     </div>
     <div class="container" style="width: 100%">
-        <div class="col-md-4" id="chart" style="margin-left: -150px; width: auto"></div>
-        <div class="col-md-4" id="bubble-father">
-            <svg id="bubble" ></svg>
+        <div class="col-md-4" id="loom" style="margin-left: -150px; width: auto"></div>
+        <div class="col-md-4" id="bubble-father" style="margin-left:-30px">
+            <svg id="bubble"></svg>
         </div>
-        <div class="col-md-4" id="my_dataviz"></div>
+        <div class="col-md-4" id="bar" style="margin-left: -30px; width: auto"></div>
     </div>
 
     <script>
         //create SVG
-        var w = document.getElementById('chart').offsetWidth;
+        var w = document.getElementById('loom').offsetWidth;
         var margin = { left: 50, top: 70, right: 0, bottom: 50 },
             width = 700,
             height = 400,
             innerRadius = 150, //244,
             outerRadius = innerRadius * 1.05;
 
-        var svg = d3.select("#chart").append("svg")
+        var svg = d3.select("#loom").append("svg")
             .attr('align', 'center')
             .attr("width", width)
             .attr("height", height + margin.top + margin.bottom);
@@ -148,11 +173,11 @@
             .outerRadius(outerRadius);
 
         //color
-        var color = d3.scaleOrdinal(d3.schemeSet1)
+        var colorLoom = d3.scaleOrdinal(d3.schemeSet1)
         //data
         var testData;
         $.ajax({
-            url: "/test/GraphGroupDataCustomer",
+            url: "/graph/GraphGroupDataCustomer",
             type: "get",
             async: false,
             success: function (result) {
@@ -175,22 +200,58 @@
         //Create the actual arc paths
         var outerArcs = arcs.append("path")
             .attr("class", "arc")
-            .style("fill", function (d) { return color(d.outername); })
+            .style("fill", (d) => colorLoom(d.outername) )
             .attr("d", arc)
             .attr("transform", function (d, i) {
                 return "translate(" + d.pullOutSize + ',' + 0 + ")"; //Pull the two slices apart
             });
 
         //////////////////// Draw inner strings ////////////////////
+        var tooltipLoom = d3.select("#loom")
+            .append("div")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "black")
+            .style('font-size', '1.5rem')
+            .style("border-radius", "5px")
+            .style("padding", "10px")
+            .style("color", "white");
+
+        var showTooltipL = function (d) {
+            tooltipLoom.transition()
+                .duration(200)
+            tooltipLoom.style("opacity", 1)
+                .html(d.outer.outername + ': ' + d.outer.value)
+                .style("left", 170 + "px")
+                .style("top", 0 + "px")
+            d3.select(this).style("fill", d3.rgb('#89f4e6').brighter(0.3));
+        }
+        var moveTooltipL = function (d) {
+            tooltipLoom
+                .style("left", 170 + "px")
+                .style("top", 0 + "px")
+        }
+        var hideTooltipL = function (d) {
+            tooltipLoom.transition()
+                .duration(200)
+                .style("opacity", 0)
+
+            d3.select(this).style("fill", () => d3.rgb(colorLoom(d.outer.outername)).brighter(0.3));
+        }
+        ////
         var stringGroup = g.append("g").attr("class", "string-wrapper");
         //Draw the paths of the inner strings
         var strings = stringGroup.selectAll("path")
             .data(function (strings) { return strings; })
             .enter().append("path")
             .attr("class", "a")
-            .style("fill", function (d) { return d3.rgb(color(d.outer.outername)).brighter(0.3); })
+            //.style("fill", function (d) { console.log(d); return d3.rgb(color(d.inner.name)).brighter(0); })
+            .style("fill", (d) => d3.rgb(colorLoom(d.outer.outername)).brighter(0.3) )
             .style("opacity", 0.65)
-            .attr("d", string);
+            .attr("d", string)
+            .on("mouseover", showTooltipL)
+            .on("mousemove", moveTooltipL)
+            .on("mouseleave", hideTooltipL);
 
         //////////////////// Draw inner labels /////////////////////
         var innerLabelGroup = g.append("g").attr("class", "inner-label-wrapper");
@@ -203,7 +264,26 @@
             .attr("x", function (d, i) { return d.x - 25; })
             .attr("y", function (d, i) { return d.y; })
             .attr("dy", ".35em")
-            .text(function (d, i) { return d.name; });
+            .text(function (d) { return d.name; })
+            .on("mouseover", function (d) {
+                tooltipLoom.transition()
+                    .duration(200)
+                tooltipLoom.style("opacity", 1)
+                    .style("left", 170 + "px")
+                    .style("top", 0 + "px")
+                if (d.name == 'Group 1')
+                    tooltipLoom.html('Tổng hoá đơn < 200k')
+                else if (d.name == 'Group 2')
+                    tooltipLoom.html('200k < Tổng hoá đơn < 1000k')
+                else
+                    tooltipLoom.html('1000k < Tổng hoá đơn')
+            })
+            .on("mousemove", moveTooltipL)
+            .on("mouseleave", function (d) {
+                tooltipLoom.transition()
+                    .duration(200)
+                    .style("opacity", 0)
+            });
 
         //////////////////// Draw outer labels /////////////////////
         //The text needs to be rotated with the offset in the clockwise direction
@@ -239,7 +319,7 @@
     <script>
         var data;
         $.ajax({
-            url: "/test/graphHistory",
+            url: "/graph/graphHistory",
             type: "get",
             async: false,
             success: function (result) {
@@ -248,14 +328,14 @@
         });
 
         var diameter = 500;
-        var color = d3.scaleOrdinal(d3.schemeDark2);
+        var colorCircle = d3.scaleOrdinal(d3.schemeDark2);
 
         var element = document.getElementById('bubble');
         var positionInfo = element.getBoundingClientRect();
         var width = positionInfo.width;
 
         var bubble = d3.pack(data)
-            .size([width*1.2, diameter]);
+            .size([width * 1.2, diameter]);
 
         var svg = d3.select("#bubble")
             .attr("height", diameter)
@@ -270,7 +350,7 @@
             .style("opacity", 0)
             .attr("class", "tooltip")
             .style("background-color", "black")
-            .style('font-size','1.5rem')
+            .style('font-size', '1.5rem')
             .style("border-radius", "5px")
             .style("padding", "10px")
             .style("color", "white")
@@ -282,6 +362,7 @@
                 .html(d.data.id + " - " + d.data.Name + " - View: " + d.data.SoLuong)
                 .style("left", 0 + "px")
                 .style("top", 0 + "px")
+            d3.select(this).select('circle').style("fill", '#89f4e6');
         }
         var moveTooltip = function (d) {
             tooltip
@@ -292,6 +373,7 @@
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0)
+            d3.select(this).select('circle').style("fill", colorCircle(d3.select(this).attr('id')*1));
         }
 
         var node = svg.selectAll(".node")
@@ -302,6 +384,7 @@
             })
             .append("g")
             .attr("class", "node")
+            .attr("id", (d, i) => i)
             .attr("transform", function (d) {
                 return "translate(" + d.x + "," + d.y + ")";
             })
@@ -324,7 +407,7 @@
                 return d.r;
             })
             .style("fill", function (d, i) {
-                return color(i);
+                return colorCircle(i);
             });
         //name book
         node.append("text")
@@ -368,97 +451,176 @@
             .style("height", diameter + "px");
     </script>
     <script>
-        var w = document.getElementById('my_dataviz').offsetWidth;
-        // set the dimensions and margins of the graph
-        var margin = { top: 10, right: 50, bottom: 30, left: 50 },
-            width = w - margin.left - margin.right,
-            height = 420 - margin.top - margin.bottom;
 
-        // append the svg object to the body of the page
-        var svg = d3.select("#my_dataviz")
-            .append("svg")
+        var margin = { top: 20, right: 0, bottom: 30, left: 30 };
+        var element = document.getElementById('bubble');
+        var positionInfo = element.getBoundingClientRect();
+        var w = positionInfo.width;
+        w = (w > 500) ? 500 : 350;
+        var width = w - margin.left - margin.right;
+        var height = 500 - margin.top - margin.bottom;
+
+        var x0 = d3.scaleBand()
+            .range([0, width])
+            .round(0.1);
+
+        var x1 = d3.scaleBand();
+
+        var y = d3.scaleLinear()
+            .range([height, 0]);
+
+        var svg = d3.select('#bar').append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
-            .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        //Read the data
-        d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/4_ThreeNum.csv", function (data) {
+        var data;
+        $.ajax({
+            url: "/graph/GraphGroupBill",
+            type: "get",
+            async: false,
+            success: function (result) {
+                data = JSON.parse(result);
+            }
+        });
+        //get max value
+        maxValue = 1;
+        data.forEach(t => t.values.forEach(v => maxValue = v.value > maxValue ? v.value : maxValue))
 
-            // Add X axis
-            var x = d3.scaleLinear()
-                .domain([0, 10000])
-                .range([0, width]);
-            svg.append("g")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x));
+        var categoriesNames = data.map(function (d) { return d.month; });
+        var rateNames = [];
+        for (i = 0; i < data.length; i++) {
+            for (j = 0; j < data[i].values.length; j++) {
+                if (!rateNames.includes(data[i].values[j].rate))
+                    rateNames.push(data[i].values[j].rate)
+            }
+        }
 
-            // Add Y axis
-            var y = d3.scaleLinear()
-                .domain([35, 90])
-                .range([height, 0]);
-            svg.append("g")
-                .call(d3.axisLeft(y));
+        c = d3.schemeSet1;
 
-            // Add a scale for bubble size
-            var z = d3.scaleLinear()
-                .domain([200000, 1310000000])
-                .range([4, 40]);
+        x0.domain(categoriesNames);
+        x1.domain(rateNames).range([0, x0.bandwidth()]);
+        y.domain([0, d3.max(data, function (categorie) { return d3.max(categorie.values, function (d) { return d.value; }); })]);
 
-            // Add a scale for bubble color
-            var myColor = d3.scaleOrdinal()
-                .domain(["Asia", "Europe", "Americas", "Africa", "Oceania"])
-                .range(d3.schemeSet2);
+        var xAxis = d3.axisBottom(x0).tickSize(0);
+        var yAxis = d3.axisLeft(y).tickFormat(d3.format("d")).ticks(maxValue);
 
-            // -1- Create a tooltip div that is hidden by default:
-            var tooltip = d3.select("#my_dataviz")
-                .append("div")
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .style('opacity', '0')
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .style('font-weight', 'bold')
+            .text("Value");
+
+        svg.select('.y').transition().duration(500).delay(1300).style('opacity', '1');
+
+        var slice = svg.selectAll(".slice")
+            .data(data)
+            .enter().append("g")
+            .attr("class", "g")
+            .attr('id', (d) => d.month)
+            .attr('height', height)
+            .attr("transform", function (d) { return "translate(" + x0(d.month) + ", 0)"; });
+        ////////
+        var tooltipBar = d3.select("#bar")
+            .append("div")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "black")
+            .style('font-size', '1.5rem')
+            .style("border-radius", "5px")
+            .style("padding", "10px")
+            .style("color", "white");
+
+        var showTooltip = function (d) {
+            tooltipBar.transition()
+                .duration(200)
+            tooltipBar.style("opacity", 1)
+                .html('Tháng ' + d3.select(this.parentNode).attr('id') + ' - ' + d.rate + ': ' + d.value)
+                .style("left", 0 + "px")
+                .style("top", 0 + "px")
+            d3.select(this).style("fill", '#89f4e6');
+        }
+        var moveTooltip = function (d) {
+            tooltipBar
+                .style("left", 0 + "px")
+                .style("top", 0 + "px")
+        }
+        var hideTooltip = function (d) {
+            tooltipBar.transition()
+                .duration(200)
                 .style("opacity", 0)
-                .attr("class", "tooltip")
-                .style("background-color", "black")
-                .style("border-radius", "5px")
-                .style("padding", "10px")
-                .style("color", "white")
+            d3.select(this).style("fill", c[rateNames.indexOf(d.rate)]);
+        }
 
-            var showTooltip = function (d) {
-                tooltip.transition()
-                    .duration(200)
-                tooltip.style("opacity", 1)
-                    .html("Country: " + d.country)
-                    .style("left", (d3.mouse(this)[0] + 30) + "px")
-                    .style("top", (d3.mouse(this)[1] + 30) + "px")
-            }
-            var moveTooltip = function (d) {
-                tooltip
-                    .style("left", (d3.mouse(this)[0] + 30) + "px")
-                    .style("top", (d3.mouse(this)[1] + 30) + "px")
-            }
-            var hideTooltip = function (d) {
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", 0)
-            }
+        slice.selectAll("rect")
+            .data(function (d) { return d.values; })
+            .enter().append("rect")
+            .attr("width", x1.bandwidth())
+            .attr("x", function (d) { return x1(d.rate); })
+            .style("fill", function (d) { return c[rateNames.indexOf(d.rate)] })
+            .attr("y", function (d) { return y(0); })
+            .attr("height", function (d) { return height - y(0); })
+            .on("mouseover", showTooltip)
+            .on("mousemove", moveTooltip)
+            .on("mouseleave", hideTooltip);
 
-            // Add dots
-            svg.append('g')
-                .selectAll("dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "bubbles")
-                .attr("cx", function (d) { return x(d.gdpPercap); })
-                .attr("cy", function (d) { return y(d.lifeExp); })
-                .attr("r", function (d) { return z(d.pop); })
-                .style("fill", function (d) { return myColor(d.continent); })
-                // -3- Trigger the functions
-                .on("mouseover", showTooltip)
-                .on("mousemove", moveTooltip)
-                .on("mouseleave", hideTooltip)
+        slice.selectAll("rect")
+            .transition()
+            .delay(function (d) { return Math.random() * 1000; })
+            .duration(1000)
+            .attr("y", function (d) { return y(d.value); })
+            .attr("height", function (d) { return height - y(d.value); });
 
-        })
+        //ten
+        var legend = svg.selectAll(".legend")
+            .data(rateNames)
+            .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; })
+            .style("opacity", "0");
+
+        legend.append("rect")
+            .attr("x", width - 18)
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", function (d) { return c[rateNames.indexOf(d)] });
+
+        legend.append("text")
+            .attr("x", width - 24)
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(function (d) { return d; });
+
+        legend.transition().duration(500).delay(function (d, i) { return 1300 + 100 * i; }).style("opacity", "1");
+
+        var showTooltipName = function (d) {
+            tooltipBar.transition()
+                .duration(200)
+            tooltipBar.style("opacity", 1)
+                .html('Tháng ' + d + ': ' + data[data.map((e) => e.month).indexOf(d)].values.map((e) => e.value).reduce((sum, a) => sum + a, 0) + ' đơn')
+                .style("left", 0 + "px")
+                .style("top", 0 + "px")
+            d3.select(this).style("fill", '#89f4e6');
+        }
+
+        svg.select('.x').selectAll(".tick")
+            .on("mouseover", showTooltipName)
+            .on("mousemove", moveTooltip)
+            .on("mouseleave", hideTooltip);
     </script>
-
 </body>
 
 </html>

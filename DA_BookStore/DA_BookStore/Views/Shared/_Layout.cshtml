@@ -50,7 +50,7 @@
                     <!-- Logo -->
                     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                         <div class="navbar-header">
-                            <a href="~/Home/Home" class="navbar-brand">
+                            <a href="~/Home" class="navbar-brand">
                                 <img src="~/Image/logo.png" style="height: 200%; margin-left: -40px; margin-top: -10px;"
                                      title="Logo" alt="Logo" />
                             </a>
@@ -59,7 +59,7 @@
 
                     <!-- searching bar -->
                     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                        <form class="navbar-form navbar-left" action="~/Home/Search" method="get">
+                        <form class="navbar-form navbar-left" action="~/Search" method="get">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Nhập tên sách" name="search">
                             </div>
@@ -78,7 +78,7 @@
                     <!-- Giỏ hàng -->
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
-                        <a href="~/Cart/Cart" class="navbar-brand">
+                        <a href="~/Cart" class="navbar-brand">
                             <div style="float: left;"><i class="fas fa-cart-plus"></i></div>
                             <div style="float:right; font-size: 1.3rem; margin: 0px 0px 0px 10px;">Giỏ hàng</div>
                         </a>
@@ -101,9 +101,10 @@
                                     <div style="float:right; font-size: 1.3rem; margin: 0px 0px 0px 10px;">@Session["userName"]</div>
                                 </div>
                                 <div class="dropdown-content">
-                                    <a href="~/Account/Account?id=@Session["userID"]">Xem thông tin cá nhân</a>
+                                    <a href="~/Account?id=@Session["userID"]">Xem thông tin cá nhân</a>
                                     @if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
                                     {
+                                        <a href="~/Graph">Graph</a>
                                         <a href="~/Account/AccountManage">Quản lý thành viên</a>
                                         <a href="~/Book/BookManage">Quản lý sách</a>
                                         <a href="~/QuangCao/QuangCaoManage">Quản lý quảng cáo</a>
@@ -134,7 +135,7 @@
                                 {
                                     if (tl.HienThiTL)
                                     {
-                                        <a href="~/Home/Search?search=@tl.MaTheLoai&index=0&tl=true">@tl.TenTheLoai</a>
+                                        <a href="~/Search?search=@tl.MaTheLoai&index=0&tl=true">@tl.TenTheLoai</a>
                                     }
                                 }
                             </div>

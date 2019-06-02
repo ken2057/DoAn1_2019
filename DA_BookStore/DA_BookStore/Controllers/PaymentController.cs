@@ -88,15 +88,17 @@ namespace DA_BookStore.Controllers
                 if (flag == false)
                 {
                     var countSL = (from c in db.HOADONMUAHANGs select c.MaHDMua).ToList();
-                    HOADONMUAHANG hOADONMUAHANG = new HOADONMUAHANG();
-                    hOADONMUAHANG.MaHDMua = "HD" + countSL.Count;
-                    hOADONMUAHANG.ThoiGianMua = DateTime.Now;
-                    hOADONMUAHANG.TenTaiKhoan = tenTaiKhoan;
+                    HOADONMUAHANG hd = new HOADONMUAHANG();
+                    hd.MaHDMua = "HD" + countSL.Count;
+                    hd.ThoiGianMua = DateTime.Now;
+                    hd.TenTaiKhoan = tenTaiKhoan;
+                    hd.TinhTrangThanhToan = "Chua";
+
                     if (codePromote != null)
                     {
-                        hOADONMUAHANG.CODE = codePromote;
+                        hd.CODE = codePromote;
                     }
-                    db.HOADONMUAHANGs.Add(hOADONMUAHANG);
+                    db.HOADONMUAHANGs.Add(hd);
 
 
                     int? tongTien = 0;
@@ -105,17 +107,17 @@ namespace DA_BookStore.Controllers
                        var sachTemp = db.SACHes.Find(item.MaSach);
                         sachTemp.SoLuongTon -= item.SoLuongGioHang;
 
-                        CTHOADONMUAHANG cTHOADONMUAHANG = new CTHOADONMUAHANG();
-                        cTHOADONMUAHANG.MaSach = item.MaSach;
-                        cTHOADONMUAHANG.MaHDMua = hOADONMUAHANG.MaHDMua;
-                        cTHOADONMUAHANG.SoLuongMua = item.SoLuongGioHang;
-                        cTHOADONMUAHANG.GiaHienHanh = item.SoLuongGioHang * sachTemp.GiaBan;
-                        tongTien += cTHOADONMUAHANG.GiaHienHanh;
-                        db.CTHOADONMUAHANGs.Add(cTHOADONMUAHANG);
+                        CTHOADONMUAHANG ctHD = new CTHOADONMUAHANG();
+                        ctHD.MaSach = item.MaSach;
+                        ctHD.MaHDMua = hd.MaHDMua;
+                        ctHD.SoLuongMua = item.SoLuongGioHang;
+                        ctHD.GiaHienHanh = item.SoLuongGioHang * sachTemp.GiaBan;
+                        tongTien += ctHD.GiaHienHanh;
+                        db.CTHOADONMUAHANGs.Add(ctHD);
                     }
 
                     var queryCode = db.PROMOCODEs.Find(codePromote);
-                    var hdmua = db.HOADONMUAHANGs.Find(hOADONMUAHANG.MaHDMua);
+                    var hdmua = db.HOADONMUAHANGs.Find(hd.MaHDMua);
                     hdmua.TongTien = tongTien - queryCode.SoTienGiam;
                     a = hdmua.TongTien;
                     foreach (var item in sql)
