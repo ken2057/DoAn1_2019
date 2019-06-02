@@ -20,12 +20,10 @@ namespace DA_BookStore.Controllers
             return View();
         }
 
-        
-
         public ActionResult Logout()
         {
             Session.Clear();
-            return RedirectToAction("Home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -45,7 +43,7 @@ namespace DA_BookStore.Controllers
             //    db.Entry(ct).State = EntityState.Deleted;
             //    db.SaveChanges();
             //}
-            return RedirectToAction("Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

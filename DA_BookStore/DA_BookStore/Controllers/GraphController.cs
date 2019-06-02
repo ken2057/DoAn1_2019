@@ -21,7 +21,7 @@ namespace DA_BookStore.Controllers
                 }
                 return View();
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public string GraphPromo(int day = 30)

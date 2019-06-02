@@ -53,7 +53,7 @@ namespace DA_BookStore.Controllers
                     }
                 }
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
         //Get: DangKy
         [HttpGet]
@@ -103,7 +103,6 @@ namespace DA_BookStore.Controllers
                         ViewBag.MailError = "Nhập đúng định đạng ***@gmal.com";
                         return View("SignUp");
                     }
-
 
                     var temp1 = db.TAIKHOANs.Find(email);
                     if (temp1 == null)
