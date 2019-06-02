@@ -159,7 +159,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\QuangCaoController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
