@@ -226,8 +226,13 @@ namespace DA_BookStore.Controllers
         {
             using (var db = new Models.BookStore())
             {
-                Models.QUANGCAO banner = db.QUANGCAOs.Where(i => i.ViTriQuangCao == "vitri0").First();
-                return banner.HinhQC.ToString();
+                int count = db.QUANGCAOs.Where(i => i.ViTriQuangCao == "vitri0").Count();
+                if (count > 0)
+                {
+                    Models.QUANGCAO banner = db.QUANGCAOs.Where(i => i.ViTriQuangCao == "vitri0").First();
+                    return banner.HinhQC.ToString();
+                }
+                return "Image/banner.png";
             }
         }
     }

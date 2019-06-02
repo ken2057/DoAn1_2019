@@ -33,10 +33,10 @@
                 async: false,
                 success: function (result) {
                     linkImg = result;
+                    document.getElementById('banner')
+                    .src = '/' + linkImg;
                 }
-            });
-            banner = document.getElementById('banner')
-            banner.src = '/' + linkImg;
+                });
         </script>
     </div>
 
