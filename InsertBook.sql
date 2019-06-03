@@ -6,11 +6,11 @@ insert into PROMOCODE values
 ('16DH110119','1/1/2019','1/1/2020',1000000);
 
 insert into KHUYENMAI values
-('KM00000001',N'Giảm 10%','1/1/2019','1/1/2020',10,1),
-('KM00000002',N'Giảm 20%','1/1/2019','1/1/2020',20,1),
-('KM00000003',N'Giảm 30%','1/1/2019','1/1/2020',30,1),
-('KM00000004',N'Giảm 40%','1/1/2019','1/1/2020',40,1),
-('KM00000005',N'Giảm 50%','1/1/2019','1/1/2020',50,1);
+('KM00000001',N'Giảm 10%','2019/5/1','2019/6/30',10,1),
+('KM00000002',N'Giảm 20%','2019/6/1','2019/6/20',20,1),
+('KM00000003',N'Giảm 30%','2019/5/20','2019/5/31',30,1),
+('KM00000004',N'Giảm 40%','2019/6/2','2019/6/10',40,1),
+('KM00000005',N'Giảm 50%','2019/6/28','2019/6/29',50,1);
 
 insert into NHAXUATBAN values
 ('NXB0000001','Nhà Xuất Bản Trẻ',1),
@@ -46,7 +46,7 @@ insert into TAIKHOAN values
 
 insert into nhanvien values('nguyenduy','Admin', 1);
 
-insert into QUANGCAO values ('QC00000001','quang cao a',null,'Image/QuangCao/66934858_p0.jpg','2019/06/01','2019-06-02','a','0123456789','a@gmail.com','A',0,'vitri0');
+insert into QUANGCAO values ('QC00000001','quang cao a',null,'Image/QuangCao/66934858_p0.jpg','2019/06/01','2019-06-02','a','0123456789','a@gmail.com','A',1,'vitri0');
 
 insert into CTGIOHANG values
 ('S000000001','phatnghi',1),
@@ -64,8 +64,11 @@ insert into HOADONMUAHANG values
 ('HD00000002','Xong','2019-1-7','phatnghi', 250000, null),
 ('HD00000003','Chua','2019-1-8','thanhhieu', 70000, null),
 ('HD00000004','Xong','2019-1-10','congquang', 50000, null),
-('HD00000005','Chua',GETDATE(),'duyhau', 2500000, null),
-('HD00000006','Xong',GETDATE(),'duyhau', 1000000, null)
+('HD00000005','Chua','2019-3-2','duyhau', 2500000, null),
+('HD00000006','Xong','2019-3-15','duyhau', 1000000, null),
+('HD00000007','Van chuyen',GETDATE(),'duyhau', 1000000, null),
+('HD00000008','Chua',GETDATE(),'duyhau', 2500000, null),
+('HD00000009','Xong',GETDATE(),'duyhau', 1000000, null)
 
 insert into CTHOADONMUAHANG values
 ('S000000001','HD00000001', 1, 50000),

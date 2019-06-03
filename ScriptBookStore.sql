@@ -1,6 +1,6 @@
 use master
 go
-drop database if exists QLBookStore
+drop database QLBookStore
 go
 create database QLBookStore
 go
