@@ -1,6 +1,6 @@
 use master
 go
-drop database if exists QLBookStore
+drop database QLBookStore
 go
 create database QLBookStore
 go
@@ -115,3 +115,5 @@ Create table CTGIOHANG (
 	SoLuongGioHang Smallint NULL,
 	primary key (MaSach, TenTaiKhoan)
 )
+
+alter table QUANGCAO add ViTriQuangCao varchar(100) null
