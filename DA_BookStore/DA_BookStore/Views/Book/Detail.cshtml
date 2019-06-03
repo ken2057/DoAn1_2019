@@ -66,13 +66,50 @@
                                         version: 'v3.3'
                                     });
                                     FB.login(function (response) {
-                                        FB.api(
-                                            '/me', 'POST',
-                                            { "message":"Awesome!" },
-                                            function (response) {
-                                                console.log(response);
-                                            }
-                                        );
+                                        var data =
+                                        {
+                                            method: 'stream.publish',
+                                            message: "Posted using FB.ui and picture.",
+                                            display: 'iframe',
+                                            caption: "Caption",
+                                            name: "Name",
+                                            picture: 'https://www.permadi.com/tutorial/permadi.png',
+                                            link: "https://www.permadi.com/",  // Go here if user click the picture
+                                            description: "Description field",
+                                            actions: [{ name: 'action_links text!', link: 'https://www.permadi.com' }],
+                                        }
+                                        FB.ui(data, onPostToWallCompleted);
+
+                                        //var img = "https://scontent.fsgn5-6.fna.fbcdn.net/v/t1.0-9/61176848_1805619692926611_1084168058974502912_o.jpg?_nc_cat=1&_nc_eui2=AeEHCr30YuJ0a_6yltUY_hcsAwjwnIzSaMa0JhPIlCwgTEp4jsqPpANQqS7VgXKAxHxhRf9iKJN2HM_y28BrXAZrseQh-3detgsmHMyznRCaPw&_nc_oc=AQkaB5lxpBZYA0IXWx9lVInyVbvtEiHFduj6hiHhGIW2ABSVvISq734ArosiZ5FCfsM&_nc_ht=scontent.fsgn5-6.fna&oh=2cc1bf27c2e832ae02e8aa72b8f29d9a&oe=5D9B918A";
+                                        //var desc = "your caption here";
+                                        //var title = 'your title here';
+                                        //var link = 'https://iamngh.wordpress.com/';
+                                        //FB.ui({
+                                        //    method: 'share_open_graph',
+                                        //    action_type: 'og.shares',
+                                        //    action_properties: JSON.stringify({
+                                        //        object: {
+                                        //            'og:url': link,
+                                        //            'og:title': title,
+                                        //            'og:description': desc,
+                                        //            'og:image': img
+                                        //        }
+                                        //    })
+                                        //}, function (response) {
+                                        //    console.log(response);
+                                        //});
+
+
+
+
+
+                                        //FB.api(
+                                        //    '/feed', 'POST',
+                                        //    { "message":"Awesome!" },
+                                        //    function (response) {
+                                        //        console.log(response);
+                                        //    }
+                                        //);
                                         console.log("flag 3");
                                     }, { scope: 'user_likes,user_photos,user_link,user_posts,user_friends' });
 
