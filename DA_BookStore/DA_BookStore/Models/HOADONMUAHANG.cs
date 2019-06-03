@@ -31,9 +31,14 @@ namespace DA_BookStore.Models
 
         public int? TongTien { get; set; }
 
+        [StringLength(10)]
+        public string CODE { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTHOADONMUAHANG> CTHOADONMUAHANGs { get; set; }
 
         public virtual TAIKHOAN TAIKHOAN { get; set; }
+
+        public virtual PROMOCODE PROMOCODE { get; set; }
     }
 }

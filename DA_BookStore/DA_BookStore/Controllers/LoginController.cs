@@ -43,11 +43,17 @@ namespace DA_BookStore.Controllers
                         Session["userName"] = tk.HoTen.ToString();
                         Models.NHANVIEN nv = db.NHANVIENs.Find(tk.TenTaiKhoan.ToString());
                         if (nv != null && nv.HienThiNV == true)
+                        {
                             Session["userPrio"] = nv.ChucVuNV;
+                            if(nv.ChucVuNV == "Admin")
+                            {
+                                return RedirectToAction("Index", "Graph");
+                            }
+                        }
                     }
                 }
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
         //Get: DangKy
         [HttpGet]
@@ -97,7 +103,6 @@ namespace DA_BookStore.Controllers
                         ViewBag.MailError = "Nhập đúng định đạng ***@gmal.com";
                         return View("SignUp");
                     }
-
 
                     var temp1 = db.TAIKHOANs.Find(email);
                     if (temp1 == null)

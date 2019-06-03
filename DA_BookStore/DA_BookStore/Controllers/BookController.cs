@@ -28,7 +28,7 @@ namespace DA_BookStore.Controllers
                     ViewBag.Sach = s;
 
                     if (s.HienThiS == false)
-                        return RedirectToAction("Home","Home");
+                        return RedirectToAction("Index", "Home");
 
                     Models.KHUYENMAI km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == s.MaKhuyenMai).FirstOrDefault();
                     if (km != null)
@@ -45,6 +45,8 @@ namespace DA_BookStore.Controllers
                         db.CTXEMSACHes.Add(new Models.CTXEMSACH() { MaSach = id, TenTaiKhoan = Session["userID"].ToString(), NgayXemSach = DateTime.Now });
                         db.SaveChanges();
                     }
+                    s.SoLanTruyCap += 1;
+                    db.SaveChanges();
                 }
             }
             catch {}
@@ -98,7 +100,7 @@ namespace DA_BookStore.Controllers
 	            Session["bookEdit"] = null;
 	            return RedirectToAction("Detail","Book", new { id = Session["BookID"].ToString() });
 	        }
-	        return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult BookEdit(string id)
@@ -108,7 +110,7 @@ namespace DA_BookStore.Controllers
                 Session["bookEdit"] = "sua";
                 return RedirectToAction("Detail", "Book", new { id = id });
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult BookDelete(string id)
@@ -124,7 +126,7 @@ namespace DA_BookStore.Controllers
                 }
                 return RedirectToAction("BookManage", "Book");
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -142,7 +144,7 @@ namespace DA_BookStore.Controllers
 
                 return View();
             }
-            return RedirectToAction("Home","Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public ActionResult BookManage(string id, int index)
@@ -159,7 +161,7 @@ namespace DA_BookStore.Controllers
 
                 return View();
             }
-            return RedirectToAction("Home","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -174,7 +176,7 @@ namespace DA_BookStore.Controllers
 
                 return View();
             }
-            return RedirectToAction("Home","Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public ActionResult AddBook(string tenSach, string tacGia, string sku, string giaBan, string gioiThieuSach, HttpPostedFileBase hinh, string tl1, string tl2, string tl3, string soLuong)
@@ -229,7 +231,7 @@ namespace DA_BookStore.Controllers
                     return RedirectToAction("Detail", "Book", new { id = maSach });
                 }
             }
-            return RedirectToAction("Home");
+            return RedirectToAction("Index", "Home");
         }
 
     }

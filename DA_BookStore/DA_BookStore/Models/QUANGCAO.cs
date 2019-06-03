@@ -41,5 +41,8 @@ namespace DA_BookStore.Models
         public string LoaiQC { get; set; }
 
         public bool? HienThiQC { get; set; }
+
+        [StringLength(100)]
+        public string ViTriQuangCao { get; set; } 
     }
 }

@@ -43,7 +43,7 @@ namespace DA_BookStore.Controllers
             return RedirectToAction("Home", "Home");
         }
         [HttpGet]
-        public ActionResult Cart()
+        public ActionResult Index()
         {
             if (Session["userID"] == null)
                 return RedirectToAction("Login", "Login");
@@ -85,7 +85,7 @@ namespace DA_BookStore.Controllers
         [HttpPost]
         public ActionResult Cart(string id)
         {
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public ActionResult DeleteItemCart()
