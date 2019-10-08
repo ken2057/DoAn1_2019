@@ -8,7 +8,7 @@ namespace DA_BookStore.Models
     public partial class BookStore : DbContext
     {
         public BookStore()
-            : base("name=BookStore")
+            : base("name=QLBookStore")
         {
         }
 

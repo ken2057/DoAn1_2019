@@ -40,7 +40,7 @@ namespace DA_BookStore.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public ActionResult Index()
@@ -61,20 +61,31 @@ namespace DA_BookStore.Controllers
                             select new { s.HinhSach, s.TenSach, gh.SoLuongGioHang, s.MaSach, s.MaKhuyenMai, s.GiaBan };
 
                 List<Models.CTGIOHANGViewModel> ctgh = new List<Models.CTGIOHANGViewModel>();
-                Models.KHUYENMAI km = new Models.KHUYENMAI();
-
+                Models.KHUYENMAI km;
 
                 foreach (var item in query)
                 {
                     Models.CTGIOHANGViewModel cttemp = new Models.CTGIOHANGViewModel();
+                    km = new Models.KHUYENMAI();
                     cttemp.HinhSach = item.HinhSach;
                     cttemp.TenSach = item.TenSach;
                     cttemp.SoLuongGioHang = item.SoLuongGioHang;
                     cttemp.MaSach = item.MaSach;
-                    km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == item.MaKhuyenMai).FirstOrDefault();
-                    cttemp.GiaBan = item.GiaBan * item.SoLuongGioHang * ((100 - km.PhanTramKhuyenMai) * 0.01);
-                    cttemp.TietKiem = item.GiaBan * item.SoLuongGioHang * (km.PhanTramKhuyenMai * 0.01);
-                    ctgh.Add(cttemp);
+                    using (var dbtemp = new Models.BookStore())
+                    {
+                        km = dbtemp.KHUYENMAIs.Where(t => t.MaKhuyenMai == item.MaKhuyenMai).FirstOrDefault();
+                        if(km != null)
+                        {
+                            cttemp.GiaBan = item.GiaBan * item.SoLuongGioHang * ((100 - km.PhanTramKhuyenMai) * 0.01);
+                            cttemp.TietKiem = item.GiaBan * item.SoLuongGioHang * (km.PhanTramKhuyenMai * 0.01);
+                        }
+                        else
+                        {
+                            cttemp.GiaBan = item.GiaBan * item.SoLuongGioHang;
+                            cttemp.TietKiem = item.GiaBan * item.SoLuongGioHang;
+                        }
+                    }
+                        ctgh.Add(cttemp);
                 }
 
                 ViewBag.DsCTGH = ctgh;
