@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Stripe;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -19,7 +21,7 @@ namespace DA_BookStore
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
+            StripeConfiguration.SetApiKey(ConfigurationManager.AppSettings["sk_test_pjJs0AKxdtddiHglxP8XjNcn00jtLL0EHr"]);
         }
     }
 }

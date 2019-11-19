@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DA_BookStore.Models;
+using Newtonsoft.Json;
 
 namespace DA_BookStore.Controllers.API
 {
@@ -24,15 +25,25 @@ namespace DA_BookStore.Controllers.API
 
         // GET: api/PROMOCODEs/5
         [ResponseType(typeof(PROMOCODE))]
+        //public IHttpActionResult GetPROMOCODE(string id)
+        //{
+        //    PROMOCODE pROMOCODE = db.PROMOCODEs.Find(id);
+
+        //    if (pROMOCODE == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(pROMOCODE);
+        //}
         public IHttpActionResult GetPROMOCODE(string id)
         {
             PROMOCODE pROMOCODE = db.PROMOCODEs.Find(id);
+
             if (pROMOCODE == null)
             {
                 return NotFound();
             }
-
-            return Ok(pROMOCODE);
+            return Ok(new Dictionary<string, string>() { { "CODE", pROMOCODE.CODE }, { "SoTienGiam", pROMOCODE.SoTienGiam.ToString() } });
         }
 
         // PUT: api/PROMOCODEs/5

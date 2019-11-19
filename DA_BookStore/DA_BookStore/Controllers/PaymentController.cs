@@ -1,6 +1,9 @@
 ﻿using DA_BookStore.Models;
+using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,8 +39,14 @@ namespace DA_BookStore.Controllers
 
                     foreach (var item in query)
                     {
-                        km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == item.MaKhuyenMai).FirstOrDefault();
-                        tamTinh += item.GiaBan * item.SoLuongGioHang * ((100 - km.PhanTramKhuyenMai) * 0.01);
+                        using (var db2 = new BookStore())
+                        {
+                            km = db2.KHUYENMAIs.Where(t => t.MaKhuyenMai == item.MaKhuyenMai).FirstOrDefault();
+                        }
+                        if (km != null)
+                            tamTinh += item.GiaBan * item.SoLuongGioHang * ((100 - km.PhanTramKhuyenMai) * 0.01);
+                        else
+                            tamTinh += item.GiaBan * item.SoLuongGioHang;
                     }
 
                     ViewBag.TamTinh = string.Format("{0:0,0}", tamTinh);
@@ -52,7 +61,7 @@ namespace DA_BookStore.Controllers
             return View();
         }
         [HttpPost]
-        public string Payment(string name, string address, string phonenumber, string email, string note, string codePromote)
+        public ActionResult Payment(string name, string address, string phonenumber, string email, string note, string codePromote)
         {
             ViewBag.HoTen = name;
             ViewBag.DiaChi = address;
@@ -118,7 +127,9 @@ namespace DA_BookStore.Controllers
 
                     var queryCode = db.PROMOCODEs.Find(codePromote);
                     var hdmua = db.HOADONMUAHANGs.Find(hd.MaHDMua);
-                    hdmua.TongTien = tongTien - queryCode.SoTienGiam;
+                    hdmua.TongTien = queryCode != null ?
+                         tongTien - queryCode.SoTienGiam :
+                         tongTien;
                     a = hdmua.TongTien;
                     foreach (var item in sql)
                     {
@@ -131,7 +142,21 @@ namespace DA_BookStore.Controllers
 
             }
 
-            return name +" Đã hoang phí "+a+"₫";
+            return RedirectToAction("Charge", "Payment");
+        }
+        [HttpGet]
+        public ActionResult Index()
+        {
+            var stripePublishKey = ConfigurationManager.AppSettings["sk_test_pjJs0AKxdtddiHglxP8XjNcn00jtLL0EHr"];
+            ViewBag.StripePublishKey = stripePublishKey;
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Charge()
+        {
+            var stripePublishKey = ConfigurationManager.AppSettings["sk_test_pjJs0AKxdtddiHglxP8XjNcn00jtLL0EHr"];
+            ViewBag.StripePublishKey = stripePublishKey;
+            return View();
         }
     }
 }
