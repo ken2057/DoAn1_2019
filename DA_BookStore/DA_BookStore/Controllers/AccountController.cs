@@ -43,6 +43,7 @@ namespace DA_BookStore.Controllers
         [HttpPost]
         public ActionResult UpdateAccountDetail(string id, string pass, string name, string email, string sdt, string sex, string rePass, string prio = "")
         {
+            var isAdmin = false;
             using (var db = new Models.BookStore())
             {
                 if (rePass != pass && pass != "")
@@ -81,6 +82,7 @@ namespace DA_BookStore.Controllers
                             db.Entry(nv).State = System.Data.Entity.EntityState.Modified;
                             db.SaveChanges();
                         }
+                        isAdmin = true;
                     }
                 }
                 else
@@ -101,6 +103,8 @@ namespace DA_BookStore.Controllers
                 ViewBag.DsTL = db.THELOAIs.ToList();
                 ViewBag.TK = tk;
             }
+            if (isAdmin)
+                return RedirectToAction("AccountManage", "Account");
 
             return RedirectToAction("Index", "Account");
         }

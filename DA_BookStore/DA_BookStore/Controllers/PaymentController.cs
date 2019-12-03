@@ -103,7 +103,10 @@ namespace DA_BookStore.Controllers
                     hd.TenTaiKhoan = tenTaiKhoan;
                     hd.TinhTrangThanhToan = "Chua";
 
-                    if (codePromote != null)
+
+                    var queryCode = db.PROMOCODEs.Find(codePromote);
+
+                    if (queryCode != null)
                     {
                         hd.CODE = codePromote;
                     }
@@ -125,7 +128,7 @@ namespace DA_BookStore.Controllers
                         db.CTHOADONMUAHANGs.Add(ctHD);
                     }
 
-                    var queryCode = db.PROMOCODEs.Find(codePromote);
+                    
                     var hdmua = db.HOADONMUAHANGs.Find(hd.MaHDMua);
                     hdmua.TongTien = queryCode != null ?
                          tongTien - queryCode.SoTienGiam :

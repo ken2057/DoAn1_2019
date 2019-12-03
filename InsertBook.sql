@@ -6,11 +6,11 @@ insert into PROMOCODE values
 ('16DH110119','1/1/2019','1/1/2020',1000000);
 
 insert into KHUYENMAI values
-('KM00000001',N'Giảm 10%','2019/5/1','2019/6/30',10,1),
-('KM00000002',N'Giảm 20%','2019/6/1','2019/6/20',20,1),
-('KM00000003',N'Giảm 30%','2019/5/20','2019/5/31',30,1),
-('KM00000004',N'Giảm 40%','2019/6/2','2019/6/10',40,1),
-('KM00000005',N'Giảm 50%','2019/6/28','2019/6/29',50,1);
+('KM00000001',N'Giảm 10%', dateadd(day, -10, getdate()), dateadd(day, 50, getdate()), 10, 1),
+('KM00000002',N'Giảm 20%', dateadd(day, -15, getdate()), dateadd(day, 30, getdate()), 20, 1),
+('KM00000003',N'Giảm 30%', dateadd(day, -20, getdate()), dateadd(day, 30, getdate()), 12, 1),
+('KM00000004',N'Giảm 40%', dateadd(day, -25, getdate()), dateadd(day, 20, getdate()), 15, 1),
+('KM00000005',N'Giảm 50%', dateadd(day, -29, getdate()), dateadd(day, 10, getdate()), 16, 1);
 
 insert into NHAXUATBAN values
 ('NXB0000001','Nhà Xuất Bản Trẻ',1),
