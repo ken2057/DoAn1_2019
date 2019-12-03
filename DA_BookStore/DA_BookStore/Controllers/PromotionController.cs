@@ -9,6 +9,22 @@ namespace DA_BookStore.Controllers
     public class PromotionController : Controller
     {
         [HttpGet]
+        public ActionResult DetailPromotion(string id)
+        {
+            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            {
+                using (var db = new Models.BookStore())
+                {
+                    ViewBag.DsSachDeal = db.SACHes.Where(t => t.KHUYENMAI.NgayKetThuc > DateTime.Now && t.HienThiS == true).Take(5).ToList();
+                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsQC = db.QUANGCAOs.ToList();
+                    ViewBag.KhuyenMai = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == id).FirstOrDefault();
+                }
+                
+                return View();
+            }
+            return RedirectToAction("Home", "Home");
+        }
         public ActionResult PromotionManage(int index = 0)
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
