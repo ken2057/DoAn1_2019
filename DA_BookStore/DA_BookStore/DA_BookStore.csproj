@@ -197,15 +197,16 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\CTGIOHANGsController.cs" />
-    <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\API\PROMOCODEsController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\GraphController.cs" />
+    <Compile Include="Controllers\HoaDonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PromotionController.cs" />
     <Compile Include="Controllers\QuangCaoController.cs" />
-    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -214,6 +215,7 @@
     <Compile Include="Models\CTGIOHANG.cs" />
     <Compile Include="Models\CTHOADONMUAHANG.cs" />
     <Compile Include="Models\CTXEMSACH.cs" />
+    <Compile Include="Models\HangTaiKhoan.cs" />
     <Compile Include="Models\HOADONMUAHANG.cs" />
     <Compile Include="Models\KHUYENMAI.cs" />
     <Compile Include="Models\NHANVIEN.cs" />
@@ -226,8 +228,10 @@
     <Compile Include="Models\Temp\CTGioHangViewModel.cs" />
     <Compile Include="Models\Temp\GroupCusView.cs" />
     <Compile Include="Models\Temp\HistoryView.cs" />
+    <Compile Include="Models\Temp\LoaiTK.cs" />
     <Compile Include="Models\Temp\PromotionView.cs" />
     <Compile Include="Models\THELOAI.cs" />
+    <Compile Include="Models\ThongTinKhachHangMua.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -323,9 +327,12 @@
     <Content Include="Views\Promotion\DetailPromotion.cshtml" />
     <Content Include="Views\Promotion\PromotionManage.cshtml" />
     <Content Include="Views\Payment\Charge.cshtml" />
+    <Content Include="Views\HoaDon\Index.cshtml" />
+    <Content Include="Views\HoaDon\AccountHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Image\QuangCao\" />
     <Folder Include="Views\Views\" />
   </ItemGroup>
   <ItemGroup>

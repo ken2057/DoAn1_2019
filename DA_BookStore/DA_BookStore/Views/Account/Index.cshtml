@@ -29,93 +29,96 @@
                 <div class="RegBox">
                     <h2 id="reg">Account Member</h2>
                     @*<form action="~/Account/Account" method="post">*@
-                        @using (Html.BeginForm("UpdateAccountDetail", "Account", FormMethod.Post))
+                    @using (Html.BeginForm("UpdateAccountDetail", "Account", FormMethod.Post))
+                    {
+                        <p>UserName</p>
+                        <input type="text" name="id" id="id" readonly value="@ViewBag.TK.TenTaiKhoan">
+                        <p>Loại tài khoản</p>
+                        <input type="text" name="loaiTK" id="loaiTK" readonly value="@ViewBag.LoaiTK">
+
+                        <p>Mật khẩu</p>
+                        <input type="password" name="pass" id="pass" placeholder="•••••••••••">
+                        <p>Nhập lại mật khẩu</p>
+                        <input type="password" id="rePass" name="rePass" placeholder="•••••••••••">
+                        if (ViewBag.error != null)
                         {
-                            <p>UserName</p>
-                            <input type="text" name="id" id="id" readonly value="@ViewBag.TK.TenTaiKhoan">
-                            <p>Mật khẩu</p>
-                            <input type="password" name="pass" id="pass" placeholder="•••••••••••">
-                            <p>Nhập lại mật khẩu</p>
-                            <input type="password" id="rePass" name="rePass" placeholder="•••••••••••">
-                            if (ViewBag.error != null)
-                            {
-                                <p>@ViewBag.error</p>
-                            }
-                            <p>Họ và tên</p>
-                            <input type="text" name="name" id="name" value="@ViewBag.TK.HoTen">
-                            <p>Email</p>
-                            <input type="text" name="email" id="email" value="@ViewBag.TK.Email">
-                            <p>Số điện thoại</p>
-                            <input type="text" name="sdt" id="sdt" value="@ViewBag.TK.Sdt">
-                            <p>Địa chỉ</p>
-                            <input type="text" name="diaChi" id="diaChi" value="@ViewBag.TK.DiaChi">
-                            <div>
-                                <p style="display:inline-block">Giới tính</p>
-                                <select id="sex" name="sex">
-                                    @if (ViewBag.TK.GioiTinh)
-                                    {
-                                        <option value="Nam" selected>Nam</option>
-                                        <option value="Nữ">Nữ</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="Nam">Nam</option>
-                                        <option value="Nữ" selected>Nữ</option>
-                                    }
-                                </select>
-                            </div>
-                            <div>
-                                @if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin" && ViewBag.editMode == 1)
+                            <p>@ViewBag.error</p>
+                        }
+                        <p>Họ và tên</p>
+                        <input type="text" name="name" id="name" value="@ViewBag.TK.HoTen">
+                        <p>Email</p>
+                        <input type="text" name="email" id="email" value="@ViewBag.TK.Email">
+                        <p>Số điện thoại</p>
+                        <input type="text" name="sdt" id="sdt" value="@ViewBag.TK.Sdt">
+                        <p>Địa chỉ</p>
+                        <input type="text" name="diaChi" id="diaChi" value="@ViewBag.TK.DiaChi">
+                        <div>
+                            <p style="display:inline-block">Giới tính</p>
+                            <select id="sex" name="sex">
+                                @if (ViewBag.TK.GioiTinh)
                                 {
-                                    <div>
-                                        <p style="display:inline-block">Quyền</p>
-                                        @ViewBag.tkPrio
-                                        <select id="prio" name="prio">
-                                            @if (ViewBag.tkPrio == null)
-                                            {
-                                                <option value="" selected>Khách hàng</option>
-                                                <option value="Manager">Quản lý</option>
-                                                <option value="Admin">Admin</option>
-                                            }
-                                            else if (ViewBag.tkPrio == "QuanLy")
-                                            {
-                                                <option value="">Khách hàng</option>
-                                                <option value="Manager" selected>Quản lý</option>
-                                                <option value="Admin">Admin</option>
-                                            }
-                                            else if (ViewBag.tkPrio == "Admin")
-                                            {
-                                                <option value="">Khách hàng</option>
-                                                <option value="Manager">Quản lý</option>
-                                                <option value="Admin" selected>Admin</option>
-                                            }
-                                        </select>
-                                    </div>
-                                }
-                                @if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin" && ViewBag.editMode == 1)
-                                {
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <input id="submit" type="submit" name="" value="Cập nhật" />
-                                        </div>
-                                        <div class="col-md-6" style="margin-top: 12px;">
-                                            <a class="btnXoa" href="@Url.Action("DeleteAccount","Account", new {id= ViewBag.TK.TenTaiKhoan })">Xoá</a>
-                                        </div>
-                                    </div>
+                                    <option value="Nam" selected>Nam</option>
+                                    <option value="Nữ">Nữ</option>
                                 }
                                 else
                                 {
-                                    <div class="row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-6">
-                                            <input id="submit" type="submit" name="" value="Cập nhật">
-                                        </div>
-                                        <div class="col-md-3"></div>
-                                    </div>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ" selected>Nữ</option>
                                 }
-                            </div>
+                            </select>
+                        </div>
+                        <div>
+                            @if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin" && ViewBag.editMode == 1)
+                            {
+                                <div>
+                                    <p style="display:inline-block">Quyền</p>
+                                    @ViewBag.tkPrio
+                                    <select id="prio" name="prio">
+                                        @if (ViewBag.tkPrio == null)
+                                        {
+                                            <option value="" selected>Khách hàng</option>
+                                            <option value="Manager">Quản lý</option>
+                                            <option value="Admin">Admin</option>
+                                        }
+                                        else if (ViewBag.tkPrio == "QuanLy")
+                                        {
+                                            <option value="">Khách hàng</option>
+                                            <option value="Manager" selected>Quản lý</option>
+                                            <option value="Admin">Admin</option>
+                                        }
+                                        else if (ViewBag.tkPrio == "Admin")
+                                        {
+                                            <option value="">Khách hàng</option>
+                                            <option value="Manager">Quản lý</option>
+                                            <option value="Admin" selected>Admin</option>
+                                        }
+                                    </select>
+                                </div>
+                            }
+                            @if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin" && ViewBag.editMode == 1)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input id="submit" type="submit" name="" value="Cập nhật" />
+                                    </div>
+                                    <div class="col-md-6" style="margin-top: 12px;">
+                                        <a class="btnXoa" href="@Url.Action("DeleteAccount","Account", new {id= ViewBag.TK.TenTaiKhoan })">Xoá</a>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6">
+                                        <input id="submit" type="submit" name="" value="Cập nhật">
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            }
+                        </div>
                         @*</form>*@
-                         }
+                    }
                 </div>
             </section>
         </div>

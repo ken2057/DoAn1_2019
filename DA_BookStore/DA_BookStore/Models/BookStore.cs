@@ -8,27 +8,27 @@ namespace DA_BookStore.Models
     public partial class BookStore : DbContext
     {
         public BookStore()
-            : base("name=QLBookStore")
+            : base("name=BookStore")
         {
         }
 
         public virtual DbSet<CTGIOHANG> CTGIOHANGs { get; set; }
         public virtual DbSet<CTHOADONMUAHANG> CTHOADONMUAHANGs { get; set; }
         public virtual DbSet<CTXEMSACH> CTXEMSACHes { get; set; }
+        public virtual DbSet<HangTaiKhoan> HangTaiKhoans { get; set; }
         public virtual DbSet<HOADONMUAHANG> HOADONMUAHANGs { get; set; }
         public virtual DbSet<KHUYENMAI> KHUYENMAIs { get; set; }
         public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
         public virtual DbSet<NHAXUATBAN> NHAXUATBANs { get; set; }
+        public virtual DbSet<PROMOCODE> PROMOCODEs { get; set; }
         public virtual DbSet<QUANGCAO> QUANGCAOs { get; set; }
         public virtual DbSet<SACH> SACHes { get; set; }
         public virtual DbSet<TAIKHOAN> TAIKHOANs { get; set; }
         public virtual DbSet<THELOAI> THELOAIs { get; set; }
-        public virtual DbSet<PROMOCODE> PROMOCODEs { get; set; }
+        public virtual DbSet<ThongTinKhachHangMua> ThongTinKhachHangMuas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-          
-
             modelBuilder.Entity<CTGIOHANG>()
                 .Property(e => e.MaSach)
                 .IsFixedLength()
@@ -57,6 +57,10 @@ namespace DA_BookStore.Models
                 .Property(e => e.TenTaiKhoan)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<HangTaiKhoan>()
+                .Property(e => e.TenHang)
+                .IsUnicode(false);
+
             modelBuilder.Entity<HOADONMUAHANG>()
                 .Property(e => e.MaHDMua)
                 .IsFixedLength()
@@ -64,17 +68,21 @@ namespace DA_BookStore.Models
 
             modelBuilder.Entity<HOADONMUAHANG>()
                 .Property(e => e.TenTaiKhoan)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HOADONMUAHANG>()
+                .Property(e => e.CODE)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HOADONMUAHANG>()
+                .Property(e => e.TenTaiKhoanNV)
                 .IsUnicode(false);
 
             modelBuilder.Entity<HOADONMUAHANG>()
                 .HasMany(e => e.CTHOADONMUAHANGs)
                 .WithRequired(e => e.HOADONMUAHANG)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<HOADONMUAHANG>()
-                .Property(e => e.CODE)
-                .IsFixedLength()
-                .IsUnicode(false);
 
             modelBuilder.Entity<KHUYENMAI>()
                 .Property(e => e.MaKhuyenMai)
@@ -87,6 +95,11 @@ namespace DA_BookStore.Models
 
             modelBuilder.Entity<NHAXUATBAN>()
                 .Property(e => e.MaNhaXuatBan)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<PROMOCODE>()
+                .Property(e => e.CODE)
                 .IsFixedLength()
                 .IsUnicode(false);
 
@@ -114,6 +127,10 @@ namespace DA_BookStore.Models
 
             modelBuilder.Entity<QUANGCAO>()
                 .Property(e => e.LoaiQC)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<QUANGCAO>()
+                .Property(e => e.ViTriQuangCao)
                 .IsUnicode(false);
 
             modelBuilder.Entity<SACH>()
@@ -193,11 +210,6 @@ namespace DA_BookStore.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TAIKHOAN>()
-                .HasMany(e => e.HOADONMUAHANGs)
-                .WithRequired(e => e.TAIKHOAN)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<TAIKHOAN>()
                 .HasOptional(e => e.NHANVIEN)
                 .WithRequired(e => e.TAIKHOAN);
 
@@ -220,10 +232,18 @@ namespace DA_BookStore.Models
                 .WithOptional(e => e.THELOAI2)
                 .HasForeignKey(e => e.MaTL3);
 
-            modelBuilder.Entity<PROMOCODE>()
-              .Property(e => e.CODE)
-              .IsFixedLength()
-              .IsUnicode(false);
+            modelBuilder.Entity<ThongTinKhachHangMua>()
+                .Property(e => e.Sdt)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ThongTinKhachHangMua>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ThongTinKhachHangMua>()
+                .HasMany(e => e.HOADONMUAHANGs)
+                .WithOptional(e => e.ThongTinKhachHangMua)
+                .HasForeignKey(e => e.ThongTinKH);
         }
     }
 }

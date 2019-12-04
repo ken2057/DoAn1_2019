@@ -157,6 +157,8 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public ActionResult Charge()
         {
+            using (var db = new BookStore())
+                ViewBag.DsTL = db.THELOAIs.ToList();
             var stripePublishKey = ConfigurationManager.AppSettings["sk_test_pjJs0AKxdtddiHglxP8XjNcn00jtLL0EHr"];
             ViewBag.StripePublishKey = stripePublishKey;
             return View();

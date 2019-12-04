@@ -43,6 +43,6 @@ namespace DA_BookStore.Models
         public bool? HienThiQC { get; set; }
 
         [StringLength(100)]
-        public string ViTriQuangCao { get; set; } 
+        public string ViTriQuangCao { get; set; }
     }
 }

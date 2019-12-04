@@ -1,11 +1,15 @@
 use master
 go
-drop database QLBookStore
+if exists (select * from sysdatabases where name = 'QLBookStore')
+	drop database QLBookStore
 go
+
 create database QLBookStore
 go
+
 use QLBookStore
 go
+
 create table PROMOCODE(
 	CODE char(10) primary key,
 	NgayThem date,
@@ -13,6 +17,7 @@ create table PROMOCODE(
 	SoTienGiam int
 )
 go
+
 Create table TAIKHOAN (
 	TenTaiKhoan Varchar(50) primary key,
 	MauKhau Varchar(200) NOT NULL,
@@ -22,6 +27,15 @@ Create table TAIKHOAN (
 	Email Varchar(50) NULL,
 	GioiTinh Bit NULL,
 	HienThiTK Bit default 1,
+	DiemTK int default 0
+)
+go
+
+create table HangTaiKhoan(
+	id int IDENTITY(1,1) primary key,
+	_start int,
+	_end int,
+	TenHang varchar(20)
 )
 go
 Create table NHANVIEN (
@@ -30,18 +44,21 @@ Create table NHANVIEN (
 	HienThiNV bit default 1,
 )
 go
+
 Create table NHAXUATBAN (
 	MaNhaXuatBan Char(10) NOT NULL primary key,
 	TenNhaXuatBan Nvarchar(50) NULL,
 	SoDauSachXB Smallint NULL,
 )
 go
+
 Create table THELOAI (
 	MaTheLoai varchar(30) NOT NULL primary key,
 	TenTheLoai nVarchar(30) NULL,
 	HienThiTL Bit default 1,
 )
 go
+
 Create table KHUYENMAI (
 	MaKhuyenMai Char(10) NOT NULL primary key,
 	TenKhuyenMai nVarchar(30) NULL,
@@ -51,6 +68,7 @@ Create table KHUYENMAI (
 	HienThiKM Bit default 1,
 )
 go
+
 Create table SACH (
 	MaSach Char(10) NOT NULL primary key,
 	TenSach nVarchar(100) not null,
@@ -65,21 +83,33 @@ Create table SACH (
 	GioiThieuSach nVarchar(max) NULL,
 	NgayXuatBan date NULL,
 	HienThiS Bit default 1,
-
 	MaTL1 varchar(30) null foreign key references THELOAI,
 	MaTL2 varchar(30) null foreign key references THELOAI,
 	MaTL3 varchar(30) null foreign key references THELOAI,
 )
 go
-Create table HOADONMUAHANG (
-	MaHDMua Char(10) NOT NULL primary key,
-	TinhTrangThanhToan nVarchar(10) NULL,
-	ThoiGianMua date,
-	TenTaiKhoan Varchar(50) NOT NULL foreign key references TAIKHOAN,
-	TongTien int,
-	CODE Char(10) foreign key references PROMOCODE
+
+Create table ThongTinKhachHangMua(
+	id int IDENTITY(1,1) primary key,
+	HoTen nVarchar(50) NULL,
+	Sdt Varchar(10) NOT NULL,
+	DiaChi nvarChar(100) not null,
+	Email Varchar(50) NULL,
 )
 go
+Create table HOADONMUAHANG (
+	MaHDMua Char(10) NOT NULL primary key,
+	TinhTrangThanhToan nVarchar(20) NULL,
+	ThoiGianMua date,
+	TenTaiKhoan Varchar(50) NULL foreign key references TAIKHOAN,
+	ThongTinKH int NULL foreign key references  ThongTinKhachHangMua,
+	TongTien int,
+	CODE Char(10) foreign key references PROMOCODE,
+	TenTaiKhoanNV Varchar(50) null foreign key references nhanvien,
+	MaVanChuyen varchar(100) null
+)
+go
+
 Create table CTHOADONMUAHANG (
 	MaSach Char(10) NOT NULL foreign key references SACH,
 	MaHDMua Char(10) NOT NULL foreign key references HOADONMUAHANG,
@@ -88,6 +118,7 @@ Create table CTHOADONMUAHANG (
 	primary key (MaSach, MaHDMua)
 )
 go
+
 Create table CTXEMSACH (
 	MaSach Char(10) NOT NULL foreign key references SACH,
 	TenTaiKhoan Varchar(50) NOT NULL foreign key references TAIKHOAN,
@@ -95,6 +126,7 @@ Create table CTXEMSACH (
 	primary key (MaSach, TenTaiKhoan, NgayXemSach)
 )
 go
+
 Create table QUANGCAO (
 	MaQuangCao Char(10) NOT NULL primary key,
 	TenQC nVarchar(50) NULL,
@@ -109,6 +141,7 @@ Create table QUANGCAO (
 	HienThiQC Bit default 1,
 )
 go
+
 Create table CTGIOHANG (
 	MaSach Char(10) foreign key references SACH,
 	TenTaiKhoan Varchar(50) foreign key references TAIKHOAN,
@@ -116,4 +149,7 @@ Create table CTGIOHANG (
 	primary key (MaSach, TenTaiKhoan)
 )
 
+go
 alter table QUANGCAO add ViTriQuangCao varchar(100) null
+
+go

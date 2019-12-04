@@ -1,0 +1,64 @@
+﻿@model DA_BookStore.Models.HOADONMUAHANG
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <link href="@Url.Content("~/Content/bookManage.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>Thông tin hoá đơn</title>
+</head>
+<body>
+    <section class="main-screen">
+        <div class="container home-inner">
+            <div class="row">
+                <p>Thông tin hoá đơn</p>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p>Tình trạng: @ViewBag.HD.TinhTrangThanhToan</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p>Tổng tiền: @ViewBag.HD.TongTien</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p>Mã giảm giá: @ViewBag.HD.CODE</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p>Thời gian mua: @ViewBag.HD.ThoiGianMua</p>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Mã sách</th>
+                            <th>Số lượng</th>
+                            <th>Giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.DsCTHD)
+                        {
+                            <tr>
+                                <td><a href="~/Book/Detail?id=@item.MaSach" style="display:block; text-decoration:none;">@item.MaSach</a></td>
+                                <td>@item.SoLuongMua</td>
+                                <td>
+                                    @item.GiaHienHanh
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </section>
+</body>

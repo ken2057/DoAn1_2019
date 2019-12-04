@@ -9,6 +9,12 @@ namespace DA_BookStore.Models
     [Table("NHANVIEN")]
     public partial class NHANVIEN
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NHANVIEN()
+        {
+            HOADONMUAHANGs = new HashSet<HOADONMUAHANG>();
+        }
+
         [Key]
         [StringLength(50)]
         public string TenTaiKhoanNV { get; set; }
@@ -17,6 +23,9 @@ namespace DA_BookStore.Models
         public string ChucVuNV { get; set; }
 
         public bool? HienThiNV { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HOADONMUAHANG> HOADONMUAHANGs { get; set; }
 
         public virtual TAIKHOAN TAIKHOAN { get; set; }
     }

@@ -60,6 +60,7 @@
                                 <th>Số điện thoại</th>
                                 <th>Giới tính</th>
                                 <th>Chức vụ</th>
+                                <th>Thành viên</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,7 +80,18 @@
                                     <p>@((@nv.ChucVuNV == "QuanLy") ? "Manager" : "Admin")</p>
                                             break;
                                         }
-                                    }</td>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var lTK in ViewBag.LoaiTK)
+                                    {
+                                        if (lTK.C_start <= item.DiemTK && item.DiemTK <= lTK.C_end)
+                                        {
+                                            <p>@lTK.TenHang</p>
+                                            break;
+                                        }
+                                    }
+                                </td>
                             </tr>
                             }
                         </tbody>

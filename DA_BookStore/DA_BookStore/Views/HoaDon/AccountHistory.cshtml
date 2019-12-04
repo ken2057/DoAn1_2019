@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <link href="@Url.Content("~/Content/themQc.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>Lịch sử mua hàng</title>
+</head>
+<body>
+    <section class="main-screen">
+        <div class="home-overlay">
+            <div class="container home-inner">
+                <section class="testimonials wrapper">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3>Hoá đơn mua <span class="badge">(@ViewBag.slTK)</span></h3>
+                                </div>
+                                <div class="col-md-3" style="margin-top:15px;">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search">
+                            <div class="col-md-6">
+                                <form action="~/Account/AccountManage" method="post">
+                                    <div class="input-group">
+                                        
+                                    </div><!-- /input-group -->
+                                </form>
+                            </div><!-- /.col-lg-6 -->
+                        </div>
+                    </div>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Mã hoá đơn</th>
+                                <th>Tình trạng</th>
+                                <th>Thời gian mua</th>
+                                <th>Tổng tiền</th>
+                                <th>Mã giảm giá</th>
+                                <th>Huỷ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.DsMua)
+                            {
+                            <tr>
+                                <td><a href="~/HoaDon?id=@item.MaHDMua" style="display:block; text-decoration:none;">@item.MaHDMua</a></td>
+                                <td>@item.TinhTrangThanhToan</td>
+                                <td>@item.ThoiGianMua</td>
+                                <td>@item.TongTien</td>
+                                <td>@item.CODE</td>
+                                <td>
+                                    @if (item.TinhTrangThanhToan == "Cho van chuyen")
+                                    {
+                                        <a href="~/HoaDon/Huy?id=@item.MaHDMua" style="display:block; text-decoration:none;">Huỷ</a>
+                                    } else
+                                    {
+                                        <p></p>
+                                    }
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </section>
+                <div class="paging" style="display: flex;">
+                    <ul class="pagination" style="margin-left: auto; margin-right: auto;">
+                        @{
+                            int numPage = Convert.ToInt32(Math.Ceiling(ViewBag.slTK / 15.0));
+                            for (int i = 1; i < numPage + 1; i++)
+                            {
+                                <li><a href="~/Account/AccountManage?index=@(i-1)">@i</a></li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>

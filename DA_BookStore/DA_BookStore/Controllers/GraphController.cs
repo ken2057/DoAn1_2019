@@ -110,6 +110,7 @@ namespace DA_BookStore.Controllers
                     Dictionary<string, int> grp3 = new Dictionary<string, int>(); // > 1.000k
                     foreach (var item in cus)
                     {
+                        if(item.TenTK != null)
                         if (item.TongTien >= 1000000)
                             grp3.Add(item.TenTK, item.TongTien ?? -1);
                         else if (item.TongTien >= 200000)
