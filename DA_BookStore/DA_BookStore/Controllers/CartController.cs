@@ -54,7 +54,6 @@ namespace DA_BookStore.Controllers
                 List<Models.CTGIOHANG> ct = new List<Models.CTGIOHANG>();
                 string temp = Session["userID"].ToString();
 
-
                 var query = from gh in db.CTGIOHANGs
                             join s in db.SACHes on gh.MaSach equals s.MaSach
                             where gh.TenTaiKhoan == temp
@@ -117,7 +116,7 @@ namespace DA_BookStore.Controllers
                 db.Entry(sql2).State = EntityState.Deleted;
                 db.SaveChanges();
             }
-            return RedirectToAction("Cart", "Cart");
+            return RedirectToAction("Index", "Cart");
         }
 
     }

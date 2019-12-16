@@ -19,5 +19,7 @@ namespace DA_BookStore.Models
 
         [StringLength(20)]
         public string TenHang { get; set; }
+
+        public short? GiamGia { get; set; }
     }
 }

@@ -1,0 +1,106 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <head>
+        <title>Quản lý đơn mua hàng</title>
+        <link href="@Url.Content("~/Content/bookManage.css")" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <section class="main-screen">
+            <div class="container home-inner">
+                <section class="testimonials wrapper">
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="search">
+                            <div class="col-md-6">
+                                <form action="~/Book/BookManage" method="post">
+                                    <div class="input-group">
+                                        <input type="text" id="id" name="id" class="form-control" placeholder="Tìm kiếm theo tên sách...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-danger" type="submit">Go!</button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </form>
+                            </div><!-- /.col-lg-6 -->
+                        </div>
+                    </div>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Mã hoá đơn</th>
+                                <th>Tình trạng</th>
+                                <th>Thời gian mua</th>
+                                <th>Người mua</th>
+                                <th>Tổng tiền</th>
+                                <th>Mã giảm giá</th>
+                                <th>NV xử lý</th>
+                                <th>Mã vận chuyển</th>
+                                <th>Huỷ</th>
+                                <th>Xử lý</th>
+                                <th>Xong</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.DsDonMua)
+                            {
+                            <tr>
+                                <td><a href="~/HoaDon?id=@item.MaHDMua" style="display:block; text-decoration:none;">@item.MaHDMua</a></td>
+                                <td>@item.TinhTrangThanhToan</td>
+                                <td>@item.ThoiGianMua</td>
+                                <td><a href="~/Account?id=@item.TenTaiKhoan" style="display:block; text-decoration:none;">@item.TenTaiKhoan</a></td>
+                                <td>@item.TongTien</td>
+                                <td>@item.CODE</td>
+                                <td>@item.TenTaiKhoanNV</td>
+                                <td>@item.MaVanChuyen</td>
+                                <td>
+                                    @if (item.TinhTrangThanhToan == "Xu ly")
+                                    {
+                                        <a href="~/HoaDon/Huy?id=@item.MaHDMua" style="display:block; text-decoration:none;">Huỷ</a>
+                                    }
+                                    else
+                                    {
+                                        <p></p>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.TinhTrangThanhToan == "Xu ly")
+                                    {
+                                        <a href="~/HoaDon/XuLy?id=@item.MaHDMua" style="display:block; text-decoration:none;">Xử lý</a>
+                                    }
+                                    else
+                                    {
+                                        <p></p>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.TinhTrangThanhToan == "Van chuyen")
+                                    {
+                                        <a href="~/HoaDon/Xong?id=@item.MaHDMua" style="display:block; text-decoration:none;">Xong</a>
+                                    }
+                                    else
+                                    {
+                                        <p></p>
+                                    }
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </section>
+                <div class="paging" style="display: flex;">
+                    <ul class="pagination" style="margin-left: auto; margin-right: auto;">
+                        @{
+                            int numPage = Convert.ToInt32(Math.Ceiling(ViewBag.slS / 15.0));
+                            for (int i = 1; i < numPage + 1; i++)
+                            {
+                                <li><a href="~/HoaDon/Admin?index=@(i-1)">@i</a></li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </body>

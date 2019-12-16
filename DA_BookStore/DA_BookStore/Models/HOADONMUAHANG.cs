@@ -19,7 +19,7 @@ namespace DA_BookStore.Models
         [StringLength(10)]
         public string MaHDMua { get; set; }
 
-        [StringLength(10)]
+        [StringLength(20)]
         public string TinhTrangThanhToan { get; set; }
 
         [Column(TypeName = "date")]
@@ -37,6 +37,11 @@ namespace DA_BookStore.Models
 
         [StringLength(50)]
         public string TenTaiKhoanNV { get; set; }
+
+        [StringLength(100)]
+        public string MaVanChuyen { get; set; }
+
+        public short? GiamThanhVien { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTHOADONMUAHANG> CTHOADONMUAHANGs { get; set; }

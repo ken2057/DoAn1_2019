@@ -1,11 +1,11 @@
 ﻿use QLBookStore
 go
 insert into HangTaiKhoan (_start, _end, TenHang) values
-(0, 500,  N'Thường'),
-(501, 1000,  N'Bạc'),
-(1001, 2000,  N'Vàng'),
-(2001, 5000,  N'Bạch kim'),
-(5001, 9999999,  N'Kim cương');
+(0, 500,  N'Thường', 0),
+(501, 1000,  N'Bạc', 5),
+(1001, 2000,  N'Vàng', 10),
+(2001, 5000,  N'Bạch kim', 15),
+(5001, 9999999,  N'Kim cương', 20);
 go
 insert into PROMOCODE values
 ('16DH110117', '1/1/2019','1/1/2020',10000),
@@ -60,7 +60,7 @@ go
 insert into nhanvien values('nguyenduy', 'Admin', 1);
 go
 
-insert into QUANGCAO values ('QC00000001', 'quang cao a',null,'Image/QuangCao/66934858_p0.jpg','2019/06/01','2019-06-02','a','0123456789','a@gmail.com','A',1,'vitri0');
+insert into QUANGCAO values ('QC00000001', 'quang cao a',null,'Image/banner.jpg','2019/06/01','2019-06-02','a','0123456789','a@gmail.com','A',1,'vitri0');
 go
 
 insert into CTGIOHANG values

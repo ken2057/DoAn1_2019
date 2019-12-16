@@ -80,6 +80,10 @@ namespace DA_BookStore.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<HOADONMUAHANG>()
+                .Property(e => e.MaVanChuyen)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HOADONMUAHANG>()
                 .HasMany(e => e.CTHOADONMUAHANGs)
                 .WithRequired(e => e.HOADONMUAHANG)
                 .WillCascadeOnDelete(false);

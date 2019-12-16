@@ -51,16 +51,99 @@ namespace DA_BookStore.Controllers
             {
                 using (var db = new Models.BookStore())
                 {
+                    ViewBag.DsTL = db.THELOAIs.ToList();
+
                     var username = Session["userID"].ToString();
-                    var t = db.HOADONMUAHANGs.Find(id);
-                    t.TinhTrangThanhToan = "Huy";
+                    Models.HOADONMUAHANG t = db.HOADONMUAHANGs.Find(id);
+                    if (t.TenTaiKhoan == Session["userID"].ToString() || Session["userPrio"].ToString() == "Admin")
+                    {
+                        t.TinhTrangThanhToan = "Huy";
+
+                        db.Entry(t).State = System.Data.Entity.EntityState.Modified;
+                        // tra lai sach khi huy
+
+                        List<Models.CTHOADONMUAHANG> lstCTHD = db.CTHOADONMUAHANGs.Where(t => t.MaHDMua == id).ToList();
+                        foreach (var ctHD in lstCTHD)
+                        {
+                            Models.SACH b = db.SACHes.Find(ctHD.MaSach);
+                            b.SoLuongTon += ctHD.SoLuongMua;
+                            db.Entry(b).State = System.Data.Entity.EntityState.Modified;
+                        }
+
+                        db.SaveChanges();
+                    }
+                }
+                if(Session["userPrio"].ToString() == "Admin")
+                    return RedirectToAction("Admin", "HoaDon");
+                return RedirectToAction("AccountHistory", "HoaDon");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult XuLy(string id)
+        {
+            if (Session["userPrio"].ToString() == "Admin")
+            {
+                using (var db = new Models.BookStore())
+                {
+                    ViewBag.DsTL = db.THELOAIs.ToList();
+
+                    var username = Session["userID"].ToString();
+                    Models.HOADONMUAHANG t = db.HOADONMUAHANGs.Find(id);
+                    t.TinhTrangThanhToan = "Van chuyen";
+                    t.TenTaiKhoanNV = Session["userID"].ToString();
 
                     db.Entry(t).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
 
-                    ViewBag.DsTL = db.THELOAIs.ToList();
                 }
-                return RedirectToAction("AccountHistory", "Account");
+                return RedirectToAction("Admin", "HoaDon");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Xong(string id)
+        {
+            if (Session["userPrio"].ToString() == "Admin")
+            {
+                using (var db = new Models.BookStore())
+                {
+                    ViewBag.DsTL = db.THELOAIs.ToList();
+
+                    var username = Session["userID"].ToString();
+                    Models.HOADONMUAHANG t = db.HOADONMUAHANGs.Find(id);
+                    t.TinhTrangThanhToan = "Xong";
+
+                    db.Entry(t).State = System.Data.Entity.EntityState.Modified;
+
+                    //cong diem cho taikhoan mua hang
+                    if (t.TenTaiKhoan != null)
+                    {
+                        var tk = db.TAIKHOANs.Find(t.TenTaiKhoan);
+                        tk.DiemTK += (t.TongTien / 1000);
+                        db.Entry(tk).State = System.Data.Entity.EntityState.Modified;
+                    }
+
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Admin", "HoaDon");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Admin(int index = 0)
+        {
+            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            {
+                using (var db = new Models.BookStore())
+                {
+                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    List<Models.HOADONMUAHANG> lstDonMua = db.HOADONMUAHANGs.ToList();
+                    ViewBag.DsDonMua = lstDonMua.Skip(index * 15).Take(15);
+                    ViewBag.slS = lstDonMua.Count();
+                }
+
+                return View();
             }
             return RedirectToAction("Index", "Home");
         }

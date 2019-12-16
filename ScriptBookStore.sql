@@ -35,7 +35,8 @@ create table HangTaiKhoan(
 	id int IDENTITY(1,1) primary key,
 	_start int,
 	_end int,
-	TenHang varchar(20)
+	TenHang varchar(20),
+	GiamGia Smallint
 )
 go
 Create table NHANVIEN (

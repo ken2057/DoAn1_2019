@@ -1,0 +1,8 @@
+D:\project\DoAn1_2019\DA_BookStore\obj\Debug\netcoreapp3.0\DA_BookStore.csprojAssemblyReference.cache
+D:\project\DoAn1_2019\DA_BookStore\obj\Debug\netcoreapp3.0\staticwebassets\DA_BookStore.StaticWebAssets.Manifest.cache
+D:\project\DoAn1_2019\DA_BookStore\obj\Debug\netcoreapp3.0\staticwebassets\DA_BookStore.StaticWebAssets.xml
+D:\project\DoAn1_2019\DA_BookStore\obj\Debug\netcoreapp3.0\DA_BookStore.MvcApplicationPartsAssemblyInfo.cache
+D:\project\DoAn1_2019\DA_BookStore\obj\Debug\netcoreapp3.0\DA_BookStore.RazorAssemblyInfo.cache
+D:\project\DoAn1_2019\DA_BookStore\obj\Debug\netcoreapp3.0\DA_BookStore.RazorAssemblyInfo.cs
+D:\project\DoAn1_2019\DA_BookStore\obj\Debug\netcoreapp3.0\DA_BookStore.AssemblyInfoInputs.cache
+D:\project\DoAn1_2019\DA_BookStore\obj\Debug\netcoreapp3.0\DA_BookStore.AssemblyInfo.cs
