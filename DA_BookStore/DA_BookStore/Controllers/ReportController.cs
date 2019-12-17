@@ -43,9 +43,24 @@ namespace DA_BookStore.Controllers
                     List<string> listTinhTrang = new List<string>();
                     Dictionary<string, Models.Temp.RpDonMua> dictRp = new Dictionary<string, Models.Temp.RpDonMua>();
                     //
-                    var listHD = db.HOADONMUAHANGs
-                                    .Where(t => ngayBD <= t.ThoiGianMua && t.ThoiGianMua <= ngayKT)
-                                    .ToList();
+                    var listHD = new List<Models.HOADONMUAHANG>();
+                    if (phanLoaiRP == "ngay")
+                    {
+                        listHD = db.HOADONMUAHANGs
+                                        .Where(t => ngayBD <= t.ThoiGianMua && t.ThoiGianMua <= ngayKT)
+                                        .ToList();
+                    } else if (phanLoaiRP == "thang") {
+                        DateTime startMonth = new DateTime(ngayBD.Year, ngayBD.Month, 1);
+                        DateTime endMonth = new DateTime(ngayKT.Year, ngayKT.Month, DateTime.DaysInMonth(ngayKT.Year ,ngayKT.Month));
+
+                        listHD = db.HOADONMUAHANGs
+                                        .Where(t => startMonth <= t.ThoiGianMua && t.ThoiGianMua <= endMonth)
+                                        .ToList();
+                    } else {
+                        listHD = db.HOADONMUAHANGs
+                                        .Where(t => ngayBD.Year <= t.ThoiGianMua.Value.Year && t.ThoiGianMua.Value.Year <= ngayKT.Year)
+                                        .ToList();
+                    }
 
                     // lấy tất cả tình trạng có trong ds hoá đơn
                     foreach (var item in listHD)
