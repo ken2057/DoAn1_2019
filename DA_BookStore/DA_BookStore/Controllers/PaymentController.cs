@@ -53,10 +53,7 @@ namespace DA_BookStore.Controllers
                     
                     // lay ma giam gia thanh vien
                     int diemTK = db.TAIKHOANs.Find(temp).DiemTK ?? 0;
-                    Models.HangTaiKhoan giamTK = db.HangTaiKhoans.Where(t => 
-                            t.C_start >= diemTK && 
-                            diemTK <= t.C_end
-                        ).FirstOrDefault();
+                    Models.HangTaiKhoan giamTK = db.HangTaiKhoans.Where(t => t.C_start <= diemTK && diemTK <= t.C_end).FirstOrDefault();
 
                     double tamTinh = tongTien * (1 - (double)giamTK.GiamGia / 100);
 
@@ -96,15 +93,17 @@ namespace DA_BookStore.Controllers
                     var sachTemp = db.SACHes.Find(item.MaSach);
                     string message = '"' + sachTemp.TenSach + '"' + " hiện tại trong kho chỉ còn: " + sachTemp.SoLuongTon;
 
-                    if ((sachTemp.SoLuongTon -= item.SoLuongGioHang) < 0)
+                    if ((sachTemp.SoLuongTon - item.SoLuongGioHang) < 0)
                     {
                         flag = true;
                         //Response.Write(@"<script language='javascript'>alert('" + message + "');</script>");
-                        Response.Write(@"<script language='javascript'>if (confirm('"+ message +"')){window.location = 'https://localhost:44379/Cart/Cart'; }</script>");
+                        Response.Write(@"<script language='javascript'>if (confirm('"+ message +"')){window.location = '"+Request.Url.ToString()+"'; }</script>");
+
+                        return Payment();
                     }
                 }
 
-                if (flag == false)
+                if (!flag)
                 {
                     int diemTK = db.TAIKHOANs.Find(tenTaiKhoan).DiemTK ?? 0;
 
@@ -114,7 +113,7 @@ namespace DA_BookStore.Controllers
                     hd.ThoiGianMua = DateTime.Now;
                     hd.TenTaiKhoan = tenTaiKhoan;
                     hd.TinhTrangThanhToan = "Xu ly";
-                    hd.GiamThanhVien = db.HangTaiKhoans.Where(t => t.C_start >= diemTK && diemTK <= t.C_end).FirstOrDefault().GiamGia;
+                    hd.GiamThanhVien = db.HangTaiKhoans.Where(t => t.C_start <= diemTK && diemTK <= t.C_end).FirstOrDefault().GiamGia;
 
                     double tongTien = 0;
                     foreach (var item in cartTemp)
@@ -164,14 +163,13 @@ namespace DA_BookStore.Controllers
                         var ctgh = db.CTGIOHANGs.Find(item.MaSach,item.TenTaiKhoan);
                         db.Entry(ctgh).State = EntityState.Deleted;
                     }
-                    
+
                     db.SaveChanges();
                 }
-
             }
-
             return RedirectToAction("Charge", "Payment");
         }
+
         [HttpGet]
         public ActionResult Index()
         {

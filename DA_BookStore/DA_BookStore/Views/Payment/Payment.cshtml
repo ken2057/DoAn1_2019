@@ -24,6 +24,11 @@
 
 <body>
     <div class="container-fluid">
+        @if (ViewBag.error != null)
+        {
+            <p> hellllop</p>
+            <p style="color:red; font-size:5rem; align-content:center">@ViewBag.error</p>
+        }
         <div class="row">
             @using (Html.BeginForm("Payment", "Payment", FormMethod.Post))
             {
@@ -118,7 +123,7 @@
                         </div>
                     </div>
                     <div class=" row btn-midle">
-                        <input id="submit" class="btn btn-success btn-cash" type="submit" value="Thanh Toán">
+                        <input id="submit" class="btn btn-success btn-cash" type="submit" value="Đặt hàng">
                     </div>
                 </div>
             }
