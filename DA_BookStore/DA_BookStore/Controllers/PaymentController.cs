@@ -69,7 +69,7 @@ namespace DA_BookStore.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Payment(string name, string address, string phonenumber, string email, string note, string codePromote)
+        public ActionResult Payment(string name, string address, string phonenumber, string note, string codePromote, string email = "")
         {
             ViewBag.HoTen = name;
             ViewBag.DiaChi = address;
@@ -114,6 +114,10 @@ namespace DA_BookStore.Controllers
                     hd.TenTaiKhoan = tenTaiKhoan;
                     hd.TinhTrangThanhToan = "Xu ly";
                     hd.GiamThanhVien = db.HangTaiKhoans.Where(t => t.C_start <= diemTK && diemTK <= t.C_end).FirstOrDefault().GiamGia;
+                    hd.GhiChu = note;
+                    hd.NguoiNhan = name;
+                    hd.DiaChiNhan = address;
+                    hd.SdtNhan = phonenumber;
 
                     double tongTien = 0;
                     foreach (var item in cartTemp)

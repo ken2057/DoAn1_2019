@@ -107,7 +107,11 @@ Create table HOADONMUAHANG (
 	TongTien int,
 	CODE Char(10) foreign key references PROMOCODE,
 	TenTaiKhoanNV Varchar(50) null foreign key references nhanvien,
-	MaVanChuyen varchar(100) null
+	MaVanChuyen varchar(100) null,
+	GhiChu varchar(max) null,
+NguoiNhan nvarchar(max) null,
+ DiaChiNhan nvarchar(max) null,
+ SdtNhan varchar(20) null
 )
 go
 

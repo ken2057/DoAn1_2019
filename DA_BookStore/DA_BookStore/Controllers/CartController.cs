@@ -16,6 +16,10 @@ namespace DA_BookStore.Controllers
             {
                 using (var db = new Models.BookStore())
                 {
+                    var book = db.SACHes.Find(Session["bookID"].ToString());
+                    if(!book.HienThiS ?? false)
+                        return RedirectToAction("Index", "Home");
+
                     Models.CTGIOHANG ct = new Models.CTGIOHANG();
                     ct.MaSach = Session["bookID"].ToString();
                     ct.TenTaiKhoan = Session["userID"].ToString();

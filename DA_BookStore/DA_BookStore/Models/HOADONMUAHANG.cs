@@ -43,6 +43,15 @@ namespace DA_BookStore.Models
 
         public short? GiamThanhVien { get; set; }
 
+        public string GhiChu { get; set; }
+
+        public string NguoiNhan { get; set; }
+
+        public string DiaChiNhan { get; set; }
+
+        [StringLength(20)]
+        public string SdtNhan { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTHOADONMUAHANG> CTHOADONMUAHANGs { get; set; }
 

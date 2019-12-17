@@ -27,8 +27,8 @@ namespace DA_BookStore.Controllers
 
                     ViewBag.Sach = s;
 
-                    if (s.HienThiS == false)
-                        return RedirectToAction("Index", "Home");
+                    //if (s.HienThiS == false)
+                    //    return RedirectToAction("Index", "Home");
 
                     Models.KHUYENMAI km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == s.MaKhuyenMai).FirstOrDefault();
                     if (km != null)
@@ -120,7 +120,7 @@ namespace DA_BookStore.Controllers
                 using (var db = new Models.BookStore())
                 {
                     Models.SACH s = db.SACHes.Find(id);
-                    s.HienThiS = false;
+                    s.HienThiS = !s.HienThiS;
                     db.Entry(s).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }

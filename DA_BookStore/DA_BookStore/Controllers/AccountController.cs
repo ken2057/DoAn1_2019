@@ -122,7 +122,7 @@ namespace DA_BookStore.Controllers
                         Models.TAIKHOAN tk = db.TAIKHOANs.Find(id);
                         Models.NHANVIEN nv = db.NHANVIENs.Find(id);
 
-                        tk.HienThiTK = false;
+                        tk.HienThiTK = !tk.HienThiTK;
                         db.Entry(tk).State = System.Data.Entity.EntityState.Modified;
 
                         db.SaveChanges();
@@ -142,7 +142,7 @@ namespace DA_BookStore.Controllers
                 {
                     ViewBag.DsTL = db.THELOAIs.ToList();
 
-                    List<Models.TAIKHOAN> dsTK = db.TAIKHOANs.Where(t => t.HienThiTK == true).ToList();
+                    List<Models.TAIKHOAN> dsTK = db.TAIKHOANs.ToList();
 
                     ViewBag.DsTK = dsTK.Skip(15 * index).Take(15);
                     ViewBag.slTK = dsTK.Count();
