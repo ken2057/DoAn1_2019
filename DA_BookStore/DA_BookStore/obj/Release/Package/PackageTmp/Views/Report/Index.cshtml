@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <head>
+        <link href="@Url.Content("~/Content/bookManage.css")" rel="stylesheet" type="text/css" />
+        <title>Thống kê</title>
+    </head>
+<body>
+    <section class="main-screen">
+        <div class="container home-inner">
+            <section class="testimonials wrapper">
+                <div class="row">
+                    @using (Html.BeginForm("Search", "Report", FormMethod.Post))
+                    {
+                        <div class="col-md-2">
+                            <p>Phân loại theo: </p>
+                        </div>
+                        <div class="col-md-2">
+                            <select name="phanLoaiRP" id="phanLoaiRP">
+                                @if (ViewBag.selected == "ngay")
+                                {
+                                    <option selected value="ngay">Ngày</option>
+                                }
+                                else
+                                {
+                                    <option value="ngay">Ngày</option>
+                                }
+                                @if (ViewBag.selected == "thang")
+                                {
+                                    <option selected value="thang">Tháng</option>
+                                }
+                                else
+                                {
+                                    <option value="thang">Tháng</option>
+                                }
+                                @if (ViewBag.selected == "nam")
+                                {
+                                    <option selected value="nam">Năm</option>
+                                }
+                                else
+                                {
+                                    <option value="Năm">Năm</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <p>Từ: </p>
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBox("ngayBD", (DateTime)ViewBag.timeBD, "{0:dd/mm/yyyy}", new { @style = "width:auto", type = "date", required = "required" })
+                        </div>
+                        <div class="col-md-1">
+                            <p>Đến: </p>
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBox("ngayKT", (DateTime)ViewBag.timeKT, "{0:dd/mm/yyyy}", new { @style = "width:auto", type = "date", required = "required" })
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" value="Tìm" />
+                        </div>
+                    }
+                </div>
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    @if (ViewBag.selected == "ngay")
+                                    {
+                                        <th>Ngày</th>
+                                    }
+                                    else if (ViewBag.selected == "nam")
+                                    {
+                                        <th>Năm</th>
+                                    }
+                                    else
+                                    {
+                                        <th>Tháng</th>
+                                    }
+
+                                    @if (ViewBag.ListTinhTrang != null)
+                                    {
+                                        foreach (var tinhTrang in ViewBag.ListTinhTrang)
+                                        {
+                                            <th>@tinhTrang</th>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <th>Tình trạng</th>
+                                    }
+                                    <th>Tổng thu</th>
+
+                                </tr>
+                                </thead>
+                            <tbody>
+                                @if (ViewBag.Report != null)
+                                {
+                                    foreach (var key in ViewBag.Report.Keys)
+                                    {
+                                        <tr>
+                                            <td>@key</td>
+                                            @foreach (var value in ViewBag.Report[key].listSLTinhTrang)
+                                            {
+                                                <td>@value</td>
+                                            }
+                                            <td>@string.Format("{0:0,0}", ViewBag.Report[key].TongTienThu)</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+</section>
+        </div>
+    </section>
+</body>

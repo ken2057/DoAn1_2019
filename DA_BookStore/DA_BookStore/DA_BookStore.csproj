@@ -201,6 +201,7 @@
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PromotionController.cs" />
     <Compile Include="Controllers\QuangCaoController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -224,6 +225,7 @@
     <Compile Include="Models\Temp\HistoryView.cs" />
     <Compile Include="Models\Temp\LoaiTK.cs" />
     <Compile Include="Models\Temp\PromotionView.cs" />
+    <Compile Include="Models\Temp\RpDonMua.cs" />
     <Compile Include="Models\THELOAI.cs" />
     <Compile Include="Models\ThongTinKhachHangMua.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -327,6 +329,7 @@
     <Content Include="Views\HoaDon\Index.cshtml" />
     <Content Include="Views\HoaDon\AccountHistory.cshtml" />
     <Content Include="Views\HoaDon\Admin.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

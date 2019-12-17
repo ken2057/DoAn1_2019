@@ -37,7 +37,7 @@ namespace DA_BookStore.Controllers
                     KHUYENMAI km = new KHUYENMAI();
                     double tongTien = 0;
 
-                    if(query.Count() == 0)
+                    if(!query.Any())
                         return RedirectToAction("Index", "Home");
 
                     foreach (var item in query)
@@ -58,7 +58,7 @@ namespace DA_BookStore.Controllers
                             diemTK <= t.C_end
                         ).FirstOrDefault();
 
-                    double tamTinh = tongTien * (1 - (double.Parse(giamTK.GiamGia.ToString()) / 100));
+                    double tamTinh = tongTien * (1 - (double)giamTK.GiamGia / 100);
 
                     ViewBag.giamTK = giamTK;
                     ViewBag.TamTinh = string.Format("{0:0,0}", tongTien);
@@ -137,14 +137,14 @@ namespace DA_BookStore.Controllers
                         if (km != null)
                         {
                             double gia = sachTemp.GiaBan * ((100 - km.PhanTramKhuyenMai) * 0.01) ?? 0;
-                            ctHD.GiaHienHanh = int.Parse(gia.ToString());
+                            ctHD.GiaHienHanh = (int)gia;
                         }
                         tongTien += (ctHD.GiaHienHanh * item.SoLuongGioHang) ?? 0;
 
                         db.CTHOADONMUAHANGs.Add(ctHD);
                     }
                     // kiem tra diem TK de giam tien
-                    double giam = double.Parse(hd.GiamThanhVien.ToString()) / 100;
+                    double giam = (double)hd.GiamThanhVien / 100;
                     tongTien = tongTien * (1 - giam);
 
                     var queryCode = db.PROMOCODEs.Find(codePromote);
@@ -155,8 +155,7 @@ namespace DA_BookStore.Controllers
                         tongTien -= queryCode.SoTienGiam ?? 0;
                     }
                     
-                    
-                    hd.TongTien = int.Parse(tongTien.ToString());
+                    hd.TongTien = (int)tongTien;
 
                     db.HOADONMUAHANGs.Add(hd);
 
