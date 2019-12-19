@@ -23,42 +23,71 @@
         <div class="container home-inner">
             <div class="row">
                 <p>Thông tin hoá đơn</p>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>Tình trạng: @ViewBag.HD.TinhTrangThanhToan</p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>Tổng tiền: @ViewBag.HD.TongTien</p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>Mã giảm giá: @ViewBag.HD.CODE</p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>Thời gian mua: @ViewBag.HD.ThoiGianMua</p>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p>Người đặt: @ViewBag.HD.TenTaiKhoan</p>
                 </div>
             </div>
             <div class="row">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Mã sách</th>
-                            <th>Số lượng</th>
-                            <th>Giá</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ViewBag.DsCTHD)
-                        {
-                            <tr>
-                                <td><a href="~/Book/Detail?id=@item.MaSach" style="display:block; text-decoration:none;">@item.MaSach</a></td>
-                                <td>@item.SoLuongMua</td>
-                                <td>
-                                    @item.GiaHienHanh
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <p>Người nhận: @ViewBag.HD.NguoiNhan</p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <p>Địa chỉ nhận: @ViewBag.HD.DiaChiNhan</p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <p>SĐT: @ViewBag.HD.SdtNhan</p>
+                </div>
             </div>
-        </div>
-        </section>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <p>Tình trạng: @ViewBag.HD.TinhTrangThanhToan</p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <p>Tổng tiền: @ViewBag.HD.TongTien</p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <p>Mã giảm giá: @ViewBag.HD.CODE</p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <p>Ghi chú: @ViewBag.HD.GhiChu</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <p>Thời gian mua: @ViewBag.HD.ThoiGianMua</p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        @if (@ViewBag.HD.paymentId != null)
+                        {
+                            <p>Mã thanh toán: @ViewBag.HD.paymentId</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Mã sách</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.DsCTHD)
+                            {
+                                <tr>
+                                    <td><a href="~/Book/Detail?id=@item.MaSach" style="display:block; text-decoration:none;">@item.MaSach</a></td>
+                                    <td>@item.SoLuongMua</td>
+                                    <td>
+                                        @item.GiaHienHanh
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+</section>
 </body>

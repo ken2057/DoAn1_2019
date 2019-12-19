@@ -172,18 +172,35 @@
                             <div class="row book-oder  ">
                                 <div class="btn-group up_down  col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
                                     <button onclick="down('0')" type="button" class="btn-group btn btn-default">-</button>
-                                    <input id="soLuong" name="soLuong" class="btn-group" type="number" value="1" pattern="[0-9]{10}">
+                                    <input id="soLuong" name="soLuong" class="btn-group" type="number" min="1" value="1" pattern="[0-9]{10}">
                                     <button onclick="up('100')" type="button" class="btn-group btn btn-default">+</button>
                                 </div>
                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
-                                    <button id="btn-mua" type="submit" class="btn btn-danger">Chọn mua</button>
+                                    @if (ViewBag.Sach.HienThiS)
+                                    {
+                                        <button id="btn-mua" type="submit" class="btn btn-danger">Chọn mua</button>
+                                    }
+                                    else
+                                    {
+                                        <button id="btn-mua" type="button" class="btn btn-danger" disabled>Hết sách</button>
+                                    }
+
                                     @if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
                                     {
                                         <a class="btnXoa" href="@Url.Action("BookEdit", "Book", new { id = ViewBag.Sach.MaSach })">
                                             <button id="btn-mua" type="button" class="btn btn-danger" style="margin-left: 10px; width:70px;">Sửa</button>
                                         </a>
                                         <a class="btnXoa" href="@Url.Action("BookDelete", "Book", new { id = ViewBag.Sach.MaSach })">
-                                            <button id="btn-xoa" type="button" class="btn btn-danger" style="margin-left: 10px; width:70px;">Xoá</button>
+                                            <button id="btn-xoa" type="button" class="btn btn-danger" style="margin-left: 10px; width:70px;">
+                                                @if (ViewBag.Sach.HienThiS)
+                                                {
+                                                    <p>Lock</p>
+                                                }
+                                                else
+                                                {
+                                                    <p>Un-lock</p>
+                                                }
+                                            </button>
                                         </a>
                                     }
                                 </div>
@@ -225,7 +242,7 @@
                         <hr>
                         <div class="book-price">
                             <h3>Giá bán</h3>
-                            <input id="giaBan" name="giaBan" type="number" value="@ViewBag.Sach.GiaBan" min="1000" style="width:100%;" />
+                            <input id="giaBan" name="giaBan" type="number" value="@ViewBag.Sach.GiaBan" min="1000" step="1000" style="width:100%;" />
                         </div>
 
                         <hr>

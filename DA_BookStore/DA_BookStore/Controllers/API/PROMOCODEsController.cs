@@ -39,7 +39,7 @@ namespace DA_BookStore.Controllers.API
         {
             PROMOCODE pROMOCODE = db.PROMOCODEs.Find(id);
 
-            if (pROMOCODE == null)
+            if (pROMOCODE == null || pROMOCODE.SoLuong < 1 || pROMOCODE.NgayHetHan < DateTime.Now)
             {
                 return NotFound();
             }

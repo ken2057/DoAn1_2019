@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace DA_BookStore.Controllers
 {
@@ -16,9 +17,13 @@ namespace DA_BookStore.Controllers
                 using (var db = new Models.BookStore())
                 { 
                     ViewBag.DsCTHD = db.CTHOADONMUAHANGs.Where(t => t.MaHDMua == id).ToList();
-                    ViewBag.HD = db.HOADONMUAHANGs.Find(id);
+                     var hd = db.HOADONMUAHANGs.Find(id);
+                    ViewBag.HD = hd;
 
                     ViewBag.DsTL = db.THELOAIs.ToList();
+
+                    if(Session["userId"].ToString() != hd.TenTaiKhoan && Session["userPrio"] == null)
+                        return RedirectToAction("Index", "Home");
                 }
 
                 return View();
@@ -33,7 +38,7 @@ namespace DA_BookStore.Controllers
                 using (var db = new Models.BookStore())
                 {
                     var username = Session["userID"].ToString();
-                    var t = db.HOADONMUAHANGs.Where(t => t.TenTaiKhoan == username).ToList();
+                    var t = db.HOADONMUAHANGs.Where(t => t.TenTaiKhoan == username).OrderByDescending(t => t.MaHDMua).ToList();
                     ViewBag.DsMua = t;
                     ViewBag.slTK = t.Count();
 
@@ -59,9 +64,15 @@ namespace DA_BookStore.Controllers
                     {
                         t.TinhTrangThanhToan = "Huy";
 
-                        db.Entry(t).State = System.Data.Entity.EntityState.Modified;
+                        db.Entry(t).State = EntityState.Modified;
+                        // tra code neu co
+                        if (t.CODE != null)
+                        {
+                            var code = db.PROMOCODEs.Find(t.CODE);
+                            code.SoLuong += 1;
+                            db.Entry(code).State = EntityState.Modified;
+                        }
                         // tra lai sach khi huy
-
                         List<Models.CTHOADONMUAHANG> lstCTHD = db.CTHOADONMUAHANGs.Where(t => t.MaHDMua == id).ToList();
                         foreach (var ctHD in lstCTHD)
                         {
@@ -138,7 +149,7 @@ namespace DA_BookStore.Controllers
                 using (var db = new Models.BookStore())
                 {
                     ViewBag.DsTL = db.THELOAIs.ToList();
-                    List<Models.HOADONMUAHANG> lstDonMua = db.HOADONMUAHANGs.ToList();
+                    List<Models.HOADONMUAHANG> lstDonMua = db.HOADONMUAHANGs.OrderByDescending(t => t.MaHDMua).ToList();
                     ViewBag.DsDonMua = lstDonMua.Skip(index * 15).Take(15);
                     ViewBag.slS = lstDonMua.Count();
                 }

@@ -11,10 +11,11 @@ use QLBookStore
 go
 
 create table PROMOCODE(
-	CODE char(10) primary key,
+	CODE varchar(20) primary key,
 	NgayThem date,
 	NgayHetHan date,
-	SoTienGiam int
+	SoTienGiam int,
+	SoLuong int
 )
 go
 
@@ -105,13 +106,16 @@ Create table HOADONMUAHANG (
 	TenTaiKhoan Varchar(50) NULL foreign key references TAIKHOAN,
 	ThongTinKH int NULL foreign key references  ThongTinKhachHangMua,
 	TongTien int,
-	CODE Char(10) foreign key references PROMOCODE,
+	CODE varchar(20) foreign key references PROMOCODE,
 	TenTaiKhoanNV Varchar(50) null foreign key references nhanvien,
 	MaVanChuyen varchar(100) null,
 	GhiChu varchar(max) null,
-NguoiNhan nvarchar(max) null,
- DiaChiNhan nvarchar(max) null,
- SdtNhan varchar(20) null
+	NguoiNhan nvarchar(max) null,
+	DiaChiNhan nvarchar(max) null,
+	SdtNhan varchar(20) null,
+	paymentId varchar(50) null,
+	paypalGuid varchar(50) null,
+	payerID varchar(50) null
 )
 go
 

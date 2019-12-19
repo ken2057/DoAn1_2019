@@ -23,6 +23,7 @@ namespace DA_BookStore.Models
         public virtual DbSet<PROMOCODE> PROMOCODEs { get; set; }
         public virtual DbSet<QUANGCAO> QUANGCAOs { get; set; }
         public virtual DbSet<SACH> SACHes { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TAIKHOAN> TAIKHOANs { get; set; }
         public virtual DbSet<THELOAI> THELOAIs { get; set; }
         public virtual DbSet<ThongTinKhachHangMua> ThongTinKhachHangMuas { get; set; }
@@ -72,7 +73,6 @@ namespace DA_BookStore.Models
 
             modelBuilder.Entity<HOADONMUAHANG>()
                 .Property(e => e.CODE)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<HOADONMUAHANG>()
@@ -85,6 +85,18 @@ namespace DA_BookStore.Models
 
             modelBuilder.Entity<HOADONMUAHANG>()
                 .Property(e => e.SdtNhan)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HOADONMUAHANG>()
+                .Property(e => e.paymentId)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HOADONMUAHANG>()
+                .Property(e => e.paypalGuid)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HOADONMUAHANG>()
+                .Property(e => e.payerID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<HOADONMUAHANG>()
@@ -108,7 +120,6 @@ namespace DA_BookStore.Models
 
             modelBuilder.Entity<PROMOCODE>()
                 .Property(e => e.CODE)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<QUANGCAO>()

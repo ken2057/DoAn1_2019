@@ -36,9 +36,10 @@
                                 <th>Tổng tiền</th>
                                 <th>Mã giảm giá</th>
                                 <th>NV xử lý</th>
+                                <th>Thanh toán paypal</th>
                                 <th>Mã vận chuyển</th>
                                 <th>Huỷ</th>
-                                <th>Xử lý</th>
+                                <th>Xác nhận</th>
                                 <th>Xong</th>
                             </tr>
                         </thead>
@@ -53,9 +54,10 @@
                                 <td>@item.TongTien</td>
                                 <td>@item.CODE</td>
                                 <td>@item.TenTaiKhoanNV</td>
+                                <td>@item.paymentId</td>
                                 <td>@item.MaVanChuyen</td>
                                 <td>
-                                    @if (item.TinhTrangThanhToan == "Xu ly")
+                                    @if (item.TinhTrangThanhToan == "Doi xac nhan" || item.TinhTrangThanhToan == "Cho thanh toan")
                                     {
                                         <a href="~/HoaDon/Huy?id=@item.MaHDMua" style="display:block; text-decoration:none;">Huỷ</a>
                                     }
@@ -65,9 +67,9 @@
                                     }
                                 </td>
                                 <td>
-                                    @if (item.TinhTrangThanhToan == "Xu ly")
+                                    @if (item.TinhTrangThanhToan == "Doi xac nhan" || item.TinhTrangThanhToan == "Da thanh toan")
                                     {
-                                        <a href="~/HoaDon/XuLy?id=@item.MaHDMua" style="display:block; text-decoration:none;">Xử lý</a>
+                                        <a href="~/HoaDon/XuLy?id=@item.MaHDMua" style="display:block; text-decoration:none;">Xác nhận</a>
                                     }
                                     else
                                     {

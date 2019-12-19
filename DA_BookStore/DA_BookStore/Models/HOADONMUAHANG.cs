@@ -32,7 +32,7 @@ namespace DA_BookStore.Models
 
         public int? TongTien { get; set; }
 
-        [StringLength(10)]
+        [StringLength(20)]
         public string CODE { get; set; }
 
         [StringLength(50)]
@@ -51,6 +51,15 @@ namespace DA_BookStore.Models
 
         [StringLength(20)]
         public string SdtNhan { get; set; }
+
+        [StringLength(50)]
+        public string paymentId { get; set; }
+
+        [StringLength(50)]
+        public string paypalGuid { get; set; }
+
+        [StringLength(50)]
+        public string payerID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTHOADONMUAHANG> CTHOADONMUAHANGs { get; set; }

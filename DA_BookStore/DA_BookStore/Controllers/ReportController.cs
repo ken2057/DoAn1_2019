@@ -86,7 +86,7 @@ namespace DA_BookStore.Controllers
                         var value = dictRp[key];
 
                         value.listSLTinhTrang[listTinhTrang.IndexOf(item.TinhTrangThanhToan)] += 1;
-                        if (item.TinhTrangThanhToan == "Xong")
+                        if (item.TinhTrangThanhToan == "Xong" || item.TinhTrangThanhToan == "Da thanh toan")
                             value.TongTienThu += (long)item.TongTien;
 
                         dictRp[key] = value;

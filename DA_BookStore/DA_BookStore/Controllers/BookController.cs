@@ -186,11 +186,8 @@ namespace DA_BookStore.Controllers
                 using (var db = new Models.BookStore())
                 {
                     Models.SACH s = new Models.SACH();
-                    int slS = db.SACHes.ToList().Count() + 1;
-
-                    var maSach = "S" + slS.ToString().PadLeft(9, '0');
-
-                    s.MaSach = maSach;
+                    
+                    s.MaSach = Utils.utils.createToken(10);
                     s.TenSach = tenSach;
                     s.TenTacGia = tacGia;
                     s.SKU = sku;
@@ -228,7 +225,7 @@ namespace DA_BookStore.Controllers
                     db.SACHes.Add(s);
                     db.SaveChanges();
 
-                    return RedirectToAction("Detail", "Book", new { id = maSach });
+                    return RedirectToAction("Detail", "Book", new { id = s.MaSach });
                 }
             }
             return RedirectToAction("Index", "Home");

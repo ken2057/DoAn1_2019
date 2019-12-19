@@ -1,0 +1,69 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mã giảm giá</title>
+    <!-- Latest compiled and minified CSS -->
+
+    <link href="@Url.Content("~/Content/bookManage.css")" rel="stylesheet" type="text/css" />
+  
+</head>
+<body>
+    <section class="main-screen">
+        <div class="container home-inner">
+            <section class="testimonials wrapper">
+                <div class="row">
+                    <div class="col-md-6">
+                        
+                    </div>
+                    <div class="search">
+                        <div class="col-md-6">
+                        @ViewBag.token
+                        </div><!-- /.col-lg-6 -->
+                    </div>
+                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Mã giảm giá</th>
+                            <th>Ngày tạo</th>
+                            <th>Ngày hết hạn</th>
+                            <th>Số tiền giảm</th>
+                            <th>Số lượng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.DsCode)
+                        {
+                        <tr>
+                            <td>@item.CODE</td>
+                            <td>@item.NgayThem</td>
+                            <td>@item.NgayHetHan</td>
+                            <td>@item.SoTienGiam</td>
+                            <td>@item.SoLuong</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </section>
+            <div class="paging" style="display: flex;">
+                <ul class="pagination" style="margin-left: auto; margin-right: auto;">
+                    @{
+                        int numPage = Convert.ToInt32(Math.Ceiling(ViewBag.slS / 15.0));
+                        for (int i = 1; i < numPage + 1; i++)
+                        {
+                            <li><a href="~/Code?index=@(i-1)">@i</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

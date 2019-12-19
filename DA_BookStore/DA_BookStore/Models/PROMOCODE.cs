@@ -16,7 +16,7 @@ namespace DA_BookStore.Models
         }
 
         [Key]
-        [StringLength(10)]
+        [StringLength(20)]
         public string CODE { get; set; }
 
         [Column(TypeName = "date")]
@@ -26,6 +26,8 @@ namespace DA_BookStore.Models
         public DateTime? NgayHetHan { get; set; }
 
         public int? SoTienGiam { get; set; }
+
+        public int? SoLuong { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADONMUAHANG> HOADONMUAHANGs { get; set; }
