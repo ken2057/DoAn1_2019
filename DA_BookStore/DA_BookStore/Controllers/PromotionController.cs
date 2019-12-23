@@ -11,7 +11,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public ActionResult DetailPromotion(string id)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -27,7 +27,7 @@ namespace DA_BookStore.Controllers
         }
         public ActionResult PromotionManage(int index = 0)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -62,7 +62,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public ActionResult AddPromotion()
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -76,7 +76,7 @@ namespace DA_BookStore.Controllers
         [HttpPost]
         public ActionResult AddPromotion(string tenKhuyenMai, string ngayBatDau, string ngayKetThuc, string phanTramKhuyenMai, List<string> dsTL)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -105,7 +105,7 @@ namespace DA_BookStore.Controllers
 
         public ActionResult DeletePromotion(string id)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -129,7 +129,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public ActionResult UpdatePromotion(string id)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -151,7 +151,7 @@ namespace DA_BookStore.Controllers
         [HttpPost]
         public ActionResult UpdatePromotion(string tenKhuyenMai, string ngayBatDau, string ngayKetThuc, string phanTramKhuyenMai, List<string> dsTL)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {

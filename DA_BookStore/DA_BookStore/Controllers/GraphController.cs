@@ -12,7 +12,7 @@ namespace DA_BookStore.Controllers
     {
         public ActionResult Index()
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -26,7 +26,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public string GraphPromo(int day = 30)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -50,7 +50,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public string GraphHistory(int day = 30)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -92,7 +92,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public string GraphGroupDataCustomer()
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -232,7 +232,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public string GraphGroupBill()
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {

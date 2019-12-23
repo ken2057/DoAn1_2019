@@ -17,7 +17,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2019 13:57:10</publishTime>
     </File>
     <File Include="bin/DA_BookStore.dll">
-      <publishTime>12/18/2019 17:20:06</publishTime>
+      <publishTime>12/23/2019 19:38:12</publishTime>
     </File>
     <File Include="bin/DA_BookStore.pdb">
       <publishTime>12/14/2019 21:10:28</publishTime>
@@ -773,7 +773,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/18/2019 01:58:04</publishTime>
     </File>
     <File Include="Views/Code/Index.cshtml">
-      <publishTime>12/18/2019 15:10:42</publishTime>
+      <publishTime>12/23/2019 19:31:26</publishTime>
     </File>
     <File Include="Views/googledb37cecb02d0ea26.html">
       <publishTime>12/17/2019 20:42:13</publishTime>
@@ -818,7 +818,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/17/2019 20:39:07</publishTime>
     </File>
     <File Include="Views/Promotion/PromotionManage.cshtml">
-      <publishTime>12/17/2019 20:39:07</publishTime>
+      <publishTime>12/23/2019 19:14:29</publishTime>
     </File>
     <File Include="Views/QuangCao/AddQuangCao.cshtml">
       <publishTime>12/17/2019 20:39:07</publishTime>
@@ -839,7 +839,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/17/2019 20:39:07</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/18/2019 14:37:42</publishTime>
+      <publishTime>12/23/2019 19:40:21</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>12/17/2019 20:39:07</publishTime>

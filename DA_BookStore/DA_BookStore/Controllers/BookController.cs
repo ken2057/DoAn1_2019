@@ -167,7 +167,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public ActionResult AddBook()
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -181,7 +181,7 @@ namespace DA_BookStore.Controllers
         [HttpPost]
         public ActionResult AddBook(string tenSach, string tacGia, string sku, string giaBan, string gioiThieuSach, HttpPostedFileBase hinh, string tl1, string tl2, string tl3, string soLuong)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {

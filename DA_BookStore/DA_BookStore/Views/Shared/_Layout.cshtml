@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="dropdown-content">
                                     <a href="~/Account?id=@Session["userID"]">Xem thông tin cá nhân</a>
-                                    @if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+                                    @if (Session["userPrio"] != null)
                                     {
                                         <a href="~/Graph">Graph</a>
                                         <a href="~/Account/AccountManage">Quản lý thành viên</a>

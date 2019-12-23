@@ -1,29 +1,42 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Mã giảm giá</title>
-    <!-- Latest compiled and minified CSS -->
-
     <link href="@Url.Content("~/Content/bookManage.css")" rel="stylesheet" type="text/css" />
-  
 </head>
 <body>
     <section class="main-screen">
         <div class="container home-inner">
             <section class="testimonials wrapper">
                 <div class="row">
-                    <div class="col-md-6">
-                        
-                    </div>
-                    <div class="search">
-                        <div class="col-md-6">
-                        @ViewBag.token
-                        </div><!-- /.col-lg-6 -->
-                    </div>
+                    @using (Html.BeginForm("CreateCode", "Code", FormMethod.Post))
+                    {
+
+                        <div class="col-md-2">
+                            <p>Ngày hiệu lực</p>
+                            <input type="date" name="startDate" id="startDate" required>
+                        </div>
+                        <div class="col-md-2">
+                            <p>Ngày hết hạn</p>
+                            <input type="date" name="endDate" id="endDate" required>
+                        </div>
+                        <div class="col-md-2">
+                            <p>Số tiền giảm</p>
+                            <input type="number" name="reduce" id="reduce" min="1000" max="1000000" step="1000" value="1000">
+                        </div>
+                        <div class="col-md-2">
+                            <p>Số lượng</p>
+                            <input type="number" name="total" id="total" min="1" max="1000" value="1">
+                        </div>
+                        <div class="col-md-4">
+                            <p></p>
+                            <button type="submit">Tạo</button>
+                        </div>
+
+                    }
                 </div>
 
                 <table class="table table-striped">
