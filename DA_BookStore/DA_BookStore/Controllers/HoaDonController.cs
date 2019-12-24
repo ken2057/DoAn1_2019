@@ -60,7 +60,7 @@ namespace DA_BookStore.Controllers
 
                     var username = Session["userID"].ToString();
                     Models.HOADONMUAHANG t = db.HOADONMUAHANGs.Find(id);
-                    if (t.TenTaiKhoan == Session["userID"].ToString() || Session["userPrio"].ToString() == "Admin")
+                    if (t.TenTaiKhoan == Session["userID"].ToString() || Session["userPrio"] != null)
                     {
                         t.TinhTrangThanhToan = "Huy";
 
@@ -93,7 +93,7 @@ namespace DA_BookStore.Controllers
 
         public ActionResult XuLy(string id)
         {
-            if (Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -115,7 +115,7 @@ namespace DA_BookStore.Controllers
 
         public ActionResult Xong(string id)
         {
-            if (Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -144,7 +144,7 @@ namespace DA_BookStore.Controllers
 
         public ActionResult Admin(int index = 0)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {

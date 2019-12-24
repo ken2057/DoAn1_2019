@@ -14,7 +14,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public ActionResult QuangCaoManage(int index = 0)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -30,7 +30,7 @@ namespace DA_BookStore.Controllers
         [HttpPost]
         public ActionResult QuangCaoManage(string maQC, int index)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -49,7 +49,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public ActionResult QCDetail(string id = "")
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -64,7 +64,7 @@ namespace DA_BookStore.Controllers
         [HttpPost]
         public ActionResult QCUpdate(string tenQuangCao, HttpPostedFileBase hinhQuangCao, DateTime ngayBatDau, DateTime ngayHet, string chuSoHuuQuangCao, string sdtChuQuangCao, string emailChuQuangCao, string loaiQuangCao,string vitriQC)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
 
                 using (var db = new Models.BookStore())
@@ -124,7 +124,7 @@ namespace DA_BookStore.Controllers
         //XOA QUANG CAO
         public ActionResult QCDelete(string id)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -143,7 +143,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public ActionResult AddQuangCao()
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -158,67 +158,65 @@ namespace DA_BookStore.Controllers
         public ActionResult AddQuangCao(string tenQC, HttpPostedFileBase hinhQC, DateTime ngayBatDauQC, DateTime ngayHetQC, string chuSoHuuQC, string sdtChuQC, string emailChuQC, string loaiQC, string vitriQuangCao)
         {
 
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
-               
-                
-                    using (var db = new Models.BookStore())
+                using (var db = new Models.BookStore())
+                {
+                    Models.QUANGCAO qc = new Models.QUANGCAO();
+
+                    int slQC = db.QUANGCAOs.ToList().Count + 1;
+                    var maQuangCao = "QC" + slQC.ToString().PadLeft(8, '0');
+
+                    qc.MaQuangCao = maQuangCao;
+                    qc.TenQC = tenQC.ToString();
+
+                    qc.ChuSoHuuQC = chuSoHuuQC;
+                    qc.SdtChuQC = sdtChuQC;
+                    qc.EmailChuQC = emailChuQC;
+                    qc.LoaiQC = loaiQC;
+
+                    if (vitriQuangCao == "null")
                     {
-                        Models.QUANGCAO qc = new Models.QUANGCAO();
-
-                        int slQC = db.QUANGCAOs.ToList().Count + 1;
-                        var maQuangCao = "QC" + slQC.ToString().PadLeft(8, '0');
-
-                        qc.MaQuangCao = maQuangCao;
-                        qc.TenQC = tenQC.ToString();
-
-                        qc.ChuSoHuuQC = chuSoHuuQC;
-                        qc.SdtChuQC = sdtChuQC;
-                        qc.EmailChuQC = emailChuQC;
-                        qc.LoaiQC = loaiQC;
-
-                        if (vitriQuangCao == "null")
-                        {
-                            qc.ViTriQuangCao = null;
-                        }
-                        else
-                            qc.ViTriQuangCao = vitriQuangCao;
-
-                         qc.HienThiQC = true;
-                        //kiem tra ngay bat dau va ngay ket thuc 
-                        int sosanhdate = DateTime.Compare(ngayBatDauQC, ngayHetQC);
-                        if (sosanhdate == 0 || sosanhdate > 0)
-                        {
-                            return RedirectToAction("AddQuangCao");
-                        }
-                        else
-                        {
-                            qc.NgayBatDauQC = ngayBatDauQC;
-                            qc.NgayHetQC = ngayHetQC;
-                        }
-                        if (hinhQC != null)
-                        {
-                            try
-                            {
-                                string _path = "";
-                                if (hinhQC.ContentLength > 0)
-                                {
-                                    string _fileName = System.IO.Path.GetFileName(hinhQC.FileName);
-                                    _path = System.IO.Path.Combine(Server.MapPath("~/Image/QuangCao"), _fileName);
-                                    hinhQC.SaveAs(_path);
-                                }
-                                qc.HinhQC = "Image/QuangCao/" + hinhQC.FileName;
-                            }
-                            catch { }
-                        }
-                        db.QUANGCAOs.Add(qc);
-                        db.SaveChanges();
-
-                        return RedirectToAction("QuangCaoManage");
+                        qc.ViTriQuangCao = null;
                     }
-                
+                    else
+                        qc.ViTriQuangCao = vitriQuangCao;
+
+                    qc.HienThiQC = true;
+                    //kiem tra ngay bat dau va ngay ket thuc 
+                    int sosanhdate = DateTime.Compare(ngayBatDauQC, ngayHetQC);
+                    if (sosanhdate == 0 || sosanhdate > 0)
+                    {
+                        return RedirectToAction("AddQuangCao");
+                    }
+                    else
+                    {
+                        qc.NgayBatDauQC = ngayBatDauQC;
+                        qc.NgayHetQC = ngayHetQC;
+                    }
+                    if (hinhQC != null)
+                    {
+                        try
+                        {
+                            string _path = "";
+                            if (hinhQC.ContentLength > 0)
+                            {
+                                string _fileName = System.IO.Path.GetFileName(hinhQC.FileName);
+                                _path = System.IO.Path.Combine(Server.MapPath("~/Image/QuangCao"), _fileName);
+                                hinhQC.SaveAs(_path);
+                            }
+                            qc.HinhQC = "Image/QuangCao/" + hinhQC.FileName;
+                        }
+                        catch { }
+                    }
+                    db.QUANGCAOs.Add(qc);
+                    db.SaveChanges();
+
+                    return RedirectToAction("QuangCaoManage");
+                }
+
             }
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         //GET BANNER

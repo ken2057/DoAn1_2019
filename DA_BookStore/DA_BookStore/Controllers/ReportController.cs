@@ -11,7 +11,7 @@ namespace DA_BookStore.Controllers
         // GET: Report
         public ActionResult Index()
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {
@@ -27,7 +27,7 @@ namespace DA_BookStore.Controllers
 
         public ActionResult Search(string phanLoaiRP, DateTime ngayBD, DateTime ngayKT)
         {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null)
             {
                 using (var db = new Models.BookStore())
                 {

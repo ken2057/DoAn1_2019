@@ -22,11 +22,31 @@ namespace DA_BookStore.Controllers
                 ViewBag.DsCode = listCode.Skip(index * 15).Take(15);
             }
             
-
-            ViewBag.token = Utils.utils.createToken();
             return View();
         }
 
-       
+       public ActionResult CreateCode(DateTime startDate, DateTime endDate, int total, int reduce)
+        {
+            if (Session["userPrio"] == null)
+                return RedirectToAction("Index", "Home");
+
+            if(startDate < endDate)
+                using (var db = new Models.BookStore())
+                {
+                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    Models.PROMOCODE p = new Models.PROMOCODE()
+                    {
+                        CODE = Utils.utils.createToken(),
+                        NgayThem = startDate,
+                        NgayHetHan = endDate,
+                        SoLuong = total,
+                        SoTienGiam = reduce
+                    };
+                    db.PROMOCODEs.Add(p);
+                    db.SaveChanges();
+                }
+
+            return RedirectToAction("Index", "Code");
+        }
     }
 }
